@@ -1,0 +1,20 @@
+{
+  "name": "toebeans",
+  "version": "1.0.0",
+  "description": "Toe Beans Vet Finder application for capstone project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests set up yet\" && exit 0",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "Christian Weersink, Christina Jackson",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  }
+}
