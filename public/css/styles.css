@@ -2,3 +2,50 @@
     height: 400px; /* Ensure this is set */
     width: 100%;
 }
+
+html, body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100%;
+    width: 100%
+}
+
+.bottomofscreen {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    width: 100%;
+}
+
+.themebanner {
+    text-align: center;
+    height: 50px;
+    padding-top: 5px;
+    background-color: blue;
+    color: white;
+    margin: 0;
+}
+
+.themebanner p, footer p, footer br {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin: 0;
+	padding: 10px 0px;
+    width: 100%;
+}
+
+.footercenter {
+    text-align: center;
+}
+
+.alignitright {
+    text-align: right;
+}
