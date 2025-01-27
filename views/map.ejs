@@ -1,17 +1,46 @@
 <%- include('includes/header') %>
-<h1>welcome to map screen</h1>
-<div id="map"></div>
 
-<div id="mapForm">
-    <label for="radius">Search Radius</label>
-    <select id="radius">
-        <option value="1000">1KM</option>
-        <option value="2000">2KM</option>
-    </select>
-    <label for="openNow">Open Now</label>
-    <input type="checkbox" id="openNow">
-    <input type="button" value="Search for Vets" id="search">
-</div>
+<div class="container my-5">
+    <h1>welcome to map screen</h1>
+      <div class="row">
+
+        <div class="col-lg-8 col-sm-12">
+            <div id="map">
+            </div> <!-- map -->
+        </div> <!-- map col -->
+
+        <div class="col-lg-4 col-sm-12" id="results-panel">
+
+        </div> <!-- results col -->
+
+    </div> <!-- row -->
+    
+      
+    <div class="row">
+        <div id="mapForm">
+          <label for="radius">Search Radius</label>
+          <select id="radius">
+            <option value="1000">1KM</option>
+            <option value="2000">2KM</option>
+          </select>
+          <label for="openNow">Open Now</label>
+          <input type="checkbox" id="openNow">
+        
+          <label for="type">Pet type</label>
+          <select id="type">
+            <option value="">any</option>
+            <option value="dog">dog</option>
+            <option value="cat">cat</option>
+            <option value="exotic">exotic</option>
+            <option value="rodent">rodent</option>
+          </select>
+          <input type="button" value="Search for Vets" id="search">
+        </div>
+    </div>
+    
+</div> <!-- form row -->
+
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3an3cMi9r5yYxWfFeb1I6VzPOrkrlzgM&amp;callback=initMap&amp;libraries=places,marker&loading=async" async="true" defer="true"></script>
 <script src="/js/map.js"></script>

@@ -3,8 +3,8 @@ let userMarker; // Global user marker
 const defaultLatLng = { lat: -34.397, lng: 150.644 };
 
 // Parameters to change using user input/UI elements
-const radius = 5000; // search radius this will be a variable later
-const searchTerm = "dogs";
+const radius = 2000; // search radius this will be a variable later
+const searchTerm = "dogs veterinary clinic";
 const maxResults = 5; //1-20 results
 const mapZoom = 12; //zoom value for the map
 const mapContainer = document.getElementById('map');
@@ -54,34 +54,41 @@ async function nearbySearch(center) {
     const service = new google.maps.places.PlacesService(vetMap);
     
     // Create the text search query string
-    const query = `${searchTerm} near ${center.lat},${center.lng}`;
+    const query = `${searchTerm} near me`;
 
     const request = {
-        query: query,  // The query string is used here for text search
-        fields: ['geometry', 'place_id',], // You can include additional fields based on your needs
+        textQuery: query,  // The query string is used here for text search
+        fields: ['location', 'id',], // You can include additional fields based on your need
+        maxResultCount: maxResults,
+        includedType: "veterinary_care"
     };
+    const { Place } = await google.maps.importLibrary("places");
 
-    service.textSearch(request, (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
+    const { places } = await Place.searchByText(request);
+        if (places) {
             const bounds = new google.maps.LatLngBounds();
-
-            results.forEach((place) => {
+            places.forEach((place) => {
                 // Use AdvancedMarkerElement for nearby places
+                console.log(place);
                 const marker = new google.maps.marker.AdvancedMarkerElement({
                     map: vetMap,
-                    position: place.geometry.location,
-                    title: place.name,
+                    position: place.location,
+                    id: place.id,
+                    gmpClickable: true,
                 });
+                marker.addListener("click", ({ domEvent, latLng }) => {
+                    const { target } = domEvent;
+                    const placeDetail = fetchPlaceDetails(place.id);
+                  });
 
-                bounds.extend(place.geometry.location);
+                bounds.extend(place.location);
             });
 
             vetMap.fitBounds(bounds);
         } else {
             console.error('No results found or error in Places API:', status);
         }
-    });
-}
+    };
 
 
 // Add "You Are Here" marker using AdvancedMarkerElement
@@ -123,12 +130,6 @@ function setMap(zoom, center){
         mapId: "a4767227d798f20e",
         scrollwheel: true, // Enable scroll wheel zoom
         gestureHandling: 'greedy',
-        // styles: [
-        //     {
-        //         featureType: "poi",
-        //         stylers: [{ visibility: "off" }], // Hide points of interest
-        //     },
-        // ],
     })
 }
 // On search button click get users location, add that to the map, get search params from the form, do a search in the database to see if this has been searched in this area before, if it has load the results from the database. if the search is new for this area, search for the nearby vets, and display those markers on the page. Store the search in the database.
@@ -148,3 +149,36 @@ function setMap(zoom, center){
 document.getElementById("search").addEventListener("click", ()=>{
     
 });
+
+
+async function fetchPlaceDetails(placeId) {
+    const { Place } = await google.maps.importLibrary("places");
+    const place = new Place({
+        id: placeId,
+    });
+    await place.fetchFields({
+        fields: [
+            'displayName',
+            'formattedAddress',
+            'nationalPhoneNumber',
+            'regularOpeningHours',
+            'websiteURI',
+        ], 
+    });
+    console.log(place);
+    displayPlaceDetails(place);
+}
+
+function displayPlaceDetails(place){
+    const detailContainer = document.getElementById('results-panel');
+    const content = `
+    <h2>${place.displayName}</h2>
+    <p>Address: ${place.formattedAddress}</p>
+    <p>Phone Number: ${place.nationalPhoneNumber}</p>
+    <p>Open Hours: ${place.regularOpeningHours.weekdayDescriptions}</p>
+    <p>Website: <a href='${place.websiteURI}' target='blank'>${place.websiteURI}</a></p>
+    <input type='submit' id='add-favourites-btn' value='Add to Favourites'>
+    `
+    ;
+    detailContainer.innerHTML = content;
+}
