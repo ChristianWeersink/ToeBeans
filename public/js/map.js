@@ -1,95 +1,79 @@
 let vetMap; // Declare map globally
 let userMarker; // Global user marker
 const defaultLatLng = { lat: -34.397, lng: 150.644 };
-
+let userLatLng;
 // Parameters to change using user input/UI elements
-const radius = 2000; // search radius this will be a variable later
-const searchTerm = "dogs veterinary clinic";
-const maxResults = 5; //1-20 results
+let radius = 10000; // search radius this will be a variable later
+let searchTerm = "exotic";
+const maxResults = 10; //1-20 results
 const mapZoom = 12; //zoom value for the map
 const mapContainer = document.getElementById('map');
 
 
 // This function will be called once the Google Maps API is loaded
 function initMap() {
-    
-    if (!mapContainer) return; // Check if the map container exists
-    setMap(mapZoom, defaultLatLng);
-    
-    // Default location or user's location if available
-
-    // If you want to get the user's location
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                const userLatLng = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                };
-
-                // Create a new map centered on the user's location
-                setMap(mapZoom, userLatLng);
-
-                // Call nearby search
-                nearbySearch(userLatLng);
-                // Add a "You Are Here" marker
-                addUserMarker(userLatLng);
-            },
-            function () {
-                // Fallback to default location if geolocation fails
-                setMap(mapZoom, defaultLatLng);
-                // Call nearby search
-                // nearbySearch(defaultLatLng);
-            }
-        );
-    } else {
-        // Fallback to default location if geolocation is not supported
-        setMap(mapZoom, defaultLatLng);
-        // Call nearby search
-        //nearbySearch(defaultLatLng);
+    try {
+        loadMap();
     }
+    catch(e){
+        console.log(e);
+        
+    }
+    
 }
 
+// Search for nearby vet offices
 async function nearbySearch(center) {
-    const service = new google.maps.places.PlacesService(vetMap);
+    try{
+        const service = new google.maps.places.PlacesService(vetMap);
     
-    // Create the text search query string
-    const query = `${searchTerm} near me`;
+        // Create the text search query string
+        const query = `${searchTerm} veterinary office`;
+        const bounds = new google.maps.LatLngBounds();
+        const northEast = google.maps.geometry.spherical.computeOffset(center, radius, 45); // 45 degrees for NE corner
+        const southWest = google.maps.geometry.spherical.computeOffset(center, radius, 225); // 225 degrees for SW corner
 
-    const request = {
-        textQuery: query,  // The query string is used here for text search
-        fields: ['location', 'id',], // You can include additional fields based on your need
-        maxResultCount: maxResults,
-        includedType: "veterinary_care"
-    };
-    const { Place } = await google.maps.importLibrary("places");
-
-    const { places } = await Place.searchByText(request);
-        if (places) {
-            const bounds = new google.maps.LatLngBounds();
-            places.forEach((place) => {
-                // Use AdvancedMarkerElement for nearby places
-                console.log(place);
-                const marker = new google.maps.marker.AdvancedMarkerElement({
-                    map: vetMap,
-                    position: place.location,
-                    id: place.id,
-                    gmpClickable: true,
+        bounds.extend(northEast);
+        bounds.extend(southWest);
+        const request = {
+            textQuery: query,  // The query string is used here for text search
+            fields: ['location', 'id',], // You can include additional fields based on your need
+            maxResultCount: maxResults,
+            includedType: "veterinary_care",
+            locationRestriction: bounds,
+        };
+        const { Place } = await google.maps.importLibrary("places");
+    
+        const { places } = await Place.searchByText(request);
+    
+            if (places.length > 0) {
+                const bounds = new google.maps.LatLngBounds();
+                places.forEach((place) => {
+                    // Use AdvancedMarkerElement for nearby places
+                    const marker = new google.maps.marker.AdvancedMarkerElement({
+                        map: vetMap,
+                        position: place.location,
+                        id: place.id,
+                        gmpClickable: true,
+                    });
+                    marker.addListener("click", ({ domEvent, latLng }) => {
+                        const { target } = domEvent;
+                        const placeDetail = fetchPlaceDetails(place);
+                      });
+    
+                    bounds.extend(place.location);
                 });
-                marker.addListener("click", ({ domEvent, latLng }) => {
-                    const { target } = domEvent;
-                    const placeDetail = fetchPlaceDetails(place.id);
-                  });
-
-                bounds.extend(place.location);
-            });
-
-            vetMap.fitBounds(bounds);
-        } else {
-            console.error('No results found or error in Places API:', status);
-        }
-    };
-
+                bounds.extend(userLatLng);
+                vetMap.fitBounds(bounds);
+            } else {
+                setMap(mapZoom, center);
+                alert("No vets found in this area");
+            }
+    }
+    catch(e){
+        console.log(e)
+    }
+};
 
 // Add "You Are Here" marker using AdvancedMarkerElement
 function addUserMarker(userLatLng) {
@@ -107,7 +91,7 @@ function addUserMarker(userLatLng) {
     }
 }
 
-// Create custom HTML content for the marker (optional)
+// Customer marker for you are here
 function createCustomMarkerContent() {
     const markerDiv = document.createElement('div');
     markerDiv.style.backgroundColor = '#4285F4'; // Google blue
@@ -147,14 +131,15 @@ function setMap(zoom, center){
 (frontend) Add a click event for the markers to make a front end api call to bring up details including add to favourites functionality
 */
 document.getElementById("search").addEventListener("click", ()=>{
-    
+    //radius = document.getElementById('radius').value;
+    //searchTerm = document.getElementById('type').value;
 });
 
-
+// Get detailed place information based on place id. This info is used for display on the side panel for when a marker is clicked
 async function fetchPlaceDetails(placeId) {
     const { Place } = await google.maps.importLibrary("places");
     const place = new Place({
-        id: placeId,
+        id: placeId.id,
     });
     await place.fetchFields({
         fields: [
@@ -163,22 +148,85 @@ async function fetchPlaceDetails(placeId) {
             'nationalPhoneNumber',
             'regularOpeningHours',
             'websiteURI',
+            'location',
         ], 
     });
-    console.log(place);
     displayPlaceDetails(place);
 }
 
+// Display the clicked on markers place details in the panel dedicated for results.
 function displayPlaceDetails(place){
     const detailContainer = document.getElementById('results-panel');
+    // check if website exists and if it does add the content dyanamically into the content
+    const website = place.websiteURI? `<p>Website: <a href='${place.websiteURI}' target='blank'>${place.websiteURI}</a></p>` : "";
+    const distance = calculateDistance(userLatLng.lat, userLatLng.lng, place.location.lat(), place.location.lng());
+    // Content to display
     const content = `
     <h2>${place.displayName}</h2>
     <p>Address: ${place.formattedAddress}</p>
     <p>Phone Number: ${place.nationalPhoneNumber}</p>
-    <p>Open Hours: ${place.regularOpeningHours.weekdayDescriptions}</p>
-    <p>Website: <a href='${place.websiteURI}' target='blank'>${place.websiteURI}</a></p>
+    <p>Open Hours: ${place.regularOpeningHours}</p>
+    ${website}
+    <p>Distance: ${distance} KM</p>
     <input type='submit' id='add-favourites-btn' value='Add to Favourites'>
-    `
-    ;
+    `;
     detailContainer.innerHTML = content;
+}
+
+function loadMap(){
+    if (!mapContainer) return; // Check if the map container exists
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                userLatLng = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                // Create a new map centered on the user's location
+                setMap(mapZoom, userLatLng);
+                // Call nearby search
+                nearbySearch(userLatLng);
+                // Add a "You Are Here" marker
+                addUserMarker(userLatLng);
+            },
+            function () {
+                // Fallback to default location if geolocation fails
+                setMap(mapZoom, defaultLatLng);
+                // Call nearby search
+                // nearbySearch(defaultLatLng);
+            }
+        );
+    } else {
+        // Fallback to default location if geolocation is not supported
+        setMap(mapZoom, defaultLatLng);
+        // Call nearby search
+        //nearbySearch(defaultLatLng);
+    }
+}
+
+
+
+
+// Calculate distance
+function calculateDistance(userLat, userLng, targetLat, targetLng) {
+    
+
+    const R = 6371; // Radius of the Earth in km
+
+    const dLat = toRadians(targetLat - userLat);
+    const dLng = toRadians(targetLng - userLng);
+
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(toRadians(userLat)) * Math.cos(toRadians(targetLat)) *
+              Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c; // Distance in km
+}
+
+// Helper function to convert degrees to radians
+function toRadians(degrees) {
+    return degrees * (Math.PI / 180);
 }
