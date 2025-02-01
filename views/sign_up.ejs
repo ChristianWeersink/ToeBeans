@@ -1,3 +1,38 @@
 <%- include('includes/header') %>
     <h1>hello world!!!</h1>
+
+
+<% if (user_id) {%>
+
+    <h3> Now please select a username and password for your account </h3>
+
+    <form action="/signup" method="post">
+        <label>Your Unique Username</label>
+        <input type="text" name="username">
+        <br>
+        <label>Your Password</label>
+        <input type="text" name="password">
+        <br><br>
+        <button type="submit">Finish Creating Your Account</button>
+    </form>
+
+<%} else { %>
+
+    <h3>Sign Up!</h3>
+<!-- Form 1 for sign up without user_id -->
+    <form action="/sign_up" method="post">
+        <label>Your Name</label>
+        <input type="text" name="name">
+        <br>
+        <label>Your Phone Number</label>
+        <input type="text" name="userphone">
+        <br>
+        <label>Your Email Address</label>
+        <input type="text" name="useremail">
+        <br><br>
+        <button type="submit">Sign Up</button>
+    </form>
+<% } %>
+
+
 <%- include('includes/footer') %>
