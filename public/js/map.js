@@ -157,7 +157,9 @@ async function fetchPlaceDetails(placeId) {
 // Display the clicked on markers place details in the panel dedicated for results.
 function displayPlaceDetails(place){
     const detailContainer = document.getElementById('results-panel');
-    // check if website exists and if it does add the content dyanamically into the content
+    // check if website exists and if it does add the content dynamically into the content
+    const signedIn = getCookie("user");
+    const favourites = signedIn? `<input type='submit' id='add-favourites-btn' value='Add to Favourites'>` : "";
     const website = place.websiteURI? `<p>Website: <a href='${place.websiteURI}' target='blank'>${place.websiteURI}</a></p>` : "";
     const distance = calculateDistance(userLatLng.lat, userLatLng.lng, place.location.lat(), place.location.lng());
     // Content to display
@@ -168,7 +170,7 @@ function displayPlaceDetails(place){
     <p>Open Hours: ${place.regularOpeningHours}</p>
     ${website}
     <p>Distance: ${distance} KM</p>
-    <input type='submit' id='add-favourites-btn' value='Add to Favourites'>
+    ${favourites}
     `;
     detailContainer.innerHTML = content;
 }
@@ -204,9 +206,6 @@ function loadMap(){
         //nearbySearch(defaultLatLng);
     }
 }
-
-
-
 
 // Calculate distance
 function calculateDistance(userLat, userLng, targetLat, targetLng) {
