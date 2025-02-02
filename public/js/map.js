@@ -1,13 +1,16 @@
 let vetMap; // Declare map globally
 let userMarker; // Global user marker
-const defaultLatLng = { lat: -34.397, lng: 150.644 };
+const defaultLatLng = { lat: 43.897095, lng: -78.865791 };
 let userLatLng;
 // Parameters to change using user input/UI elements
 let radius = 10000; // search radius this will be a variable later
 let searchTerm = "exotic";
+let openNow = false;
 const maxResults = 10; //1-20 results
 const mapZoom = 12; //zoom value for the map
 const mapContainer = document.getElementById('map');
+let markers = []; // Store all map markers
+let searchCenter = {lat: 1 , lng: 1};
 
 
 // This function will be called once the Google Maps API is loaded
@@ -17,7 +20,6 @@ function initMap() {
     }
     catch(e){
         console.log(e);
-        
     }
     
 }
@@ -26,6 +28,8 @@ function initMap() {
 async function nearbySearch(center) {
     try{
         const service = new google.maps.places.PlacesService(vetMap);
+        markers.forEach(marker => marker.setMap(null)); // Remove markers from the map
+        markers = [];
     
         // Create the text search query string
         const query = `${searchTerm} veterinary office`;
@@ -35,12 +39,15 @@ async function nearbySearch(center) {
 
         bounds.extend(northEast);
         bounds.extend(southWest);
+        var fields = ['location', 'id',];
+        // check if the user wants only open locations
         const request = {
             textQuery: query,  // The query string is used here for text search
-            fields: ['location', 'id',], // You can include additional fields based on your need
+            fields: fields, // You can include additional fields based on your need
             maxResultCount: maxResults,
             includedType: "veterinary_care",
             locationRestriction: bounds,
+            isOpenNow: openNow,
         };
         const { Place } = await google.maps.importLibrary("places");
     
@@ -56,14 +63,17 @@ async function nearbySearch(center) {
                         id: place.id,
                         gmpClickable: true,
                     });
+                    markers.push(marker); // store the marker to delete later
                     marker.addListener("click", ({ domEvent, latLng }) => {
                         const { target } = domEvent;
                         const placeDetail = fetchPlaceDetails(place);
                       });
-    
+                    
                     bounds.extend(place.location);
                 });
-                bounds.extend(userLatLng);
+                // Extend the map screen to fit user and add user marker to the map
+                bounds.extend(center);
+                addUserMarker(center);
                 vetMap.fitBounds(bounds);
             } else {
                 setMap(mapZoom, center);
@@ -130,10 +140,45 @@ function setMap(zoom, center){
 (frontend) Add the markers to the map with the id attached
 (frontend) Add a click event for the markers to make a front end api call to bring up details including add to favourites functionality
 */
-document.getElementById("search").addEventListener("click", ()=>{
-    //radius = document.getElementById('radius').value;
-    //searchTerm = document.getElementById('type').value;
+document.getElementById("search").addEventListener("click", () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                // Get user location (latitude and longitude)
+                userLatLng = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                // Now you can retrieve search term, radius, and openNow status
+                searchTerm = document.getElementById("type").value;
+                radius = document.getElementById("radius").value;
+                openNow = document.getElementById("openNow").checked;
+
+                // If the search term is "any", we want to make it empty
+                if (searchTerm === "any") {
+                    searchTerm = "";
+                }
+
+                // Now call the nearbySearch function with the user's location and search filters
+                if(document.getElementById("locationBox").checked){
+                    searchByLocation();
+                }
+                else{
+                    searchCenter = userLatLng;
+                    nearbySearch(searchCenter);
+                }
+                
+            },
+            function (error) {
+                alert("Error getting user location: " + error.message);
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
 });
+
 
 // Get detailed place information based on place id. This info is used for display on the side panel for when a marker is clicked
 async function fetchPlaceDetails(placeId) {
@@ -161,13 +206,17 @@ function displayPlaceDetails(place){
     const signedIn = getCookie("user");
     const favourites = signedIn? `<input type='submit' id='add-favourites-btn' value='Add to Favourites'>` : "";
     const website = place.websiteURI? `<p>Website: <a href='${place.websiteURI}' target='blank'>${place.websiteURI}</a></p>` : "";
-    const distance = calculateDistance(userLatLng.lat, userLatLng.lng, place.location.lat(), place.location.lng());
+    const distance = calculateDistance(searchCenter.lat, searchCenter.lng, place.location.lat(), place.location.lng());
+    var hours = "";
+    place.regularOpeningHours? place.regularOpeningHours.weekdayDescriptions.forEach( day =>{
+        hours += `<br>${day}`;
+    }) : hours = 'Hours Unavailable.';
     // Content to display
     const content = `
     <h2>${place.displayName}</h2>
     <p>Address: ${place.formattedAddress}</p>
     <p>Phone Number: ${place.nationalPhoneNumber}</p>
-    <p>Open Hours: ${place.regularOpeningHours}</p>
+    <p>Open Hours: ${hours}</p>
     ${website}
     <p>Distance: ${distance} KM</p>
     ${favourites}
@@ -175,57 +224,64 @@ function displayPlaceDetails(place){
     detailContainer.innerHTML = content;
 }
 
+
+
+// Loads the map and initial markers, as well as gets users position
 function loadMap(){
     if (!mapContainer) return; // Check if the map container exists
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                userLatLng = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                };
-
-                // Create a new map centered on the user's location
-                setMap(mapZoom, userLatLng);
-                // Call nearby search
-                nearbySearch(userLatLng);
-                // Add a "You Are Here" marker
-                addUserMarker(userLatLng);
-            },
-            function () {
-                // Fallback to default location if geolocation fails
-                setMap(mapZoom, defaultLatLng);
-                // Call nearby search
-                // nearbySearch(defaultLatLng);
-            }
-        );
-    } else {
         // Fallback to default location if geolocation is not supported
         setMap(mapZoom, defaultLatLng);
-        // Call nearby search
-        //nearbySearch(defaultLatLng);
-    }
 }
 
 // Calculate distance
 function calculateDistance(userLat, userLng, targetLat, targetLng) {
-    
-
     const R = 6371; // Radius of the Earth in km
-
     const dLat = toRadians(targetLat - userLat);
     const dLng = toRadians(targetLng - userLng);
-
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
               Math.cos(toRadians(userLat)) * Math.cos(toRadians(targetLat)) *
               Math.sin(dLng / 2) * Math.sin(dLng / 2);
-
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return R * c; // Distance in km
+    var num = R * c;
+    num = Math.round(num * 100) / 100;
+    return num; // Distance in km
 }
-
 // Helper function to convert degrees to radians
 function toRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
+
+async function searchByLocation() {
+    const locationInput = document.getElementById("location").value;
+    try {
+        const geocoder = new google.maps.Geocoder();
+        
+        geocoder.geocode({ address: locationInput }, async (results, status) => {
+            if (status === "OK") {
+                const newCenter = results[0].geometry.location;
+                searchCenter.lat = newCenter.lat(); // set search center to the new center so distance can be calc'd
+                searchCenter.lng = newCenter.lng();
+                console.log(newCenter);
+                // Move the map to the new location
+                vetMap.setCenter(newCenter);
+                vetMap.setZoom(13); // Adjust zoom level for city-wide searches
+
+                // Perform a search at the new location
+                await nearbySearch(newCenter);
+                addUserMarker(newCenter);
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+    } catch (error) {
+        console.log("Error in geocoding:", error);
+    }
+}
+
+document.getElementById("locationBox").addEventListener("change", () => {
+    if (document.getElementById("locationBox").checked) {
+        document.getElementById("location").removeAttribute("hidden");
+    } else {
+        document.getElementById("location").setAttribute("hidden", "true");
+    }
+});

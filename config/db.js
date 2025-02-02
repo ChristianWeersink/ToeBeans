@@ -3,7 +3,7 @@ const { Client } = require('pg');
 // Specifies database configuration mostly from .env file
 const db = new Client({
  user: process.env.DB_USER,
- host: 'localhost',
+ host: '192.168.2.24',
  database: process.env.DB_NAME,
  password: process.env.DB_PASS,
  port: process.env.DB_PORT

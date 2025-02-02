@@ -20,8 +20,11 @@
         <div id="mapForm">
           <label for="radius">Search Radius</label>
           <select id="radius">
-            <option value="1000">1KM</option>
             <option value="2000">2KM</option>
+            <option value="5000">5KM</option>
+            <option value="10000">10KM</option>
+            <option value="15000">15KM</option>
+            <option value="20000">20KM</option>
           </select>
           <label for="openNow">Open Now</label>
           <input type="checkbox" id="openNow">
@@ -34,6 +37,9 @@
             <option value="exotic">exotic</option>
             <option value="rodent">rodent</option>
           </select>
+          <label for="locationBox">Search by Location</label>
+          <input type="checkbox" id="locationBox">
+          <input id="location" type="text" placeholder="eg. Oshawa, Ontario" hidden>
           <input type="button" value="Search for Vets" id="search">
         </div>
     </div>

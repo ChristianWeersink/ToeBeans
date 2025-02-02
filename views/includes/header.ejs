@@ -41,15 +41,27 @@
             
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <a href="/sign_up" id="signUpLink">sign up</a>
+            <a href="/sign-in" id="signInLink">sign in</a>
           </form>
         </div>
       </nav>
 
-      <br><br>
+      <br>
 
-
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (getCookie("user") == null) {
+        // Show sign up link, hide sign in link
+        document.getElementById("signUpLink").style.display = "block";
+        document.getElementById("signInLink").style.display = "none";
+    } else {
+        // Show sign in link, hide sign up link
+        document.getElementById("signUpLink").style.display = "none";
+        document.getElementById("signInLink").style.display = "block";
+    }
+  });
+</script>
 
 </head>
 <body>
