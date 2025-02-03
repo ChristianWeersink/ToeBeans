@@ -141,42 +141,25 @@ function setMap(zoom, center){
 (frontend) Add a click event for the markers to make a front end api call to bring up details including add to favourites functionality
 */
 document.getElementById("search").addEventListener("click", () => {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                // Get user location (latitude and longitude)
-                userLatLng = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                };
-
-                // Now you can retrieve search term, radius, and openNow status
-                searchTerm = document.getElementById("type").value;
-                radius = document.getElementById("radius").value;
-                openNow = document.getElementById("openNow").checked;
-
-                // If the search term is "any", we want to make it empty
-                if (searchTerm === "any") {
-                    searchTerm = "";
-                }
-
-                // Now call the nearbySearch function with the user's location and search filters
-                if(document.getElementById("locationBox").checked){
-                    searchByLocation();
-                }
-                else{
-                    searchCenter = userLatLng;
-                    nearbySearch(searchCenter);
-                }
-                
-            },
-            function (error) {
-                alert("Error getting user location: " + error.message);
-            }
-        );
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
+    executeSearch();
+});
+document.getElementById("radius").addEventListener("change" ,() =>{
+    // only execute search if there is already a search, so the search happens when the user might expect, not before
+    if(markers.length > 0){
+        executeSearch();
+    } 
+});
+document.getElementById("type").addEventListener("change" ,() =>{
+    // only execute search if there is already a search, so the search happens when the user might expect, not before
+    if(markers.length > 0){
+        executeSearch();
+    } 
+});
+document.getElementById("openNow").addEventListener("change" ,() =>{
+    // only execute search if there is already a search, so the search happens when the user might expect, not before
+    if(markers.length > 0){
+        executeSearch();
+    } 
 });
 
 
@@ -194,7 +177,7 @@ async function fetchPlaceDetails(placeId) {
             'regularOpeningHours',
             'websiteURI',
             'location',
-        ], 
+        ],
     });
     displayPlaceDetails(place);
 }
@@ -204,7 +187,7 @@ function displayPlaceDetails(place){
     const detailContainer = document.getElementById('results-panel');
     // check if website exists and if it does add the content dynamically into the content
     const signedIn = getCookie("user");
-    const favourites = signedIn? `<input type='submit' id='add-favourites-btn' value='Add to Favourites'>` : "";
+    const favourites = signedIn? `<input type='submit' id='add-favourites-btn' value='Add to Favourites' class='btn btn-success mt-3'>` : "";
     const website = place.websiteURI? `<p>Website: <a href='${place.websiteURI}' target='blank'>${place.websiteURI}</a></p>` : "";
     const distance = calculateDistance(searchCenter.lat, searchCenter.lng, place.location.lat(), place.location.lng());
     var hours = "";
@@ -224,13 +207,25 @@ function displayPlaceDetails(place){
     detailContainer.innerHTML = content;
 }
 
+// Add this once, outside the displayPlaceDetails function
+document.getElementById('results-panel').addEventListener('click', function(event) {
+    if (event.target && event.target.id === 'add-favourites-btn') {
+        const placeId = event.target.getAttribute('data-place-id');
+        addToFavourites(placeId); // You'd need to pass or fetch the correct place info here
+    }
+});
 
+
+function addToFavourites(place){
+    console.log("hello world!");
+}
 
 // Loads the map and initial markers, as well as gets users position
 function loadMap(){
     if (!mapContainer) return; // Check if the map container exists
         // Fallback to default location if geolocation is not supported
         setMap(mapZoom, defaultLatLng);
+        setCookie("user", "true", 1);
 }
 
 // Calculate distance
@@ -278,6 +273,7 @@ async function searchByLocation() {
     }
 }
 
+
 document.getElementById("locationBox").addEventListener("change", () => {
     if (document.getElementById("locationBox").checked) {
         document.getElementById("location").removeAttribute("hidden");
@@ -285,3 +281,43 @@ document.getElementById("locationBox").addEventListener("change", () => {
         document.getElementById("location").setAttribute("hidden", "true");
     }
 });
+
+
+function executeSearch() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                // Get user location 
+                userLatLng = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+
+                // retrieve search term, radius, and openNow status
+                searchTerm = document.getElementById("type").value;
+                radius = document.getElementById("radius").value;
+                openNow = document.getElementById("openNow").checked;
+
+                // If the search term is "any", we want to make it empty
+                if (searchTerm === "any") {
+                    searchTerm = "";
+                }
+
+                // search by location if the box is checked to do a text search
+                if(document.getElementById("locationBox").checked){
+                    searchByLocation();
+                }
+                else{
+                    searchCenter = userLatLng;
+                    nearbySearch(searchCenter);
+                }
+                
+            },
+            function (error) {
+                alert("Error getting user location: " + error.message);
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
