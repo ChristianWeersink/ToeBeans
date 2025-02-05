@@ -2,6 +2,13 @@
     height: 400px; /* Ensure this is set */
 }
 
+.divboxes {
+    background-color: #DEE3DE;
+    border-radius: 5px;
+    border-style: double;
+    border-color: #8fa3a6;
+}
+
 html, body {
     font-family: "PT Serif Caption", serif;
     font-weight: 400;
@@ -10,10 +17,59 @@ html, body {
     flex-direction: column;
     margin: 0;
     height: 100%;
-    width: 100%
+    width: 100%;
+    background-color: #F7FCF7;
 }
 
 
+
+.navbar{
+    background-color: #153D1C !important;
+    border-style: solid;
+    border-top: #133319 !important;
+}
+
+
+.c1 {
+    margin-top: 25px;
+}
+
+.c2 {
+    background-color: #FFFFFF;
+    height: 100vh;
+    border-radius: 25px;
+    margin-top: 20px;
+    border-style: double;
+    border-color: #dee3de;
+    
+    box-shadow: 5px 5px 15px #000000;
+}
+
+.c3 {
+    background-color: #6B7F82;
+    height: 90vh;
+    border-radius: 25px;
+    margin-top: 20px;
+    margin-right: 10px;
+    border-style: double;
+    border-color: #8fa3a6;
+    box-shadow: 5px 5px 7px #000000;
+
+}
+
+.middledivs {
+    height: 100%;
+    text-align: center;
+}
+
+.photodiv {
+    background-color: #DEE3DE;
+    border-radius: 5px;
+    height: 30vh;
+    border-style: double;
+    border-color: #8fa3a6;
+    text-align: center;
+}
 
 .bottomofscreen {
     display: flex;
@@ -23,12 +79,21 @@ html, body {
 }
 
 .themebanner {
+    background-repeat: repeat-x;
+    background-size: auto 100px;
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    
+}
+
+.centertext {
     text-align: center;
-    height: 50px;
-    padding-top: 5px;
-    background-color: blue;
-    color: white;
-    margin: 0;
+}
+
+.margins {
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .themebanner p, footer p, footer br {

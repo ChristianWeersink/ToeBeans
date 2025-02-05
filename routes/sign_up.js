@@ -6,48 +6,33 @@ const db = require('../config/db');
 // Route for the homepage
 router.get('/', (req, res) => {
     title = "Sign up";
-    res.render('sign_up', {user_id: null});
+    res.render('sign_up', {title});
 });
 
-router.post('/sign_up', (req, res) => {
+router.post('/', (req, res) => {
     // Collect user data from the form
-    const {name, userphone, useremail} = req.body;
+    const {name, userphone, useremail, username, userpass} = req.body;
 
-    // Insert the collected data into the database
-    const insert = 'INSERT INTO users (user_name, user_phone, user_email, isname_public, isphone_public, isemail_public) VALUES ($1, $2, $3, false, false, false) RETURNING user_id';
-
-    db.query(insert, [name, userphone, useremail], (error, result) => {
-        if (error) {
-            console.error(error);
-            return res.send("There was an error saving this data");
-        }
-
-        const user_id = result.rows[0].user_id;
-
-        res.render("/sign_up", { user_id });
-    });
-});
-
-router.post('/signup', (req, res) => {
-    const {password, username, user_id} = req.body;
-
-    bcrypt.hash(password, 10, (error, hashedPassword) => {
+    bcrypt.hash(userpass, 10, (error, hashedPass) => {
         if (error) {
             console.error(error);
             return res.send("Error hashing the password!");
         }
-    })
+    
 
-    const insert = 'INSERT INTO account_data (user_pass, user_login, user_id) VALUES ($1, $2, $3)';
+    // Insert the collected data into the database
+    const insert = 'INSERT INTO users (user_name, user_phone, user_email, isname_public, isphone_public, isemail_public, user_login, user_pass) VALUES ($1, $2, $3, false, false, false, $4, $5) RETURNING user_id';
 
-    db.query(insert, [password, username, user_id], (error, result) => {
+    db.query(insert, [name, userphone, useremail, username, hashedPass], (error, result) => {
         if (error) {
             console.error(error);
-            return res.send("There was an error saving this data!");
+            return res.status(500).send("There was an error saving this data");
         }
 
-        res.send("Username and password saved successfully!");
+        res.send("Sign up successful!");
     });
 });
+});
+
 
 module.exports = router;

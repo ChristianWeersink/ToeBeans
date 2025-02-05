@@ -1,3 +1,87 @@
 <%- include('includes/header') %>
-    <h1> Settings Page </h1>
-<%- include('includes/footer') %>
+
+ 
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Separation Div -->
+            <div class="col-sm-12 col-md-1"></div>
+
+            <!-- Side Bar Div -->
+            <div class="col-sm-12 col-md-2 c3">
+                <div class="divboxes c1">
+                    <h5> Welcome to your settings page! </h5>
+                </div>
+            </div>
+
+            <!-- Middle Div -->
+            <div class="col-sm-12 col-md-6 c2">
+
+                <div class="d-flex justify-content-center margins">
+                    <h1>User Settings Page</h1>
+                </div>
+
+                <!-- Theme selector -->
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-6 divboxes centertext">
+                        <br>
+                        <form action="/themeselection" method="POST" id="themeform">
+                            <label> Select a theme</label> <br>
+                            <select id="theme" name="theme">
+                                <option value="none"> No Theme </option>
+                                <option value="dog"> Dogs 🐶 </option>
+                                <option value="cat"> Cats 🐱 </option>
+                                <option value="fish"> Fish 🐟 </option>
+                                <option value="bird"> Birds 🐣 </option>
+                                <option value="smallpet"> Small Pets 🐹</option>
+                            </select>
+
+                            <button type="submit"> Change Theme </button>
+
+                        </form>
+                        <br>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+                <br>
+
+                <!-- Favourite Vets List -->
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-6 divboxes centertext">
+                        <br>
+                        <p> Favourite Vets List </p>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+                <br><br><br>
+
+                <!-- Delete Account -->
+                <hr>
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-6 divboxes centertext">
+                        <br><br>
+                        <p> WARNING! THIS IS PERMANENT </p>
+                        <p>
+                            <button type="submit"> Delete Your Account? </button>
+                        </p>
+                        <br>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+
+
+
+            </div>
+
+            <!-- Separation Div -->
+            <div class="col-sm-12 col-md-3"></div>
+
+        </div>
+    </div>
+
+
+
+    <%- include('includes/footer') %>
