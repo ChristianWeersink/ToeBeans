@@ -24,6 +24,7 @@ const mapApiRoutes = require('./routes/map_api');
 const userProfileRoutes = require('./routes/profile');
 const petProfileRoutes = require('./routes/pet_profile');
 const userSettingsRoutes = require('./routes/settings');
+
 // Use routes
 app.use('/', indexRoutes); // when / is loaded (the home page of the website) it uses the index.js route set up in /routes
 app.use('/sign_up', signUpRoutes);
