@@ -12,60 +12,42 @@
     <title><%= title || "ToeBeans" %></title>
     
 
-    <!-- Bootstrap Nav Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="./">Toebeans Vet Finder</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      &nbsp; &nbsp;
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="./map">Map</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Navigation
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="./profile">Profile</a>
-                <a class="dropdown-item" href="./pet_profile">Pet Profile</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="./settings">Settings</a>
-              </div>
-            </li>
-          </ul>
-
-          <form class="form-inline my-2 my-lg-0">
-            <a href="/sign_up" id="signUpLink">sign up</a>
-            <a href="/sign-in" id="signInLink">sign in</a>
-          </form>
-          </div>
-          </div>
-          </div>
-        </div>
-      </nav>
-
-      <br>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (getCookie("user") == null) {
-        // Show sign up link, hide sign in link
-        document.getElementById("signUpLink").style.display = "block";
-        document.getElementById("signInLink").style.display = "none";
-    } else {
-        // Show sign in link, hide sign up link
-        document.getElementById("signUpLink").style.display = "none";
-        document.getElementById("signInLink").style.display = "block";
-    }
-  });
-</script>
-
-</head>
-<body>
+    
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Toebeans Vet Finder</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/map">Map</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Navigation
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/profile">Profile</a>
+                  <a class="dropdown-item" href="/pet_profile">Pet Profile</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/settings">Settings</a>
+                </div>
+              </li>
+              
+            </ul>
   
-    <main>
-      
+            <form class="form-inline my-2 my-lg-0">
+              <a class="btn btn-outline-success my-2 my-sm-0" href="/sign_out" id="signUpLink">sign out</a>
+              <a class="form-control mr-sm-2" href="/sign_in" id="signInLink">sign in</a>
+            </form>
+            </div>
+          </div>
+        </nav>
+        <br>
+      <main>
+      <!-- Bootstrap Nav Bar -->
+    

@@ -164,7 +164,6 @@ function loadMap(){
     if (!mapContainer) return; // Check if the map container exists
         // Fallback to default location if geolocation is not supported
         setMap(mapZoom, defaultLatLng);
-        setCookie("user", "true", 1);
 }
 
 

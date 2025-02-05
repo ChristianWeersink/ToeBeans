@@ -1,4 +1,3 @@
-
 document.getElementById("signupform").addEventListener
 ("submit", async function (event) {
     event.preventDefault();

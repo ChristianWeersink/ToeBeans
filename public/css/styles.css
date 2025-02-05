@@ -103,6 +103,7 @@ html, body {
 
 main {
     flex: 1;
+    margin: 10px;
 }
 
 footer {
@@ -118,3 +119,4 @@ footer {
 .alignitright {
     text-align: right;
 }
+
