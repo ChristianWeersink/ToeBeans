@@ -16,7 +16,9 @@ function getCookie(name) {
   let cookies = document.cookie.split("; ");
   for (let cookie of cookies) {
     let [key, value] = cookie.split("=");
-    if (key === name) return value;
+    if (key === name) {
+      return JSON.parse(decodeURIComponent(value)); // Parse back into an object
+  }
   }
   return null;
 }

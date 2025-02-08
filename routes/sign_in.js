@@ -14,10 +14,37 @@ router.post('/', (req, res) => {
     const {username, userpass} = req.body;
 
 // TODO SIGN IN METHOD 
-    bcrypt.hash(userpass, 10, (error, hashedPass) => {
+    bcrypt.hash(userpass, 10, async(error, hashedPass) => {
         if (error) {
             console.error(error);
-            return res.send("Error hashing the password!");
+            return res.status(500).send("Error hashing the password!");
+        }
+
+        const userQuery = "SELECT * FROM users WHERE user_name = $1";
+        const userResult = await db.query(userQuery, [username]);
+        //Check if the user exists
+        if (userResult.rows.length === 0) {
+            return res.status(401).json({ success: false, message: "Incorrect sign in details." });
+        }
+        const storedHashedPassword = userResult.rows[0].user_pass;
+
+        // Compare the entered password with the stored hashed password
+        const passwordMatch = await bcrypt.compare(userpass, storedHashedPassword);
+
+        if(passwordMatch){
+            const user = {
+                user_name: userResult.rows[0].user_name,
+                user_phone: userResult.rows[0].user_phone,
+                user_email: userResult.rows[0].user_email,
+                user_id: userResult.rows[0].user_id,
+                user_login: userResult.rows[0].user_login,
+                selectedTheme: userResult.rows[0].selectedTheme,
+            }
+            console.log(user);
+            return res.status(200).json({success: true, message:"Sign in successful!", user: user});
+        }
+        else{
+            return res.status(401).json({success: false, message: "Incorrect sign in details."});
         }
 
     });

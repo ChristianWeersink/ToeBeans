@@ -16,20 +16,18 @@ router.post('/', (req, res) => {
     bcrypt.hash(userpass, 10, (error, hashedPass) => {
         if (error) {
             console.error(error);
-            return res.send("Error hashing the password!");
+            return res.status(500).json({success: false, message: "Error hashing the password!"});
         }
-    
-
     // Insert the collected data into the database
     const insert = 'INSERT INTO users (user_name, user_phone, user_email, isname_public, isphone_public, isemail_public, user_login, user_pass) VALUES ($1, $2, $3, false, false, false, $4, $5) RETURNING user_id';
 
     db.query(insert, [name, userphone, useremail, username, hashedPass], (error, result) => {
         if (error) {
             console.error(error);
-            return res.status(500).send("There was an error saving this data");
+            return res.status(500).json({success: false, message: "There was an error saving this data"});
         }
 
-        res.send("Sign up successful!");
+        res.status(200).json({success: true, message: "Sign up successful!"});
     });
 });
 });

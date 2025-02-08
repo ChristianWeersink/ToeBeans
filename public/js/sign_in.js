@@ -29,11 +29,14 @@ document.getElementById("sign_in").addEventListener
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, userpass})
+                body: JSON.stringify({username, userpass})
             });
             const formrslt = await res.json();
             if (formrslt.success) {
-                errormsg.innerHTML = "Sign up successful!"
+                errormsg.innerHTML = "Sign in successful!";
+                console.log(formrslt.user);
+                setCookie("user", JSON.stringify(formrslt.user), 1); // user will be signed in for 1 day
+                // TODO Redirect somewhere and set cookies
             }
             else {
                 errormsg.innerHTML= formrslt.message;

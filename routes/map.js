@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Route for the homepage
 router.get('/', (req, res) => {
-    title = "map";
+    title = "Map";
     res.render('map', { title });
 });
 

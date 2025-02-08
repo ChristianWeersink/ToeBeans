@@ -53,8 +53,10 @@ document.getElementById("signupform").addEventListener
                 body: JSON.stringify({ name, userphone, useremail, username, userpass})
             });
             const formrslt = await res.json();
+            //Sign up is successful
             if (formrslt.success) {
-                errormsg.innerHTML = "Sign up successful!"
+                errormsg.innerHTML = formrslt.message;
+                document.getElementById("signupform").reset();
             }
             else {
                 errormsg.innerHTML= formrslt.message;
