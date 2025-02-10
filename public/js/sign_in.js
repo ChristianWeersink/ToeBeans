@@ -36,7 +36,7 @@ document.getElementById("sign_in").addEventListener
                 errormsg.innerHTML = "Sign in successful!";
                 console.log(formrslt.user);
                 setCookie("user", JSON.stringify(formrslt.user), 1); // user will be signed in for 1 day
-                // TODO Redirect somewhere and set cookies
+                window.location.href = "/profile"; //redirect to profile page
             }
             else {
                 errormsg.innerHTML= formrslt.message;
@@ -50,3 +50,8 @@ document.getElementById("sign_in").addEventListener
 
 });
 
+document.addEventListener("DOMContentLoaded", () =>{
+    if(getCookie("user")){
+        window.location.href = "/profile";
+    }
+})
