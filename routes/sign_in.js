@@ -19,8 +19,8 @@ router.post('/', (req, res) => {
             console.error(error);
             return res.status(500).send("Error hashing the password!");
         }
-
-        const userQuery = "SELECT * FROM users WHERE user_name = $1";
+        console.log(username);
+        const userQuery = "SELECT * FROM users WHERE user_login = $1";
         const userResult = await db.query(userQuery, [username]);
         //Check if the user exists
         if (userResult.rows.length === 0) {
