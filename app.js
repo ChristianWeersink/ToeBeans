@@ -26,6 +26,7 @@ const petProfileRoutes = require('./routes/pet_profile');
 const userSettingsRoutes = require('./routes/settings');
 const signInRoutes = require('./routes/sign_in');
 const signOutRoutes = require('./routes/sign_out');
+const favouritesRoutes = require('./routes/favourites');
 // Use routes
 app.use('/', indexRoutes); // when / is loaded (the home page of the website) it uses the index.js route set up in /routes
 app.use('/sign_up', signUpRoutes);
@@ -36,7 +37,7 @@ app.use('/pet_profile', petProfileRoutes);
 app.use('/settings', userSettingsRoutes);
 app.use('/sign_in', signInRoutes);
 app.use('/sign_out',  signOutRoutes);
-
+app.use('/favourites', favouritesRoutes);
 
 // Start the server
 app.listen(process.env.PORT, () => {

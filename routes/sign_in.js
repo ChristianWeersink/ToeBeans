@@ -13,7 +13,6 @@ router.post('/', (req, res) => {
     // Collect user data from the form
     const {username, userpass} = req.body;
 
-// TODO SIGN IN METHOD 
     bcrypt.hash(userpass, 10, async(error, hashedPass) => {
         if (error) {
             console.error(error);
@@ -39,6 +38,7 @@ router.post('/', (req, res) => {
                 user_id: userResult.rows[0].user_id,
                 user_login: userResult.rows[0].user_login,
                 selectedTheme: userResult.rows[0].selectedTheme,
+                user_id: userResult.rows[0].user_id,
             }
             console.log(user);
             return res.status(200).json({success: true, message:"Sign in successful!", user: user});

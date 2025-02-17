@@ -40,9 +40,11 @@ async function nearbySearch(center) {
                         gmpClickable: true,
                     });
                     markers.push(marker); // store the marker to delete later
+                    // Event to do when a user clicks on a marker
                     marker.addListener("click", ({ domEvent, latLng }) => {
                         const { target } = domEvent;
-                        const placeDetail = fetchPlaceDetails(place);
+                        const placeDetail = fetchPlaceDetails(place.id);
+                        setCookie("selectedPlace", JSON.stringify(place), 1); // Set selected place id to use for favourites button
                       });
                     
                     bounds.extend(place.location);

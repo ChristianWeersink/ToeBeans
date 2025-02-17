@@ -120,3 +120,8 @@ footer {
     text-align: right;
 }
 
+#favourites{
+    max-height: 30vh;
+    padding-bottom: 10px;
+    overflow: scroll;
+}
