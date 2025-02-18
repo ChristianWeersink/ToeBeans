@@ -7,37 +7,67 @@
             <div class="col-sm-12 col-md-1"></div>
 
             <!-- Side Bar Div -->
-            <div class="col-sm-12 col-md-2 c3">
+            <div class="col-sm-12 col-md-12 col-lg-2 c3 full-height">
                 <div class="divboxes c1">
-                <h5> Welcome to your pet's profile page! Here you can view and edit information about your pet, and choose what information can be set to public and printed onto your custom QR code! </h5>
+                    <h5> Welcome to your pet's profile page! Here you can view and edit information about your pet</h5>
                 </div>
              </div>
             
             <!-- Middle Div -->
-            <div class="col-sm-12 col-md-8 c2">
+            <div class="col-sm-12 col-md-12 col-lg-8 c2">
 
                 <div class="d-flex justify-content-center margins">
                     <h1>Pet Profile Page</h1>
                 </div>
-                
-                    <p class="centertext"> Pet Profile Page </p>
-                    <div class="row">
-                        <div class="col-8 divboxes">
-
-                            <p>Pet name: </p>
-                            <p>Pet breed: </p>
-                            <p>Pet age: </p>
-                            <p>Pet allergies / other info: </p>
-                            <p>Owner name: </p>
-                            <p>Owner Phone: </p>
-                            <p>Owner Email: </p>
-                            <p>Home vet name: </p>
-                            <p>Home vet contact info: </p>
+                <p class="centertext"> Pet Profile Page </p>
+                <% if(pets.length > 0 ){
+                    pets.forEach(pet => { %>
+                        <div class="row pet_info">
+                            <div class="col-lg-8 col-sm-12 divboxes">
+                                <p>Pet name: <%= pet.pet_name %></p>
+                                <p>Pet breed: <%= pet.pet_breed %></p>
+                                <p>Pet age: <%= pet.pet_age %></p>
+                                <p>Pet allergies: <%= pet.pet_allergy %></p>
+                                <p>Additional Info: <%= pet.pet_other %></p>
+                                <p>Home vet name: </p>
+                                <p>Home vet contact info: TODO: make a request using the id to get vet info</p>
+                                <input class="edit-pet-btn" type="button" data-pet-id="<%=pet.id %>" data-user-id="<%= pet.user_id %>" value="Edit">
+                            </div>
+                            <div class="col-lg-4 col-sm-12 photodiv">
+                                <img class="pet_photo" alt="Your Pet Photo" src=<%= pet.pet_photo %>>
+                            </div>
+                            
                         </div>
-                        <div class="col-4 photodiv">test 3</div>
-                    </div>
-             </div>
-
+                
+                <% });}else{ %> 
+                    <p>Pets will be displayed here once you add some!</p>
+                    <%} %>
+             <form hidden id="newPetForm">
+                <label for="pet_name">Pet name:</label>
+                <input type="text" id="pet_name"><br>
+                <label for="pet_breed">Pet breed:</label>
+                <input type="text" id="pet_breed"><br>
+                <label for="pet_age">Pet age:</label>
+                <input type="number" id="pet_age"><br>
+                <label for="pet_allergies">Pet allergies:</label>
+                <input type="text" id="pet_allergies"><br>
+                <label for="pet_other">Additional pet information:</label>
+                <input type="text" id="pet_other"><br>
+                <label for="home_vet">Home Vet:</label>
+                <select id="home_vet">
+                    <option>Favourite</option>
+                    <option>Vets</option>
+                    <option>Appear</option>
+                    <option>Here</option>
+                </select><br>
+                <label for="pet_photo">Upload a picture of your pet!</label>
+                <input type="file" id="pet_photo"><br>
+                
+                <input type="submit" value="Add Pet" id="add-pet-button">
+            </form>
+            <br>
+            <input id="newPetButton" type="button" value="Add another pet">
+        </div>
             
              <!-- Separation Div -->
             <div class="col-sm-12 col-md-1"></div>
@@ -50,5 +80,5 @@
     
 
 
-
+<script src="/js/pet_profile.js"></script>
 <%- include('includes/footer') %>

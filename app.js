@@ -1,9 +1,11 @@
 const express = require("express");
 const axios = require("axios");
 const path = require("path");
+const cookieParser = require('cookie-parser');
 require("dotenv").config(); // Load environment variables from .env file
 
 const app = express();
+app.use(cookieParser());
 
 // Middleware to serve static files (like CSS, JS, or HTML)
 app.use(express.static(path.join(__dirname, "public")));

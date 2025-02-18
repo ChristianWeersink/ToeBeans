@@ -4,7 +4,7 @@
     <h3> List of Users </h3>
     <ul>
         <% users.forEach(user => { %>
-        <li><%= user.user_name %> | <%= user.user_phone %> | <%= user.user_email %> | <%= user.isname_public %> | <%= user.isphone_public %> | <%= user.isemail_public %> | <%= user.user_id %> </li>
+        <li><%= user.user_name %> | <%= user.user_phone %> | <%= user.user_email %> | <%= user.isname_public %> | <%= user.isphone_public %> | <%= user.isemail_public %> | <%= user.user_id %> | <%= user.selected_theme %></li>
     <% }); %>
     </ul>
     <p id="user"></p>
@@ -12,7 +12,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             const user = getCookie("user");
             console.log(user);
-            document.getElementById("user").innerHTML = user.user_name; 
+            document.getElementById("user").innerHTML = "Welcome " + user.user_name; 
         });
     </script>
 

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const favourites = document.getElementById("favourites");
     const user = getCookie("user");
     if(!user){
+        setCookie("message", "You need to be signed in to access this page.", 1);
         window.location.href = "/sign_in";
     }
     const userId = user.user_id;

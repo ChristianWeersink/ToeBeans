@@ -1,10 +1,19 @@
-const { Client } = require('pg');
-
+const { Pool } = require('pg');
+var db;
+try{
+    db = new Pool({
+        connectionString: process.env.SUPABASE_URL,
+        ssl: { rejectUnauthorized: false },
+        max: 10, // 10 concurrent connections
+        idleTimeoutMillis: 30000, // ✅ Automatically close idle connections after 30 seconds
+        connectionTimeoutMillis: 5000 // ✅ Timeout if connection takes too long
+    });
+}
+catch(error){
+    console.log("Error creating client"+error);
+}
 // Specifies database configuration mostly from .env file
-const db = new Client({
-    connectionString: process.env.SUPABASE_URL,
-    ssl: { rejectUnauthorized: false }
-});
+
 
 // Connects to local database
 db.connect()

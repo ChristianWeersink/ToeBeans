@@ -37,8 +37,9 @@ router.post('/', (req, res) => {
                 user_email: userResult.rows[0].user_email,
                 user_id: userResult.rows[0].user_id,
                 user_login: userResult.rows[0].user_login,
-                selectedTheme: userResult.rows[0].selectedTheme,
                 user_id: userResult.rows[0].user_id,
+                selected_theme: userResult.rows[0].selected_theme
+
             }
             console.log(user);
             return res.status(200).json({success: true, message:"Sign in successful!", user: user});
