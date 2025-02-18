@@ -73,20 +73,24 @@ html, body {
 }
 
 .bottomofscreen {
-    display: flex;
-    flex-direction: column;
-    margin-top: auto;
+    display: block;
     width: 100%;
 }
 
-.themebanner {
-    background-repeat: repeat-x;
-    background-size: auto 100px;
+#themebanner {
+    transition: background 0.5s ease-in-out;
     height: 100px;
     width: 100%;
-    position: fixed;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    background: linear-gradient(to bottom, #133319, #6B7F82);
+    border-bottom: 1px solid black;
+    color: white;
+    margin: 0;
     
 }
+
 
 .centertext {
     text-align: center;
@@ -97,7 +101,7 @@ html, body {
     margin-bottom: 50px;
 }
 
-.themebanner p, footer p, footer br {
+.footer p, footer br {
     margin: 0;
     padding: 0;
 }

@@ -17,7 +17,7 @@ router.post('/themeselection', async (req, res) => {
     const userID = req.cookies.cookies.userid;
     const update = "UPDATE users SET selected_theme = $1 WHERE user_id = $2";
 
-    db.query(update, [selectedtheme, userID], (error, result) => {
+    db.query(update, [selectedtheme, user], (error, result) => {
         if (error) {
             console.error(error);
             return res.status(500).json({success: false, message: "Theme could not be updated"});

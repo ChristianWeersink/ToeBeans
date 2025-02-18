@@ -1,3 +1,16 @@
+// Themes
+
+const themes = {
+    default: { img1: "img/transparent.png", img2: "img/transparent.png"},
+    dog: { img1: 'img/dog_1.png', img2: "img/dog_2.png"},
+    cat: { img1: 'img/cat_1.png', img2: "img/cat_2.png"},
+    fish: { img1: 'img/fish_1.png', img2: "img/fish_2.png"},
+    bird: { img1: 'img/bird_1.png', img2: "img/bird_2.png"},
+    smallpet: { img1: 'img/smallpet_1.png', img2: "img/smallpet_2.png"}
+};
+
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     const favourites = document.getElementById("favourites");
     const user = getCookie("user");
@@ -9,6 +22,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const formattedFavourites = await formatFavourites(userId);
 
     favourites.innerHTML = formattedFavourites;
+
+    // Theme
+    const chosenTheme = localStorage.getItem("theme");
+    updateThemeBanner(chosenTheme);
 
 })
 
@@ -77,3 +94,24 @@ document.getElementById('favourites').addEventListener('click', async function(e
         }
     }
 });
+
+// Theme Changes
+
+function themebannerupdate(theme) {
+    const banner = document.getElementById("themebanner");
+    const pics = themes[theme];
+
+    // Dynamically style background based on theme chosen
+    banner.style.background = `url('${pics[0]}'), url('${pics[1]}')`;
+    banner.style.backgroundSize = "auto 100%";
+    banner.style.backgroundRepeat = "repeat-x";
+}
+
+
+
+
+document.getElementById("themeform").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const theme = document.getElementById("theme").value;
+})
