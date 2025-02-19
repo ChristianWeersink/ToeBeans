@@ -1,31 +1,44 @@
 // Themes
 
-const themes = {
-    default: { img1: "img/transparent.png", img2: "img/transparent.png"},
-    dog: { img1: 'img/dog_1.png', img2: "img/dog_2.png"},
-    cat: { img1: 'img/cat_1.png', img2: "img/cat_2.png"},
-    fish: { img1: 'img/fish_1.png', img2: "img/fish_2.png"},
-    bird: { img1: 'img/bird_1.png', img2: "img/bird_2.png"},
-    smallpet: { img1: 'img/smallpet_1.png', img2: "img/smallpet_2.png"}
-};
-
 
 
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log("running");
     const favourites = document.getElementById("favourites");
     const user = getCookie("user");
+    const userId = user.user_id;
+    const formattedFavourites = await formatFavourites(userId);
+    favourites.innerHTML = formattedFavourites;
     if(!user){
         setCookie("message", "You need to be signed in to access this page.", 1);
         window.location.href = "/sign_in";
     }
-    const userId = user.user_id;
-    const formattedFavourites = await formatFavourites(userId);
 
-    favourites.innerHTML = formattedFavourites;
-
+    //debug
+    console.log("Cookie", user);
+    
+    //debug
+    console.log("Before fetching theme for", userId);
+    try{
     // Theme
-    const chosenTheme = localStorage.getItem("theme");
-    updateThemeBanner(chosenTheme);
+        const res = await fetch(`/settings/gettheme`);
+        const d = await res.json();
+        setCookie("theme", d.theme.selected_theme, 1);
+        console.log(d.theme.selected_theme);
+        //const chosenTheme = localStorage.getItem("themeselect");
+
+        //debug
+        //console.log("Theme saving", chosenTheme)
+        localStorage.setItem("theme", d.theme.selected_theme);
+        //debug
+        console.log("Saved theme:", localStorage.getItem("theme")); 
+        updateThemeBanner(d.theme.selected_theme);
+        document.getElementById("theme").value = d.theme.selected_theme;
+    } catch (error) {
+        console.error("Error getting theme");
+    }
+
+    
 
 })
 
@@ -97,21 +110,44 @@ document.getElementById('favourites').addEventListener('click', async function(e
 
 // Theme Changes
 
-function themebannerupdate(theme) {
-    const banner = document.getElementById("themebanner");
-    const pics = themes[theme];
-
-    // Dynamically style background based on theme chosen
-    banner.style.background = `url('${pics[0]}'), url('${pics[1]}')`;
-    banner.style.backgroundSize = "auto 100%";
-    banner.style.backgroundRepeat = "repeat-x";
-}
-
-
-
-
 document.getElementById("themeform").addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const theme = document.getElementById("theme").value;
+    const themes = {
+        default: { img1: "img/transparent.png", img2: "img/transparent.png"},
+        dog: { img1: 'img/dog_1.png', img2: "img/dog_2.png"},
+        cat: { img1: 'img/cat_1.png', img2: "img/cat_2.png"},
+        fish: { img1: 'img/fish_1.png', img2: "img/fish_2.png"},
+        bird: { img1: 'img/bird_1.png', img2: "img/bird_2.png"},
+        smallpet: { img1: 'img/smallpet_1.png', img2: "img/smallpet_2.png"}
+    };
+    const themeselect = document.getElementById("theme").value;
+    const errormsg = document.getElementById("errormsg");
+
+    try {
+
+        const res = await fetch("/settings", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({theme: themeselect}),
+        });
+        const themerslt = await res.json();
+
+        //Theme change success
+        if (themerslt.success) {
+            localStorage.setItem("theme", themeselect);
+            updateThemeBanner(themeselect);
+            errormsg.innerHTML = "Theme changed successfully!";
+        }
+        else {
+            errormsg.innerHTML = "Theme change unsuccessful";
+        }
+    
+    }
+    catch (error) {
+        console.error("Error! Can't update theme", error);
+    }
 })

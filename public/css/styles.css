@@ -43,7 +43,9 @@ html, body {
     border-color: #dee3de;
     
     box-shadow: 5px 5px 15px #000000;
-    overflow: scroll;
+    overflow: auto;
+    overflow-x: hidden;
+
 }
 
 .c3 {
@@ -88,6 +90,9 @@ html, body {
     border-bottom: 1px solid black;
     color: white;
     margin: 0;
+    background-size: auto 100%;
+    background-repeat: repeat-x;
+    background-position: 0 0;
     
 }
 

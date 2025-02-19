@@ -26,7 +26,7 @@
                     <div class="col-3"></div>
                     <div class="col-6 divboxes centertext">
                         <br>
-                        <form action="/themeselection" method="POST" id="themeform">
+                        <form action="/settings" method="POST" id="themeform">
                             <label> Select a theme</label> <br>
                             <select id="theme" name="theme">
                                 <option value="none"> No Theme </option>
@@ -40,6 +40,7 @@
                             <button type="submit"> Change Theme </button>
 
                         </form>
+                        <p id="errormsg"></p>
                         <br>
                     </div>
                     <div class="col-3"></div>
@@ -83,6 +84,6 @@
     </div>
 
 
-    <script src="/js/settings.js"></script>
+    <script src="/js/settings.js" defer></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3an3cMi9r5yYxWfFeb1I6VzPOrkrlzgM&amp;libraries=places&loading=async" async="true" defer="true"></script>
     <%- include('includes/footer') %>
