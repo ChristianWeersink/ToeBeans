@@ -42,32 +42,58 @@
                 <% });}else{ %> 
                     <p>Pets will be displayed here once you add some!</p>
                     <%} %>
-             <form hidden id="newPetForm">
-                <label for="pet_name">Pet name:</label>
-                <input type="text" id="pet_name"><br>
-                <label for="pet_breed">Pet breed:</label>
-                <input type="text" id="pet_breed"><br>
-                <label for="pet_age">Pet age:</label>
-                <input type="number" id="pet_age"><br>
-                <label for="pet_allergies">Pet allergies:</label>
-                <input type="text" id="pet_allergies"><br>
-                <label for="pet_other">Additional pet information:</label>
-                <input type="text" id="pet_other"><br>
-                <label for="home_vet">Home Vet:</label>
-                <select id="home_vet">
-                    <option>Favourite</option>
-                    <option>Vets</option>
-                    <option>Appear</option>
-                    <option>Here</option>
-                </select><br>
-                <label for="pet_photo">Upload a picture of your pet!</label>
-                <input type="file" id="pet_photo"><br>
-                
-                <input type="submit" value="Add Pet" id="add-pet-button">
-            </form>
-            <br>
-            <input id="newPetButton" type="button" value="Add another pet">
-        </div>
+                    <form hidden id="newPetForm" enctype="multipart/form-data" class="card p-4 shadow-lg mt-4">
+                        <div class="card-body">
+                            <h3 class="card-title text-center mb-3">Add a New Pet</h3>
+                            
+                            <div class="mb-3">
+                                <label for="pet_name" class="form-label">Pet Name:</label>
+                                <input type="text" id="pet_name" name="pet_name" class="form-control" placeholder="Enter pet name" required>
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="pet_breed" class="form-label">Pet Breed:</label>
+                                <input type="text" id="pet_breed" name="pet_breed" class="form-control" placeholder="Enter pet breed" required>
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="pet_age" class="form-label">Pet Age:</label>
+                                <input type="number" id="pet_age" name="pet_age" class="form-control" placeholder="Enter pet age" min="0" required>
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="pet_allergies" class="form-label">Pet Allergies:</label>
+                                <input type="text" id="pet_allergies" name="pet_allergies" class="form-control" placeholder="Enter pet allergies (if any)">
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="pet_other" class="form-label">Additional Information:</label>
+                                <textarea id="pet_other" name="pet_other" class="form-control" rows="2" placeholder="Enter any additional pet information"></textarea>
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="home_vet" class="form-label">Home Vet:</label>
+                                <select id="home_vet" name="home_vet" class="form-select">
+                                    <option value="">Loading favourites...</option>
+                                </select>
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="pet_photo" class="form-label">Upload a Picture of Your Pet:</label>
+                                <input type="file" id="pet_photo" name="pet_photo" class="form-control">
+                            </div>
+                    
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary w-100">Add Pet</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <!-- Button to Show the Form -->
+                    <div class="text-center mt-3">
+                        <button id="newPetButton" class="btn btn-outline-success">Add Another Pet</button>
+                    </div>
+                    
             
              <!-- Separation Div -->
             <div class="col-sm-12 col-md-1"></div>
