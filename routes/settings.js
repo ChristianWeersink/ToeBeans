@@ -23,15 +23,10 @@ router.get('/', (req, res) => {
 //For Theme Retrieval 
 router.get('/gettheme', async (req, res) => {
     const user = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-
-    //debug
-    console.log("Received request for user", user);
     const userId = user.user_id;
-    console.log(userId);
     const selection = "SELECT selected_theme FROM users WHERE user_id = $1";
     const themeResults = await db.query(selection, [userId]);
     if(themeResults.rowCount > 0){
-        console.log(JSON.stringify(themeResults.rows[0]));
         res.json({success: true, theme: themeResults.rows[0]});
     }else{
         res.status(400).json({message: "No user data :(", success: false});

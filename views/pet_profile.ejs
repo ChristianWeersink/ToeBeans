@@ -29,19 +29,111 @@
                                 <p>Pet age: <%= pet.pet_age %></p>
                                 <p>Pet allergies: <%= pet.pet_allergy %></p>
                                 <p>Additional Info: <%= pet.pet_other %></p>
-                                <p>Home vet name: </p>
-                                <p>Home vet contact info: TODO: make a request using the id to get vet info</p>
-                                <input class="edit-pet-btn" type="button" data-pet-id="<%=pet.id %>" data-user-id="<%= pet.user_id %>" value="Edit">
+                                <p>Home vet name: <%= pet.vet_name %></p>
+                                <p>Home vet phone: <%= pet.phone %></p>
+                                <!-- Edit Button Triggers Modal -->
+                                <button class="btn btn-success edit-pet-btn" 
+                                    data-toggle="modal" 
+                                    data-target="#editPetModal"
+                                    data-pet-id="<%= pet.id %>"
+                                    data-pet-name="<%= pet.pet_name %>"
+                                    data-pet-breed="<%= pet.pet_breed %>"
+                                    data-pet-age="<%= pet.pet_age %>"
+                                    data-pet-allergy="<%= pet.pet_allergy %>"
+                                    data-pet-other="<%= pet.pet_other %>"
+                                    data-home-vet-id="<%= pet.pet_homevet_id %>"
+                                    data-home-vet="<%= pet.vet_name %>">Edit
+                                </button>
+
+                                 <!-- Delete Button -->
+                                <button class="btn btn-danger delete-pet-btn"
+                                    data-pet-id="<%= pet.id %>"
+                                    data-pet-photo= <%= pet.pet_photo %>>
+                                    Delete
+                                </button>
                             </div>
-                            <div class="col-lg-4 col-sm-12 photodiv">
-                                <img class="pet_photo" alt="Your Pet Photo" src=<%= pet.pet_photo %>>
-                            </div>
+                            <!-- Pet Photo -->
+                            <% if(pet.pet_photo) { %>
+                                <div class="col-lg-4 col-sm-12 photodiv">
+                                    <img class="pet_photo" alt="Your Pet Photo" src=<%= pet.pet_photo %>>
+                                </div>
+                            <% } %>
+                            
                             
                         </div>
                 
                 <% });}else{ %> 
                     <p>Pets will be displayed here once you add some!</p>
                     <%} %>
+
+
+                    <!-- Edit Pet Modal (Hidden by Default) -->
+                <div class="modal fade" id="editPetModal" tabindex="-1" aria-labelledby="editPetModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editPetModalLabel">Edit Pet</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editPetForm" enctype="multipart/form-data">
+                                    <input type="hidden" id="edit_pet_id"> <!-- Store Pet ID -->
+
+                                    <div class="form-group">
+                                        <label for="edit_pet_name">Pet Name:</label>
+                                        <input type="text" id="edit_pet_name" name="edit_pet_name" class="form-control" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit_pet_breed">Pet Breed:</label>
+                                        <input type="text" id="edit_pet_breed" name="edit_pet_breed" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit_pet_age">Pet Age:</label>
+                                        <input type="number" id="edit_pet_age" name="edit_pet_age" class="form-control" min="0">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit_pet_allergies">Pet Allergies:</label>
+                                        <input type="text" id="edit_pet_allergies" name="edit_pet_allergies" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit_pet_other">Additional Information:</label>
+                                        <textarea id="edit_pet_other" name="edit_pet_other" class="form-control" rows="2"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit_home_vet">Home Vet:</label>
+                                        <select id="edit_home_vet" name="edit_home_vet" class="form-select" value="Loading favourites...">
+                                            <option value="">Loading favourites...</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="edit_pet_photo">Upload a New Pet Picture (Optional):</label>
+                                        <input type="file" id="edit_pet_photo" name="edit_pet_photo" class="form-control">
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <button type="submit" class="btn btn-success w-100">Update Pet</button>
+                                    </div>
+                                    <div id="edit_error_container"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                    <!-- New pet form -->
                     <form hidden id="newPetForm" enctype="multipart/form-data" class="card p-4 shadow-lg mt-4">
                         <div class="card-body">
                             <h3 class="card-title text-center mb-3">Add a New Pet</h3>
@@ -53,12 +145,12 @@
                     
                             <div class="mb-3">
                                 <label for="pet_breed" class="form-label">Pet Breed:</label>
-                                <input type="text" id="pet_breed" name="pet_breed" class="form-control" placeholder="Enter pet breed" required>
+                                <input type="text" id="pet_breed" name="pet_breed" class="form-control" placeholder="Enter pet breed">
                             </div>
                     
                             <div class="mb-3">
                                 <label for="pet_age" class="form-label">Pet Age:</label>
-                                <input type="number" id="pet_age" name="pet_age" class="form-control" placeholder="Enter pet age" min="0" required>
+                                <input type="number" id="pet_age" name="pet_age" class="form-control" placeholder="Enter pet age" min="0">
                             </div>
                     
                             <div class="mb-3">
@@ -84,7 +176,7 @@
                             </div>
                     
                             <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary w-100">Add Pet</button>
+                                <button id="add-pet-button" type="submit" class="btn btn-primary w-100">Add Pet</button>
                             </div>
                         </div>
                     </form>

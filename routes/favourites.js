@@ -7,7 +7,7 @@ const GOOGLE_PLACES_API_KEY = process.env.MAPS_PLATFORM_KEY;
 router.post('/', async (req, res) => {
     // Collect user data from the form
     const {placeId, userId} = req.body;
-    console.log(placeId);
+    console.log("adding to favourites: " +placeId);
     console.log(userId);
     const favouritesQuery = "INSERT INTO favourite_vets (place_id, user_id) VALUES($1, $2)";
     const favouritesResult = await db.query(favouritesQuery, [placeId, userId], (error, result) => {
@@ -94,7 +94,7 @@ router.delete('/', async (req, res) => {
         if (!userId) {
             return res.status(400).json({ success: false, message: "No user ID entered." });
         }
-        console.log(`Fetching favourites for user: ${userId}`);
+        console.log(`Deleting from favourites: UserID: ${userId}, PlaceID: ${placeId}`);
 
         const delFavourites = "DELETE FROM favourite_vets WHERE user_id = $1 AND place_id = $2 RETURNING *";
         const favouritesResult = await db.query(delFavourites, [userId, placeId]);
