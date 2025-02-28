@@ -2,7 +2,7 @@ const { Pool } = require('pg');
 var db;
 try{
     db = new Pool({
-        connectionString: process.env.SUPABASE_URL,
+        connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false },
         max: 10, // 10 concurrent connections
         idleTimeoutMillis: 30000, // ✅ Automatically close idle connections after 30 seconds
