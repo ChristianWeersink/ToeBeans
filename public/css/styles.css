@@ -9,6 +9,7 @@
     border-color: #8fa3a6;
 }
 
+
 html, body {
     font-family: "PT Serif Caption", serif;
     font-weight: 400;
@@ -16,9 +17,10 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    padding: 0;
     height: 100%;
     width: 100%;
-    background-color: #F7FCF7;
+    background-color: #fdfdfd;
 }
 
 
@@ -79,21 +81,28 @@ html, body {
     width: 100%;
 }
 
+
+
 #themebanner {
     transition: background 0.5s ease-in-out;
+    position: absolute;
+    left: 0;
     height: 100px;
-    width: 100%;
+    width: 100vw;
     display: flex;
     justify-content: center;
-    gap: 5px;
     background: linear-gradient(to bottom, #133319, #6B7F82);
-    border-bottom: 1px solid black;
+    border-bottom: 1px dotted #133319;
     color: white;
     margin: 0;
+    padding: 0;
     background-size: auto 100%;
     background-repeat: repeat-x;
     background-position: 0 0;
-    
+}
+
+.infocard {
+    height: 100vh;
 }
 
 
