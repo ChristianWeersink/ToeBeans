@@ -3,7 +3,6 @@
 }
 
 .divboxes {
-    background-color: #DEE3DE;
     border-radius: 5px;
     border-style: double;
     border-color: #8fa3a6;
@@ -26,41 +25,18 @@ html, body {
 
 
 .navbar{
-    background-color: #153D1C !important;
-    border-style: solid;
-    border-top: #133319 !important;
-}
-
-
-.c1 {
-    margin-top: 25px;
-}
-
-.c2 {
-    background-color: #FFFFFF;
-    height: 100vh;
-    border-radius: 25px;
-    margin-top: 20px;
-    border-style: double;
-    border-color: #dee3de;
+    background-color: #f6f9f7 !important;
     
-    box-shadow: 5px 5px 15px #000000;
-    overflow: auto;
-    overflow-x: hidden;
-
 }
 
-.c3 {
-    background-color: #6B7F82;
-    height: 90vh;
-    border-radius: 25px;
-    margin-top: 20px;
-    margin-right: 10px;
-    border-style: double;
-    border-color: #8fa3a6;
-    box-shadow: 5px 5px 7px #000000;
-
+.navbar-nav .nav-link {
+    color: #000000 !important;
 }
+
+.navbar-brand {
+    color: #000000 !important;
+}
+
 
 .middledivs {
     height: 100%;
@@ -70,18 +46,22 @@ html, body {
 .photodiv {
     background-color: #DEE3DE;
     border-radius: 5px;
-    height: 30vh;
-    border-style: double;
-    border-color: #8fa3a6;
     text-align: center;
+    width: auto;
 }
 
-.bottomofscreen {
+.topofscreen {
     display: block;
     width: 100%;
 }
 
+.card-padding {
+    padding-left: 50%;
+}
 
+.list-group-item {
+    min-width: 100%;
+}
 
 #themebanner {
     transition: background 0.5s ease-in-out;
@@ -122,7 +102,6 @@ html, body {
 
 main {
     flex: 1;
-    margin: 10px;
 }
 
 footer {
@@ -148,8 +127,8 @@ footer {
 .photodiv img{
     background-color: #DEE3DE;
     border-radius: 5px;
-    height: 30vh;
-    width:fit-content;
+    height: auto;
+    width: auto;
     border-style: double;
     border-color: #8fa3a6;
     text-align: center;
@@ -162,6 +141,17 @@ footer {
     padding: 10px;
 }
 
+.carousel-item {
+    transition: transform 1s ease-in-out;
+}
+
+
+
+.carousel-item img {
+    height: 600px; 
+    width: 100%; 
+    object-fit: cover; 
+}
 
 
 .full-height {

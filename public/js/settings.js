@@ -47,7 +47,7 @@ async function formatFavourites(userId){
     var favouriteContent = "";
     const { Place } = await google.maps.importLibrary("places");
     if(!favVets) {
-        return `<div>No favourites. Try finding your perfect vet on the <a href="/map">map.</a></div>`
+        return `<div><p>No favourites. Try finding your perfect vet on the <a href="/map">map.</a></p></div>`
     }
     favVets = favVets.favourites;
     
@@ -99,7 +99,7 @@ document.getElementById('favourites').addEventListener('click', async function(e
             const remainingFavourites = document.querySelectorAll('.favVet');
             if (remainingFavourites.length === 0) {
                 document.getElementById('favourites').innerHTML = `
-                    <div>No favourites. Try finding your perfect vet on the <a href="/map">map.</a></div>
+                    <div><p>No favourites. Try finding your perfect vet on the <a href="/map">map.</a></p></div>
                 `;
             }
         } else {

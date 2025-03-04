@@ -1,20 +1,11 @@
 <%- include('includes/header') %>
 
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
         <div class="row">
             
-            <!-- Separation Div -->
-            <div class="col-sm-12 col-md-1"></div>
 
-            <!-- Side Bar Div -->
-            <div class="col-sm-12 col-md-12 col-lg-2 c3 full-height">
-                <div class="divboxes c1">
-                    <h5> Welcome to your pet's profile page! Here you can view and edit information about your pet</h5>
-                </div>
-             </div>
-            
             <!-- Middle Div -->
-            <div class="col-sm-12 col-md-12 col-lg-8 c2">
+            <div class="col-sm-12">
 
                 <div class="d-flex justify-content-center margins">
                     <h1>Pet Profile Page</h1>
@@ -22,15 +13,30 @@
                 <p class="centertext"> Pet Profile Page </p>
                 <% if(pets.length > 0 ){
                     pets.forEach(pet => { %>
-                        <div class="row pet_info">
-                            <div class="col-lg-8 col-sm-12 divboxes">
-                                <p>Pet name: <%= pet.pet_name %></p>
-                                <p>Pet breed: <%= pet.pet_breed %></p>
-                                <p>Pet age: <%= pet.pet_age %></p>
-                                <p>Pet allergies: <%= pet.pet_allergy %></p>
-                                <p>Additional Info: <%= pet.pet_other %></p>
-                                <p>Home vet name: <%= pet.vet_name %></p>
-                                <p>Home vet phone: <%= pet.phone %></p>
+                        <div class="container-fluid my-5 row mx-auto pet_info">
+                            <div class="col-lg-7 col-sm-12 divboxes card mx-auto pt-2 ">
+                                <div class="d-flex flex-wrap align-items-start">
+                                <ul class="list-group w-60 flex-grow-1">
+                                    <li class="list-group-item"><p><b>Pet name:</b> <%= pet.pet_name %></p></li>
+                                    <li class="list-group-item"><p><b>Pet breed:</b> <%= pet.pet_breed %></p></li>
+                                    <li class="list-group-item"><p><b>Pet age:</b> <%= pet.pet_age %></p></li>
+                                    <li class="list-group-item"><p><b>Pet allergies:</b> <%= pet.pet_allergy %></p></li>
+                                    <li class="list-group-item"><p><b>Additional Info:</b> <%= pet.pet_other %></p></li>
+                                    <li class="list-group-item"><p><b>Home vet name:</b> <%= pet.vet_name %></p></li>
+                                    <li class="list-group-item"><p><b>Home vet phone:</b> <%= pet.phone %></p></li>
+                            </ul>
+                            <!-- Pet Photo -->
+                            <% if(pet.pet_photo) { %>
+                                <div class="py-2 col-lg-3 col-sm-12 photodiv divboxes text-center">
+                                    <img class="pet_photo" alt="<%= pet.pet_name%>'s' Photo" src="<%= pet.pet_photo %>">
+                                    <button type="button "class="btn btn-dark QRcode">Click here for your pet's QR Code!</button>
+                                </div>
+                            <% } %>
+
+                            
+                        </div>
+                        <br>
+                        <div class="pb-3">
                                 <!-- Edit Button Triggers Modal -->
                                 <button class="btn btn-success edit-pet-btn" 
                                     data-toggle="modal" 
@@ -45,20 +51,15 @@
                                     data-home-vet="<%= pet.vet_name %>">Edit
                                 </button>
 
-                                 <!-- Delete Button -->
+                                 
                                 <button class="btn btn-danger delete-pet-btn"
                                     data-pet-id="<%= pet.id %>"
-                                    data-pet-photo= <%= pet.pet_photo %>>
+                                    data-pet-photo= "<%= pet.pet_photo %>">
                                     Delete
                                 </button>
-                            </div>
-                            <!-- Pet Photo -->
-                            <% if(pet.pet_photo) { %>
-                                <div class="col-lg-4 col-sm-12 photodiv">
-                                    <img class="pet_photo" alt="Your Pet Photo" src=<%= pet.pet_photo %>>
-                                </div>
-                            <% } %>
                             
+                            </div>
+                            </div>
                             
                         </div>
                 
@@ -184,13 +185,13 @@
                     <!-- Button to Show the Form -->
                     <div class="text-center mt-3">
                         <button id="newPetButton" class="btn btn-outline-success">Add Another Pet</button>
+                        
                     </div>
                     
-            
-             <!-- Separation Div -->
-            <div class="col-sm-12 col-md-1"></div>
              
         </div>
+    
+    </div>
     </div>
 
 

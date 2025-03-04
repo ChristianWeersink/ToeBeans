@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", async () =>{
         } catch (error) {
             console.error("Error " + error);
         }
-});
+}); 
+
 
 function updateThemeBanner(theme) {
     //debug
@@ -36,10 +37,17 @@ function updateThemeBanner(theme) {
         smallpet: { img1: 'img/smallpet_1.png', img2: "img/smallpet_2.png"}
     };
     const banner = document.getElementById("themebanner");
+  
+    const divTheme = document.querySelectorAll(".divboxes");
+    console.log(divTheme); // Should work if elements are added dynamically
+
 
     //debug
     if (!banner) {
         console.error("Banner not found");
+    }
+    if (!divTheme) {
+        console.error("Divs not found!");
     }
     const pics = themes[theme];
 
@@ -58,19 +66,42 @@ function updateThemeBanner(theme) {
 
     if (pics.img1 == "img/dog_1.png") {
         banner.style.backgroundColor = "#89b388";
+        divTheme.forEach(div => {
+            div.style.backgroundColor = "#89b388"
+        })
     }
     else if (pics.img1 == "img/cat_1.png") {
         banner.style.backgroundColor = "#cac2f0"
+        divTheme.forEach(div => {
+            div.style.backgroundColor = "#cac2f0"
+        })
     }
     else if (pics.img1 == "img/fish_1.png") {
         banner.style.backgroundColor = "#a8e8f7"
+        divTheme.forEach(div => {
+            div.style.backgroundColor = "#a8e8f7"
+        })
     }
 
     else if (pics.img1 == "img/bird_1.png") {
         banner.style.backgroundColor = "#f7efa8"
+        divTheme.forEach(div => {
+            div.style.backgroundColor = "#f7efa8"
+        })
     }
 
     else if (pics.img1 == "img/smallpet_1.png") {
         banner.style.backgroundColor = "#fcf0f1"
+        divTheme.forEach(div => {
+            div.style.backgroundColor = "#fcf0f1"
+        })
     }
+
+    else {
+        divTheme.forEach(div => {
+            div.style.backgroundColor = "#DEE3DE"
+        })
+    }
+
+    
 }

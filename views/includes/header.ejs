@@ -12,14 +12,17 @@
     <link rel="icon" type="image/x-icon" href="/toebeanslogo.ico">
     <title><%= title || "ToeBeans" %></title>
 
- 
+    <!-- Preload carousel images -->
+    <link rel="preload" as="image" href="/img/lionelwallace.jpg">
+    <link rel="preload" as="image" href="/img/cloud.jpg">
+    <link rel="preload" as="image" href="/img/jerome.jpg">
 
     
     </head>
     <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">Toebeans Vet Finder</a>
+          
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,17 +31,16 @@
               <li class="nav-item">
                 <a class="nav-link" href="/map">Map</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Navigation
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/profile">Profile</a>
-                  <a class="dropdown-item" href="/pet_profile">Pet Profile</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/settings">Settings</a>
-                </div>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">Profile</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/pet_profile">Pet Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/settings">Settings</a>
+              </li>
+             
               
             </ul>
   
@@ -51,7 +53,7 @@
         </nav>
       <main>
 
-        <div id="themebanner" class="bottomofscreen themebanner">
+        <div id="themebanner" class="topofscreen themebanner">
         
       </div>
       <br><br><br>

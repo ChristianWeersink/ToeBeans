@@ -2,29 +2,21 @@
 
  
 
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
+        <div class="d-flex justify-content-center margins">
         <div class="row">
-            <!-- Separation Div -->
-            <div class="col-sm-12 col-md-1"></div>
 
-            <!-- Side Bar Div -->
-            <div class="col-sm-12 col-md-2 c3">
-                <div class="divboxes c1">
-                    <h5> Welcome to your settings page! </h5>
-                </div>
-            </div>
-
+            <div class="card-deck">
             <!-- Middle Div -->
-            <div class="col-sm-12 col-md-6 c2">
+            <div class="col-lg-12 col-sm-12 card infocard text-center pt-4">
 
-                <div class="d-flex justify-content-center margins">
-                    <h1>User Settings Page</h1>
+                <div>
+                    <h1 class="card-title">User Settings Page</h1>
                 </div>
 
                 <!-- Theme selector -->
-                <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-6 divboxes centertext">
+                <div class="card-body mx-5 pt-4 pb-4 ">
+                    <div class="divboxes">
                         <br>
                         <form action="/settings" method="POST" id="themeform">
                             <label> Select a theme</label> <br>
@@ -43,26 +35,20 @@
                         <p id="errormsg"></p>
                         <br>
                     </div>
-                    <div class="col-3"></div>
-                </div>
-                <br>
-
+<br>
                 <!-- Favourite Vets List -->
-                <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-6 divboxes centertext">
+                
+                    <div class="divboxes">
                         <p> Favourite Vets List </p>
                         <div id="favourites"></div>
                     </div>
-                    <div class="col-3"></div>
                 </div>
                 <br><br><br>
 
                 <!-- Delete Account -->
                 <hr>
-                <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-6 divboxes centertext">
+                <div class="card-body mx-5 yx-5">
+                    <div>
                         <br><br>
                         <p> WARNING! THIS IS PERMANENT </p>
                         <p>
@@ -76,9 +62,9 @@
 
 
             </div>
+            </div>
 
-            <!-- Separation Div -->
-            <div class="col-sm-12 col-md-3"></div>
+        </div>
 
         </div>
     </div>
