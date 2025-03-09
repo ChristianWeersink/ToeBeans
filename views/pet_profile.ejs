@@ -1,52 +1,53 @@
 <%- include('includes/header') %>
 
-    <div class="container-fluid my-5">
-        <div class="row">
-            
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 text-center">
+            <h2 class="mb-4">Pet Profile</h2>
+        </div>
+    </div>
 
-            <!-- Middle Div -->
-            <div class="col-sm-12">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg p-4">
+                <% if (pets.length > 0) { %>
+                    <% pets.forEach(pet => { %>
+                        <div class="card mb-4 p-3 shadow-sm">
+                            <div class="row">
+                                <!-- Pet Details -->
+                                <div class="col-md-8">
+                                    <h4 class="text-primary"><%= pet.pet_name %></h4>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><b>Pet Breed:</b> <%= pet.pet_breed %></li>
+                                        <li class="list-group-item"><b>Pet Age:</b> <%= pet.pet_age %></li>
+                                        <li class="list-group-item"><b>Allergies:</b> <%= pet.pet_allergy || "None" %></li>
+                                        <li class="list-group-item"><b>Additional Info:</b> <%= pet.pet_other || "None" %></li>
+                                        <li class="list-group-item"><b>Home Vet Name:</b> <%= pet.vet_name || "No vet assigned" %></li>
+                                        <li class="list-group-item"><b>Home Vet Phone:</b> <%= pet.phone || "N/A" %></li>
+                                    </ul>
+                                </div>
 
-                <div class="d-flex justify-content-center margins">
-                    <h1>Pet Profile Page</h1>
-                </div>
-                <div class="card card-scroll">
-                <% if(pets.length > 0 ){
-                    pets.forEach(pet => { %>
-                        <div class="container-fluid my-5 row mx-auto pet_info">
-                            <div class="col-lg-7 col-sm-12 divboxes card mx-auto pt-2 ">
-                                <div class="d-flex flex-wrap align-items-start">
-                                <ul class="list-group w-60 flex-grow-1">
-                                    <li class="list-group-item"><p><b>Pet name:</b> <%= pet.pet_name %></p></li>
-                                    <li class="list-group-item"><p><b>Pet breed:</b> <%= pet.pet_breed %></p></li>
-                                    <li class="list-group-item"><p><b>Pet age:</b> <%= pet.pet_age %></p></li>
-                                    <li class="list-group-item"><p><b>Pet allergies:</b> <%= pet.pet_allergy %></p></li>
-                                    <li class="list-group-item"><p><b>Additional Info:</b> <%= pet.pet_other %></p></li>
-                                    <li class="list-group-item"><p><b>Home vet name:</b> <%= pet.vet_name %></p></li>
-                                    <li class="list-group-item"><p><b>Home vet phone:</b> <%= pet.phone %></p></li>
-                            </ul>
-                            <!-- Pet Photo & QR Code Section -->
+                                <!-- Pet Photo & QR Code -->
+                                <div class="col-md-4 text-center">
                                     <% if (pet.pet_photo) { %>
-                                        <div class="py-2 col-lg-3 col-sm-12 photodiv divboxes text-center">
-                                            <img class="pet_photo" alt="<%= pet.pet_name%>'s Photo" src="<%= pet.pet_photo %>">
-
-                                            <!-- Display QR Code -->
-                                            <div class="qr-code-container mt-3">
-                                                <img src="<%= pet.qrCode %>" alt="QR Code for <%= pet.pet_name %>" class="qr-code img-fluid">
-                                            </div>
-
-                                            <!-- Download Button -->
-                                            <button class="btn btn-dark mt-2" onclick="downloadQRCode('<%= pet.qrCode %>', '<%= pet.pet_name %>')">
-                                                Download QR Code
-                                            </button>
-                                        </div>
+                                        <img src="<%= pet.pet_photo %>" class="img-fluid rounded shadow-sm mb-2" alt="Pet Image">
                                     <% } %>
-                        </div>
-                        <br>
-                        <div class="pb-3">
-                                <!-- Edit Button Triggers Modal -->
-                                <button class="btn btn-success edit-pet-btn" 
-                                    data-toggle="modal" 
+
+                                    <!-- QR Code -->
+                                    <div class="qr-code-container mt-3">
+                                        <img src="<%= pet.qrCode %>" alt="QR Code for <%= pet.pet_name %>" class="qr-code img-fluid">
+                                    </div>
+
+                                    <button class="btn btn-dark mt-2" onclick="downloadQRCode('<%= pet.qrCode %>', '<%= pet.pet_name %>')">
+                                        Download QR Code
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Edit & Delete Buttons -->
+                            <div class="text-right mt-3">
+                                <button class="btn btn-success edit-pet-btn"
+                                    data-toggle="modal"
                                     data-target="#editPetModal"
                                     data-pet-id="<%= pet.id %>"
                                     data-pet-name="<%= pet.pet_name %>"
@@ -55,167 +56,137 @@
                                     data-pet-allergy="<%= pet.pet_allergy %>"
                                     data-pet-other="<%= pet.pet_other %>"
                                     data-home-vet-id="<%= pet.pet_homevet_id %>"
-                                    data-home-vet="<%= pet.vet_name %>">Edit
+                                    data-home-vet="<%= pet.vet_name %>">
+                                    Edit
                                 </button>
 
-                                 
                                 <button class="btn btn-danger delete-pet-btn"
                                     data-pet-id="<%= pet.id %>"
-                                    data-pet-photo= "<%= pet.pet_photo %>">
+                                    data-pet-photo="<%= pet.pet_photo %>">
                                     Delete
                                 </button>
-                            
-                            </div>
-                            </div>
-                            
-                        </div>
-                
-                <% });}else{ %> 
-                    <p>Pets will be displayed here once you add some!</p>
-                    <%} %>
-
-                </div>
-                    <!-- Edit Pet Modal (Hidden by Default) -->
-                <div class="modal fade" id="editPetModal" tabindex="-1" aria-labelledby="editPetModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editPetModalLabel">Edit Pet</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="editPetForm" enctype="multipart/form-data">
-                                    <input type="hidden" id="edit_pet_id"> <!-- Store Pet ID -->
-
-                                    <div class="form-group">
-                                        <label for="edit_pet_name">Pet Name:</label>
-                                        <input type="text" id="edit_pet_name" name="edit_pet_name" class="form-control" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="edit_pet_breed">Pet Breed:</label>
-                                        <input type="text" id="edit_pet_breed" name="edit_pet_breed" class="form-control">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="edit_pet_age">Pet Age:</label>
-                                        <input type="number" id="edit_pet_age" name="edit_pet_age" class="form-control" min="0">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="edit_pet_allergies">Pet Allergies:</label>
-                                        <input type="text" id="edit_pet_allergies" name="edit_pet_allergies" class="form-control">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="edit_pet_other">Additional Information:</label>
-                                        <textarea id="edit_pet_other" name="edit_pet_other" class="form-control" rows="2"></textarea>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="edit_home_vet">Home Vet:</label>
-                                        <select id="edit_home_vet" name="edit_home_vet" class="form-select" value="Loading favourites...">
-                                            <option value="">Loading favourites...</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="edit_pet_photo">Upload a New Pet Picture (Optional):</label>
-                                        <input type="file" id="edit_pet_photo" name="edit_pet_photo" class="form-control">
-                                    </div>
-
-                                    <div class="d-flex justify-content-between">
-                                        <button type="submit" class="btn btn-success w-100">Update Pet</button>
-                                    </div>
-                                    <div id="edit_error_container"></div>
-                                </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-                    <!-- New pet form -->
-                    <form hidden id="newPetForm" enctype="multipart/form-data" class="card p-4 shadow-lg mt-4">
-                        <div class="card-body">
-                            <h3 class="card-title text-center mb-3">Add a New Pet</h3>
-                            
-                            <div class="mb-3">
-                                <label for="pet_name" class="form-label">Pet Name:</label>
-                                <input type="text" id="pet_name" name="pet_name" class="form-control" placeholder="Enter pet name" required>
-                            </div>
-                    
-                            <div class="mb-3">
-                                <label for="pet_breed" class="form-label">Pet Breed:</label>
-                                <input type="text" id="pet_breed" name="pet_breed" class="form-control" placeholder="Enter pet breed">
-                            </div>
-                    
-                            <div class="mb-3">
-                                <label for="pet_age" class="form-label">Pet Age:</label>
-                                <input type="number" id="pet_age" name="pet_age" class="form-control" placeholder="Enter pet age" min="0">
-                            </div>
-                    
-                            <div class="mb-3">
-                                <label for="pet_allergies" class="form-label">Pet Allergies:</label>
-                                <input type="text" id="pet_allergies" name="pet_allergies" class="form-control" placeholder="Enter pet allergies (if any)">
-                            </div>
-                    
-                            <div class="mb-3">
-                                <label for="pet_other" class="form-label">Additional Information:</label>
-                                <textarea id="pet_other" name="pet_other" class="form-control" rows="2" placeholder="Enter any additional pet information"></textarea>
-                            </div>
-                    
-                            <div class="mb-3">
-                                <label for="home_vet" class="form-label">Home Vet:</label>
-                                <select id="home_vet" name="home_vet" class="form-select">
-                                    <option value="">Loading favourites...</option>
-                                </select>
-                            </div>
-                    
-                            <div class="mb-3">
-                                <label for="pet_photo" class="form-label">Upload a Picture of Your Pet:</label>
-                                <input type="file" id="pet_photo" name="pet_photo" class="form-control">
-                            </div>
-                    
-                            <div class="d-flex justify-content-between">
-                                <button id="add-pet-button" type="submit" class="btn btn-primary w-100">Add Pet</button>
-                            </div>
-                        </div>
-                    </form>
-                    
-                    <!-- Button to Show the Form -->
-                    <div class="text-center mt-3">
-                        <button id="newPetButton" class="btn btn-outline-success">Add Another Pet</button>
-                        
-                    </div>
-                    
-             
+                    <% }); %>
+                <% } else { %>
+                    <p class="text-center">No pets found. Add your pets below.</p>
+                <% } %>
+            </div>
         </div>
-    
-    </div>
     </div>
 
+    <!-- Add New Pet Form -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <div class="card p-4 shadow-lg">
+                
+                    <div class="text-center">
+                        <button id="newPetButton" class="btn btn-outline-success">Add Another Pet</button>
+                    </div>
+                <form hidden id="newPetForm" enctype="multipart/form-data">
+                    <h3 class="card-title text-center mb-3">Add a New Pet</h3>
+                    
+                    <div class="form-group">
+                        <label for="pet_name">Pet Name:</label>
+                        <input type="text" id="pet_name" name="pet_name" class="form-control" required>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="pet_breed">Pet Breed:</label>
+                        <input type="text" id="pet_breed" name="pet_breed" class="form-control">
+                    </div>
 
-    
+                    <div class="form-group">
+                        <label for="pet_age">Pet Age:</label>
+                        <input type="number" id="pet_age" name="pet_age" class="form-control" min="0">
+                    </div>
 
+                    <div class="form-group">
+                        <label for="pet_allergies">Pet Allergies:</label>
+                        <input type="text" id="pet_allergies" name="pet_allergies" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pet_other">Additional Info:</label>
+                        <textarea id="pet_other" name="pet_other" class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="home_vet">Home Vet:</label>
+                        <select id="home_vet" name="home_vet" class="form-select">
+                            <option value="">Loading favourites...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pet_photo">Upload a Pet Photo:</label>
+                        <input type="file" id="pet_photo" name="pet_photo" class="form-control">
+                    </div>
+
+                    <button id="add-pet-button" type="submit" class="btn btn-primary w-100">Add Pet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ✅ Edit Pet Modal (Fully Restored) -->
+<div class="modal fade" id="editPetModal" tabindex="-1" aria-labelledby="editPetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPetModalLabel">Edit Pet</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editPetForm" enctype="multipart/form-data">
+                    <input type="hidden" id="edit_pet_id">
+
+                    <div class="form-group">
+                        <label for="edit_pet_name">Pet Name:</label>
+                        <input type="text" id="edit_pet_name" name="edit_pet_name" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_pet_breed">Pet Breed:</label>
+                        <input type="text" id="edit_pet_breed" name="edit_pet_breed" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_pet_age">Pet Age:</label>
+                        <input type="number" id="edit_pet_age" name="edit_pet_age" class="form-control" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_pet_allergies">Pet Allergies:</label>
+                        <input type="text" id="edit_pet_allergies" name="edit_pet_allergies" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_pet_other">Additional Info:</label>
+                        <textarea id="edit_pet_other" name="edit_pet_other" class="form-control" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_home_vet">Home Vet:</label>
+                        <select id="edit_home_vet" name="edit_home_vet" class="form-select">
+                            <option value="">Loading favourites...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_pet_photo">Upload a New Pet Photo:</label>
+                        <input type="file" id="edit_pet_photo" name="edit_pet_photo" class="form-control">
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Update Pet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/js/pet_profile.js"></script>
 
-<script>
-    function downloadQRCode(qrCodeUrl, petName) {
-        const link = document.createElement("a");
-        link.href = qrCodeUrl;
-        link.download = `${petName}_QR_Code.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-</script>
 <%- include('includes/footer') %>

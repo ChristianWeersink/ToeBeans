@@ -20,6 +20,7 @@ document.getElementById("sign_in").addEventListener
     if(!isValid){
         console.log("error");
         errormsg.innerHTML = message;
+        errormsg.classList.remove("d-none");
     }
 
     else {
@@ -40,6 +41,7 @@ document.getElementById("sign_in").addEventListener
             }
             else {
                 errormsg.innerHTML= formrslt.message;
+                errormsg.classList.remove("d-none");
                 
             }
         }

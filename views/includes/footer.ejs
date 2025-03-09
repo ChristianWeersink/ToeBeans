@@ -5,9 +5,7 @@
 
     <footer>
         <hr>
-        <br>
     <p class="alignitright"><a  href="/terms">Terms and Conditions</a> | <a  href="/cookies">Cookie Policy</a></p>
-<br>
 <p class="footercenter text-muted">Copyright &copy; Christina Jackson & Christian Weersink 2025</p>
 </footer>
     <!-- Font awesome -->
@@ -26,13 +24,19 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
           if (getCookie("user") != null) {
-              // Show sign up link, hide sign in link
+              // Show sign out link, hide sign in link
               document.getElementById("signUpLink").style.display = "block";
               document.getElementById("signInLink").style.display = "none";
+              document.getElementById("profile").style.display = "block";
+              document.getElementById("pet_profile").style.display = "block";
+              document.getElementById("settings").style.display = "block";
           } else {
               // Show sign in link, hide sign up link
               document.getElementById("signUpLink").style.display = "none";
               document.getElementById("signInLink").style.display = "block";
+              document.getElementById("profile").style.display = "none";
+              document.getElementById("pet_profile").style.display = "none";
+              document.getElementById("settings").style.display = "none";
           }
         });
       </script>

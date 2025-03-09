@@ -8,6 +8,7 @@ document.getElementById("signupform").addEventListener
     const username = document.getElementById('username').value;
     const userpass = document.getElementById('userpass').value;
     const errormsg = document.getElementById("errormsg");
+    errormsg.classList.add("d-none");
     let isValid = true;
     let message = "";
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,7 +41,9 @@ document.getElementById("signupform").addEventListener
     }
 
     if(!isValid){
+        console.log(message);
         errormsg.innerHTML = message;
+        errormsg.classList.remove("d-none");
     }
 
     else {
@@ -55,12 +58,19 @@ document.getElementById("signupform").addEventListener
             const formrslt = await res.json();
             //Sign up is successful
             if (formrslt.success) {
+                
+                errormsg.classList.remove("d-none");
+                errormsg.classList.remove("alert-danger");
+                errormsg.classList.add("alert-success");
                 errormsg.innerHTML = formrslt.message;
                 document.getElementById("signupform").reset();
+                setTimeout(() => {
+                    window.location.href = "/sign_in";
+                }, 2000);
             }
             else {
                 errormsg.innerHTML= formrslt.message;
-                
+                errormsg.classList.remove("d-none");
             }
         }
         catch (error) {

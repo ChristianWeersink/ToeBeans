@@ -29,12 +29,12 @@ function updateThemeBanner(theme) {
     console.log("Theme function", theme);
 
     const themes = {
-        default: { img1: "img/transparent.png", img2: "img/transparent.png"},
-        dog: { img1: 'img/dog_1.png', img2: "img/dog_2.png"},
-        cat: { img1: 'img/cat_1.png', img2: "img/cat_2.png"},
-        fish: { img1: 'img/fish_1.png', img2: "img/fish_2.png"},
-        bird: { img1: 'img/bird_1.png', img2: "img/bird_2.png"},
-        smallpet: { img1: 'img/smallpet_1.png', img2: "img/smallpet_2.png"}
+        default: { img1: "/img/transparent.png", img2: "/img/transparent.png"},
+        dog: { img1: '/img/dog_1.png', img2: "/img/dog_2.png"},
+        cat: { img1: '/img/cat_1.png', img2: "/img/cat_2.png"},
+        fish: { img1: '/img/fish_1.png', img2: "/img/fish_2.png"},
+        bird: { img1: '/img/bird_1.png', img2: "/img/bird_2.png"},
+        smallpet: { img1: '/img/smallpet_1.png', img2: "/img/smallpet_2.png"}
     };
     const banner = document.getElementById("themebanner");
   

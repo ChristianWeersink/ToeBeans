@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
         const pet_other = document.getElementById("pet_other").value;
         const pet_homevet_id = document.getElementById("home_vet").value;
         const pet_photo = document.getElementById("pet_photo").files[0]; // Get file
-        console.log("Selected homevet id: "+pet_homevet_id);
+        console.log("Selected pet allergy id: "+ pet_allergy);
         // Simple Validation
         const errors = [];
 
@@ -136,7 +136,7 @@ async function loadFavourites(userId, selectedVetId = "") {
             // Add "None" option
             const noneOption = document.createElement("option");
             noneOption.value = "";
-            noneOption.textContent = "None";
+            noneOption.innerHTML = "None";
             homeVetDropdown.appendChild(noneOption);
             editVetDropdown.appendChild(noneOption);
 

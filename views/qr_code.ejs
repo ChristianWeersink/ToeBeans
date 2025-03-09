@@ -75,23 +75,7 @@
                         <% if (vet.address) { %>
                             <div><strong>Address:</strong> <%= vet.address %></div>
                         <% } %>
-                        <div id="vetMap" style="height: 300px; width: 100%;"></div>
-                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3an3cMi9r5yYxWfFeb1I6VzPOrkrlzgM&amp;callback=initMap&amp;libraries=places,marker,geometry&loading=async" async="true" defer="true"></script>
-                        <script>
-                            function initMap() {
-                                var vetLocation = { lat: <%= vet.location.lat %>, lng: <%= vet.location.lng %> };
-                                var map = new google.maps.Map(document.getElementById("vetMap"), {
-                                    zoom: 15,
-                                    center: vetLocation
-                                });
-                                new google.maps.Marker({
-                                    position: vetLocation,
-                                    map: map
-                                });
-                            }
-                        </script>
-                        
-                
+                        <div id="vetMap" style="height: 300px; width: 100%;"></div>       
                 
                     <% } %>
                 <% } else { %>
@@ -111,3 +95,18 @@
 </div>
 
 <%- include('includes/footer') %>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3an3cMi9r5yYxWfFeb1I6VzPOrkrlzgM&amp;callback=initVetMap&amp;libraries=places,marker,geometry&loading=async" async="true" defer="true"></script>
+                        <script>
+                            function initVetMap() {
+                                var vetLocation = { lat: <%= vet.location.lat %>, lng: <%= vet.location.lng %> };
+                                var map = new google.maps.Map(document.getElementById("vetMap"), {
+                                    zoom: 15,
+                                    center: vetLocation
+                                });
+                                new google.maps.Marker({
+                                    position: vetLocation,
+                                    map: map
+                                });
+                            }
+                        </script>

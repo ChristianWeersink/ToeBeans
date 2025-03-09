@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
             petinfo = await fetchVetName(pet.pet_homevet_id);
             pet.vet_name = petinfo.name;
             pet.phone = petinfo.phone;
-            const qrCodeUrl = await QRCode.toDataURL(`https://toebeans.onrender.com/pet/${pet.id}`);
+            const qrCodeUrl = await QRCode.toDataURL(`https://toebeans.onrender.com/qr_code/${pet.id}`);
             pet.qrCode = qrCodeUrl;
         }
 
@@ -51,7 +51,7 @@ router.get('/', async (req, res) => {
 // Add pet
 router.post('/', upload.single('pet_photo'), async (req, res) => {
     try {
-        const { pet_name, pet_breed, pet_age, pet_allergies, pet_other, pet_homevet_id, user_id } = req.body;
+        const { pet_name, pet_breed, pet_age, pet_allergy, pet_other, pet_homevet_id, user_id } = req.body;
         let pet_photo_url = null;
 
         // Check if file exists
@@ -83,7 +83,7 @@ router.post('/', upload.single('pet_photo'), async (req, res) => {
             RETURNING *;
         `;
 
-        const values = [user_id, pet_name, pet_breed, pet_age, pet_allergies, pet_other, pet_homevet_id, pet_photo_url];
+        const values = [user_id, pet_name, pet_breed, pet_age, pet_allergy, pet_other, pet_homevet_id, pet_photo_url];
         await db.query(insertQuery, values);
 
         res.status(201).json({ message: "Pet added successfully!", pet_photo_url });
