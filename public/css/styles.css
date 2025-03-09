@@ -20,23 +20,115 @@ html, body {
     height: 100%;
     width: 100%;
     background-color: #fdfdfd;
+    overflow-x: hidden;
 }
 
 
+.remove_hbar {
+    overflow-x: auto;
+    scrollbar-width: none;
+}
 
-.navbar{
-    background-color: #f6f9f7 !important;
-    
+.remove_hbar::-webkit-scrollbar {
+    display: none;
+}
+
+.remove_vbar {
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+
+.card-scroll {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.navbar {
+    background-size: cover;
+    background-position: center;
+    transition: background 0.5s ease-in-out;
+    padding-left: 0;
+    padding-right: 0;
+    height: 150px !important;
+    width: 100vw;
+    display: flex;
+    position: relative;
+}
+
+.nbar_centre a{
+    position: absolute;
+    left: 50%;
+    top: 0%;
+    transform: translateX(-50%);
+    color: #173202;
+    font-size: 450%;
+}
+
+.nbar_centre a:hover {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0);
+    text-decoration: none;
+    text-shadow: -2px -2px 2px rgb(46, 46, 46), 2px -2px 2px rgb(46, 46, 46), -2px 2px 2px rgb(46, 46, 46), 2px 2px 2px rgb(46, 46, 46);
+}
+
+.nbar_logo {
+    height: 150px;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.nbar_navs {
+    height: 100px;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 1px;
+    height: 100%;
+    margin-top: auto;
+    padding-left: 0;
+    margin: 0;
+    list-style: none !important;
+}
+
+.nav-item {
+    margin: 0;
+    padding: 0;
+    list-style: none !important;
+}
+
+.nav-link {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
 }
 
 .navbar-nav .nav-link {
     color: #000000 !important;
 }
 
+.navbar-nav .nav-link:hover {
+    color: #000000 !important;
+    background-color: #f5fcf933;
+}
+
 .navbar-brand {
     color: #000000 !important;
 }
 
+a {
+    color: #0e2512;
+}
+
+a:hover {
+    color:#03571A;
+}
 
 .middledivs {
     height: 100%;
@@ -65,14 +157,13 @@ html, body {
 
 #themebanner {
     transition: background 0.5s ease-in-out;
-    position: absolute;
+    position: sticky;
     left: 0;
     height: 100px;
     width: 100vw;
     display: flex;
     justify-content: center;
     background: linear-gradient(to bottom, #133319, #6B7F82);
-    border-bottom: 1px dotted #133319;
     color: white;
     margin: 0;
     padding: 0;

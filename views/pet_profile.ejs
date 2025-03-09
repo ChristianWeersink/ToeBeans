@@ -10,7 +10,7 @@
                 <div class="d-flex justify-content-center margins">
                     <h1>Pet Profile Page</h1>
                 </div>
-                <p class="centertext"> Pet Profile Page </p>
+                <div class="card card-scroll">
                 <% if(pets.length > 0 ){
                     pets.forEach(pet => { %>
                         <div class="container-fluid my-5 row mx-auto pet_info">
@@ -74,7 +74,7 @@
                     <p>Pets will be displayed here once you add some!</p>
                     <%} %>
 
-
+                </div>
                     <!-- Edit Pet Modal (Hidden by Default) -->
                 <div class="modal fade" id="editPetModal" tabindex="-1" aria-labelledby="editPetModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">

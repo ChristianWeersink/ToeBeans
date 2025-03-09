@@ -71,7 +71,7 @@ function updateThemeBanner(theme) {
         })
     }
     else if (pics.img1 == "img/cat_1.png") {
-        banner.style.backgroundColor = "#cac2f0"
+        banner.style.backgroundColor = "##cac2f0"
         divTheme.forEach(div => {
             div.style.backgroundColor = "#cac2f0"
         })
