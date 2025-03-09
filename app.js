@@ -29,6 +29,7 @@ const userSettingsRoutes = require('./routes/settings');
 const signInRoutes = require('./routes/sign_in');
 const signOutRoutes = require('./routes/sign_out');
 const favouritesRoutes = require('./routes/favourites');
+const qrRoutes = require('./routes/qr_code');
 // Use routes
 app.use('/', indexRoutes); // when / is loaded (the home page of the website) it uses the index.js route set up in /routes
 app.use('/sign_up', signUpRoutes);
@@ -40,8 +41,22 @@ app.use('/settings', userSettingsRoutes);
 app.use('/sign_in', signInRoutes);
 app.use('/sign_out',  signOutRoutes);
 app.use('/favourites', favouritesRoutes);
+app.use('/qr_code', qrRoutes);
+
+
+
+
+
+
+
+// Handle 404 Errors (This MUST be placed at the bottom)
+app.use((req, res) => {
+  res.status(404).render("404", { title: "Page Not Found" });
+});
+
 
 // Start the server
 app.listen(process.env.PORT, () => {
   console.log(`Server is running at http://localhost:${process.env.PORT}`);
 });
+

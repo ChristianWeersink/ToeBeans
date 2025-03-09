@@ -25,15 +25,22 @@
                                     <li class="list-group-item"><p><b>Home vet name:</b> <%= pet.vet_name %></p></li>
                                     <li class="list-group-item"><p><b>Home vet phone:</b> <%= pet.phone %></p></li>
                             </ul>
-                            <!-- Pet Photo -->
-                            <% if(pet.pet_photo) { %>
-                                <div class="py-2 col-lg-3 col-sm-12 photodiv divboxes text-center">
-                                    <img class="pet_photo" alt="<%= pet.pet_name%>'s' Photo" src="<%= pet.pet_photo %>">
-                                    <button type="button "class="btn btn-dark QRcode">Click here for your pet's QR Code!</button>
-                                </div>
-                            <% } %>
+                            <!-- Pet Photo & QR Code Section -->
+                                    <% if (pet.pet_photo) { %>
+                                        <div class="py-2 col-lg-3 col-sm-12 photodiv divboxes text-center">
+                                            <img class="pet_photo" alt="<%= pet.pet_name%>'s Photo" src="<%= pet.pet_photo %>">
 
-                            
+                                            <!-- Display QR Code -->
+                                            <div class="qr-code-container mt-3">
+                                                <img src="<%= pet.qrCode %>" alt="QR Code for <%= pet.pet_name %>" class="qr-code img-fluid">
+                                            </div>
+
+                                            <!-- Download Button -->
+                                            <button class="btn btn-dark mt-2" onclick="downloadQRCode('<%= pet.qrCode %>', '<%= pet.pet_name %>')">
+                                                Download QR Code
+                                            </button>
+                                        </div>
+                                    <% } %>
                         </div>
                         <br>
                         <div class="pb-3">
@@ -200,4 +207,15 @@
 
 
 <script src="/js/pet_profile.js"></script>
+
+<script>
+    function downloadQRCode(qrCodeUrl, petName) {
+        const link = document.createElement("a");
+        link.href = qrCodeUrl;
+        link.download = `${petName}_QR_Code.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
 <%- include('includes/footer') %>

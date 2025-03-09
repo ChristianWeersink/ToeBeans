@@ -1,24 +1,113 @@
 <%- include('includes/header') %>
-<div class="container-fluid my-5">
-    <div class="row">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4 shadow-lg">
+                <h2 class="text-center">User Profile</h2>
+                <div id="messageBox" class="alert d-none"></div>
 
-    <h1> Temp User Query Test Page </h1>
+                <form id="editProfileForm">
+                    <input type="hidden" id="user_id" value="<%= user.user_id %>">
 
-    <h3> List of Users </h3>
-    <ul>
-        <% users.forEach(user => { %>
-        <li><%= user.user_name %> | <%= user.user_phone %> | <%= user.user_email %> | <%= user.isname_public %> | <%= user.isphone_public %> | <%= user.isemail_public %> | <%= user.user_id %> | <%= user.selected_theme %></li>
-    <% }); %>
-    </ul>
-</div></div>
-    <p id="user"></p>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const user = getCookie("user");
-            console.log(user);
-            document.getElementById("user").innerHTML = "Welcome " + user.user_name; 
-        });
-    </script>
+                    <div class="mb-3">
+                        <label for="user_name" class="form-label">Name:</label>
+                        <input type="text" id="user_name" name="user_name" class="form-control" value="<%= user.user_name %>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="user_phone" class="form-label">Phone:</label>
+                        <input type="text" id="user_phone" name="user_phone" class="form-control" value="<%= user.user_phone %>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="user_email" class="form-label">Email:</label>
+                        <input type="email" id="user_email" name="user_email" class="form-control" value="<%= user.user_email %>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Show name on QR code:</label>
+                        <select id="isname_public" name="isname_public" class="form-select">
+                            <option value="true" <%= user.isname_public ? "selected" : "" %>>Yes</option>
+                            <option value="false" <%= !user.isname_public ? "selected" : "" %>>No</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Show phone on QR code:</label>
+                        <select id="isphone_public" name="isphone_public" class="form-select">
+                            <option value="true" <%= user.isphone_public ? "selected" : "" %>>Yes</option>
+                            <option value="false" <%= !user.isphone_public ? "selected" : "" %>>No</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Show email on QR code:</label>
+                        <select id="isemail_public" name="isemail_public" class="form-select">
+                            <option value="true" <%= user.isemail_public ? "selected" : "" %>>Yes</option>
+                            <option value="false" <%= !user.isemail_public ? "selected" : "" %>>No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const editProfileForm = document.getElementById("editProfileForm");
+    const messageBox = document.getElementById("messageBox");
+
+    editProfileForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const userId = document.getElementById("user_id").value;
+        const formData = {
+            user_name: document.getElementById("user_name").value.trim(),
+            user_phone: document.getElementById("user_phone").value.trim(),
+            user_email: document.getElementById("user_email").value.trim(),
+            isname_public: document.getElementById("isname_public").value === "true",
+            isphone_public: document.getElementById("isphone_public").value === "true",
+            isemail_public: document.getElementById("isemail_public").value === "true",
+        };
+
+        try {
+            const response = await fetch(`/profile/${userId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                messageBox.className = "alert alert-success";
+                messageBox.textContent = "Profile updated successfully!";
+                messageBox.classList.remove("d-none");
+
+                setTimeout(() => {
+                    messageBox.classList.add("d-none");
+                }, 3000);
+            } else {
+                messageBox.className = "alert alert-danger";
+                messageBox.textContent = "Failed to update profile: " + result.message;
+                messageBox.classList.remove("d-none");
+            }
+        } catch (error) {
+            console.error("Error updating profile:", error);
+            messageBox.className = "alert alert-danger";
+            messageBox.textContent = "An error occurred while updating the profile.";
+            messageBox.classList.remove("d-none");
+        }
+    });
+});
+</script>
     
 
 <%- include('includes/footer') %>

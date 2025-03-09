@@ -7,7 +7,7 @@ const supabase = require('../config/supaBaseClient');
 const upload = multer({ dest: 'uploads/' }); // handle file uploads temporarily
 const GOOGLE_PLACES_API_KEY = process.env.MAPS_PLATFORM_KEY;
 const axios = require('axios'); // To call Google Places API
-
+const QRCode = require("qrcode");
 
 // Route for the homepage
 router.get('/', async (req, res) => {
@@ -34,6 +34,8 @@ router.get('/', async (req, res) => {
             petinfo = await fetchVetName(pet.pet_homevet_id);
             pet.vet_name = petinfo.name;
             pet.phone = petinfo.phone;
+            const qrCodeUrl = await QRCode.toDataURL(`https://toebeans.onrender.com/pet/${pet.id}`);
+            pet.qrCode = qrCodeUrl;
         }
 
         res.render('pet_profile', { title, pets });

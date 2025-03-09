@@ -1,0 +1,113 @@
+<%- include('includes/header') %>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <% if (pet) { %> <!-- Check if pet exists -->
+            
+            <div class="card p-4 shadow-lg">
+                <h2 class="text-center"><%= pet.pet_name %>'s Information</h2>
+
+                <div class="mb-3">
+                    <strong>Pet Breed:</strong> <%= pet.pet_breed %>
+                </div>
+                <div class="mb-3">
+                    <strong>Pet Age:</strong> <%= pet.pet_age %>
+                </div>
+                <div class="mb-3">
+                    <strong>Allergies:</strong> <%= pet.pet_allergy || "None" %>
+                </div>
+                <div class="mb-3">
+                    <strong>Additional Info:</strong> <%= pet.pet_other || "None" %>
+                </div>
+
+                <% if (pet.pet_photo) { %>
+                    <div class="text-center">
+                        <img src="<%= pet.pet_photo %>" class="img-fluid rounded shadow-sm" style="max-height: 300px;">
+                    </div>
+                <% } %>
+
+                <hr>
+
+                <h3>Owner Information</h3>
+                <% if (pet.isname_public) { %>
+                    <div><strong>Name:</strong> <%= pet.user_name %></div>
+                <% } %>
+                <% if (pet.isphone_public) { %>
+                    <div><strong>Phone:</strong> <%= pet.user_phone %></div>
+                <% } %>
+                
+                <% if (pet.isemail_public) { %>
+                    <div><strong>Email:</strong> <%= pet.user_email %></div>
+                <% } %>
+                <% if (pet.isphone_public) { %>
+                    <a href="tel:<%= pet.user_phone %>" class="btn btn-success w-100 mt-2">Call Owner</a>
+                <% } %>
+                <% if (pet.isphone_public) { %>
+                    <a href="sms:<%= pet.user_phone %>" class="btn btn-info w-100 mt-2">Text Owner</a>
+                <% } %>
+                
+                <hr>
+
+                <% if (vet) { %>
+                    <h3>Veterinary Information</h3>
+                    <div><strong>Vet Name:</strong> <%= vet.name %></div>
+                    <div><strong>Phone:</strong> <%= vet.phone || "Not Available" %></div>
+                    <% if (vet.opening_hours.weekday_text && vet.opening_hours.weekday_text.length > 0) { %>
+                        <div><strong>Opening Hours:</strong>
+                            <ul>
+                                <% vet.opening_hours.weekday_text.forEach(hour => { %>
+                                    <li><%= hour %></li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                    <% } else { %>
+                        <div><strong>Opening Hours:</strong> No Info Available</div>
+                    <% } %>
+                
+                    <% if (vet.website) { %>
+                        <div><strong>Website:</strong> <a href="<%= vet.website %>" target="_blank"><%= vet.website %></a></div>
+                    <% } %>
+                
+                    <!-- Embed Google Map -->
+                    <% if (vet.location) { %>
+                        <h4>Vet Location:</h4>
+                        <% if (vet.address) { %>
+                            <div><strong>Address:</strong> <%= vet.address %></div>
+                        <% } %>
+                        <div id="vetMap" style="height: 300px; width: 100%;"></div>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3an3cMi9r5yYxWfFeb1I6VzPOrkrlzgM&amp;callback=initMap&amp;libraries=places,marker,geometry&loading=async" async="true" defer="true"></script>
+                        <script>
+                            function initMap() {
+                                var vetLocation = { lat: <%= vet.location.lat %>, lng: <%= vet.location.lng %> };
+                                var map = new google.maps.Map(document.getElementById("vetMap"), {
+                                    zoom: 15,
+                                    center: vetLocation
+                                });
+                                new google.maps.Marker({
+                                    position: vetLocation,
+                                    map: map
+                                });
+                            }
+                        </script>
+                        
+                
+                
+                    <% } %>
+                <% } else { %>
+                    <h3>No Vet Information Available</h3>
+                <% } %>
+            </div>
+
+            <% } else { %> <!-- Display Not Found Message -->
+            <div class="alert alert-danger text-center p-4">
+                <h2>Pet Not Found</h2>
+                <p>The pet you are looking for does not exist or has been removed.</p>
+                <a href="/" class="btn btn-primary mt-3">Return to Home</a>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<%- include('includes/footer') %>

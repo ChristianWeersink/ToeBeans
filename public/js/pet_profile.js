@@ -258,4 +258,6 @@ document.querySelectorAll(".delete-pet-btn").forEach(button => {
             alert("An error occurred while deleting the pet.");
         }
     });
+
+    
 });
