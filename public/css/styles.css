@@ -73,7 +73,7 @@ html, body {
 }
 
 .nbar_logo {
-    height: 150px;
+    height:100px;
     width: auto;
     padding: 0;
     margin: 0;
@@ -254,7 +254,9 @@ footer {
         min-height: auto; /* Let content dictate height */
         height: auto;
     }
-
-
     
 }
+
+ul {
+    list-style-type: none;
+  }
