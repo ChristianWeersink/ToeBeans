@@ -259,4 +259,7 @@ footer {
 
 ul {
     list-style-type: none;
-  }
+}
+#navbarSupportedContent {
+    z-index: 10000;
+}
