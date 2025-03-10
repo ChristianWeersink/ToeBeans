@@ -130,7 +130,6 @@
     </div>
 </div>
 
-<!-- ✅ Edit Pet Modal (Fully Restored) -->
 <div class="modal fade" id="editPetModal" tabindex="-1" aria-labelledby="editPetModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -188,5 +187,16 @@
 </div>
 
 <script src="/js/pet_profile.js"></script>
+
+<script>
+    function downloadQRCode(qrCodeUrl, petName) {
+        const link = document.createElement("a");
+        link.href = qrCodeUrl;
+        link.download = `${petName}_QR_Code.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
 
 <%- include('includes/footer') %>
