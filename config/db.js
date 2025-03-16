@@ -5,8 +5,8 @@ try{
         connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false },
         max: 10, // 10 concurrent connections
-        idleTimeoutMillis: 30000, // ✅ Automatically close idle connections after 30 seconds
-        connectionTimeoutMillis: 5000 // ✅ Timeout if connection takes too long
+        idleTimeoutMillis: 30000, // Automatically close idle connections after 30 seconds
+        connectionTimeoutMillis: 5000 // Timeout if connection takes too long
     });
 }
 catch(error){
