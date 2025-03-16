@@ -5,7 +5,7 @@ const db = require('../config/db');
 // Route for the homepage
 router.get('/', async (req, res) => {
     try {
-        // ✅ Step 1: Retrieve `user_id` from cookies
+        // Retrieve `user_id` from cookies
         const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
         if (!userCookie || !userCookie.user_id) {
             return res.redirect("/sign_in"); // Redirect if user is not logged in
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         const userId = userCookie.user_id;
         const title = "Profile";
 
-        // ✅ Step 2: Query the database for user details
+        // Query the database for user details
         const userQuery = "SELECT * FROM users WHERE user_id = $1";
         const result = await db.query(userQuery, [userId]);
 
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
             return res.status(404).send("User not found.");
         }
 
-        // ✅ Step 3: Render the profile page with user data
+        // Render the profile page with user data
         res.render('profile', { title, user: result.rows[0] });
 
     } catch (error) {

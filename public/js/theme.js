@@ -64,33 +64,33 @@ function updateThemeBanner(theme) {
     banner.style.backgroundPosition = "0 0, 30% 0";
     banner.style.backgroundRepeat = "repeat-x";
 
-    if (pics.img1 == "img/dog_1.png") {
+    if (pics.img1 == "/img/dog_1.png") {
         banner.style.backgroundColor = "#89b388";
         divTheme.forEach(div => {
             div.style.backgroundColor = "#89b388"
         })
     }
-    else if (pics.img1 == "img/cat_1.png") {
-        banner.style.backgroundColor = "##cac2f0"
+    else if (pics.img1 == "/img/cat_1.png") {
+        banner.style.backgroundColor = "#cac2f0"
         divTheme.forEach(div => {
             div.style.backgroundColor = "#cac2f0"
         })
     }
-    else if (pics.img1 == "img/fish_1.png") {
+    else if (pics.img1 == "/img/fish_1.png") {
         banner.style.backgroundColor = "#a8e8f7"
         divTheme.forEach(div => {
             div.style.backgroundColor = "#a8e8f7"
         })
     }
 
-    else if (pics.img1 == "img/bird_1.png") {
+    else if (pics.img1 == "/img/bird_1.png") {
         banner.style.backgroundColor = "#f7efa8"
         divTheme.forEach(div => {
             div.style.backgroundColor = "#f7efa8"
         })
     }
 
-    else if (pics.img1 == "img/smallpet_1.png") {
+    else if (pics.img1 == "/img/smallpet_1.png") {
         banner.style.backgroundColor = "#fcf0f1"
         divTheme.forEach(div => {
             div.style.backgroundColor = "#fcf0f1"
