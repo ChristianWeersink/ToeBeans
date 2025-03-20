@@ -1,32 +1,82 @@
 <%- include('includes/header') %>
 
-<div class="container-fluid my-5">
-  <!-- First Row: Main Card with Carousel -->
+<div class="container-fluid my-5 ">
+
+    <!-- First Row: Welcome Message and Navigation Instructions -->
+     
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-8 ">
+        <div class="card jumbotron">
+          <div class="card-body text-center">
+            <h4 class="card-text">Welcome to the Toebeans Vet Finder website!</h4>
+          </div>
+          <div class=" justify-content-center">
+            <p>Thanks for visiting our Capstone Project! We are a small team of two programmers who love animals and are excited to bring this idea to life! </p><br>
+            
+            <div class="d-flex justify-content-center margins">
+            
+            <div class="card card-body ">
+            <h5 class="text-center">Toebeans Vet Finder is a resource for all pet owners. </h5> <br>
+            <ul class="justifiedList">
+              <li class="listDecoration"> Use the <a class="linkunderline" href="/map">map</a> to search vets in your area and see their address, open hours, contact info, and more!</li>
+              <li class="listDecoration"> Create an account via the sign-up link <a class="linkunderline" href="/sign_up">here</a> to save your favourite vets, and upload your pet's profile! </li>
+              <li class="listDecoration"> Select your account theme on the <a class="linkunderline" href="/settings">settings</a> page and show off your favourite pets!</li>
+              <li class="listDecoration"> Print a QR code from the <a class="linkunderline" href="/pet_profile">Pet Profile</a> page for your pet and affix it to their collar, harness, or leash!</li>
+            </ul>
+          </div>
+          </div></div>
+          
+        </div>
+      </div>
+    </div>
+    <br>
+  <!-- Second Row: Carousel -->
   <div class="row justify-content-center">
     <div class="col-lg-8">
       <div class="card">
         <div class="card-body text-center">
-          <h1 class="card-title">Toebeans Vet Finder</h1>
+          <h1 class="card-title">Pets of the Toebeans Family!</h1>
         </div>
-        <!-- Carousel -->
-        <div id="petCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <!-- Carousel carousel-fade-->
+        <div id="petCarousel" class="carousel slide">
           <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item active text-center">
               <img class="d-block w-100" src="/img/lionelwallace.jpg" alt="Two rats coming out of their cage">
+              
+                <h5 class="mt-3"> Lionel and Wallace </h5>
+              
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item text-center">
               <img class="d-block w-100" src="/img/cloud.jpg" alt="Sleeping grey cat">
+                <h5 class="mt-3"> Cloud </h5>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item text-center">
               <img class="d-block w-100" src="/img/jerome.jpg" alt="Brown pleco in fish tank">
+                <h5 class="mt-3"> Jerome </h5>
+            </div>
+            <div class="carousel-item text-center">
+              <img class="d-block w-100" src="/img/freja2.jpg" alt="Large brindle dog in a yard looking up at the camera">
+                <h5 class="mt-3"> Freja </h5>
+            </div>
+            <div class="carousel-item text-center">
+              <img class="d-block w-100" src="/img/charlotte.jpg" alt="Black and brown dog eating a cookie and wearing a birthday crown">
+                <h5 class="mt-3"> Charlotte </h5>
             </div>
           </div>
+          <a class="carousel-control-prev" href="#petCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#petCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
       </div>
     </div>
-  </div> <!--Closes First Row -->
+  </div> <!--Closes Second Row -->
 
-  <!-- Second Row: Quote & Welcome Message -->
+  <!-- Third Row: Quote & Welcome Message -->
   <div class="row justify-content-center mt-4">
     <div class="col-lg-8">
       <div class="card">
@@ -40,14 +90,9 @@
     </div>
   </div> 
 
-  <!-- Third Row: Welcome Message -->
-  <div class="row justify-content-center mt-4">
-    <div class="col-lg-8">
-        <div class="card-body">
-          <h5 class="card-text">Welcome to the Toebeans Vet Finder website!</h5>
-        </div>
-    </div>
-  </div> 
+ 
+
+
 </div> 
 
 <script src="/js/index.js"></script>

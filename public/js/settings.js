@@ -1,18 +1,17 @@
-// Themes
-
-
-
 document.addEventListener('DOMContentLoaded', async () => {
     console.log("running");
     const favourites = document.getElementById("favourites");
     const user = getCookie("user");
-    const userId = user.user_id;
-    const formattedFavourites = await formatFavourites(userId);
-    favourites.innerHTML = formattedFavourites;
     if(!user){
         setCookie("message", "You need to be signed in to access this page.", 1);
         window.location.href = "/sign_in";
     }
+    const userId = user.user_id;
+    const formattedFavourites = await formatFavourites(userId);
+    favourites.innerHTML = formattedFavourites;
+    
+
+    
 
     //debug
     console.log("Cookie", user);

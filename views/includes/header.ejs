@@ -11,54 +11,90 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif+Caption:ital@0;1&family=Quattrocento:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/toebeanslogo.ico">
     <title><%= title || "ToeBeans" %></title>
-
+    
 
     
     </head>
     <body>
       <nav id="themebanner" class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
+
           
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          
+          <button id="hb-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <ul>
-              <li class="nbar_centre">
-                <a href="/"> <img src="/img/tbName.png" alt="Toebeans Vet Finder" class="nbar_logo"> </a>
-              </li>
-            </ul>
             
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="/map"> <img src="/img/map.png" alt="Map" class="nbar_navs"> </a>
+            <ul class="navbar-nav mr-auto ">
+              
+              <li class="nav-item d-lg-block d-none">
+                <a class="nav-link" href="/map"> <img src="/img/mapClear1.png" alt="Map" class="nbar_navs"> &nbsp;&nbsp;&nbsp;</a> 
               </li>
-              <li class="nav-item" id="profile">
-                <a class="nav-link" href="/profile"><img src="/img/profile.png" alt="Profile" class="nbar_navs"></a>
+              <li class="nav-item d-lg-block d-none profileshow" id="profile">
+                <a class="nav-link" href="/profile"><img src="/img/profileClear1.png" alt="Profile" class="nbar_navs"> </a>
               </li>
-              <li class="nav-item" id="pet_profile">
-                <a class="nav-link" href="/pet_profile"><img src="/img/petprofile.png" alt="Pet Profile" class="nbar_navs"></a>
+              <li class="nav-item d-lg-block d-none petshow" id="pet_profile">
+                <a class="nav-link" href="/pet_profile"><img src="/img/petprofileClear1.png" alt="Pet Profile" class="nbar_navs"> </a>
               </li>
-              <li class="nav-item" id="settings">
-                <a class="nav-link" href="/settings"><img src="/img/settings.png" alt="Settings" class="nbar_navs"></a>
+              <li class="nav-item d-lg-block d-none settingsshow" id="settings">
+                <a class="nav-link" href="/settings"><img src="/img/settingsClear1.png" alt="Settings" class="nbar_navs">&nbsp;&nbsp;&nbsp;</a>
               </li>
               
+              <li class="nav-item d-lg-block d-none signout">
+                <a class="nav-link" href="/sign_out"><img src="/img/signoutClear1.png" alt="Sign Out" class="nbar_navs"> </a>
+              </li>
+              <li class="nav-item d-lg-block d-none signin">
+                <a class="nav-link" href="/sign_in"><img src="/img/signinClear1.png" alt="Sign In" class="nbar_navs"> </a>
+              </li>
+              </ul>
+
+              <!-- If screen is medium or small, default to text and hamburger menu -->
+              <ul id="hbmenuscreen">
+                <div class="hb-header" id="hb-header">
+                  <span id="hb-close">&times;</span>
+                  <p class="header-title"><img src="/img/sidebarLogo2.png" alt="Toebeans"></p>
+                </div>
+              <li class="nav-item d-md-block d-lg-none"> 
+                <a class="nav-link" href="/map"> Map </a>
+              </li>
+              <li class="nav-item d-md-block d-lg-none profileshow"> 
+                <a class="nav-link" href="/profile"> Profile </a>
+              </li>
+              <li class="nav-item d-md-block d-lg-none petshow"> 
+                <a class="nav-link" href="/pet_profile"> Pet Profile </a>
+              </li>
+              <li class="nav-item d-md-block d-lg-none settingsshow"> 
+                <a class="nav-link" href="/settings"> Settings </a>
+              </li>
+              <li class="nav-item d-md-block d-lg-none signout">
+                <a class="nav-link" href="/sign_out"> Sign Out</a>
+              </li>
+              <li class="nav-item d-md-block d-lg-none signin">
+                <a class="nav-link" href="/sign_in"> Sign In</a>
+              </li>
               
             </ul>
             
   
-            <form class="form-inline my-2 my-lg-0">
-              <a class="btn my-2 my-sm-0 btn-sign" href="/sign_out" id="signUpLink"><img src="/img/signout.png" alt="Sign Out" class="nbar_navs"></a>
-              <a class="btn my-2 my-sm-0 btn-sign" href="/sign_in" id="signInLink"><img src="/img/signin.png" alt="Sign In" class="nbar_navs"></a>
-            </form>
+            
+              <!-- <a class="btn my-2 my-sm-0 btn-sign" href="/sign_out" id="signUpLink"><img src="/img/signoutClear1.png" alt="Sign Out" class="nbar_navs"></a>
+              <a class="btn my-2 my-sm-0 btn-sign" href="/sign_in" id="signInLink"><img src="/img/signinClear1.png" alt="Sign In" class="nbar_navs"></a> -->
+
+            
             </div>
-            <!-- MOVE TITLE HERE SO IT ISNT INCLUDED IN THE DROP DOWN IF THAT IS DESIRED -->
+            
             
           </div>
         </nav>
+
+        <!-- MOVE TITLE HERE SO IT ISNT INCLUDED IN THE DROP DOWN IF THAT IS DESIRED -->
+          <div class="logoLower"><a href="/"> <img src="/img/tbLogo.png" alt="Toebeans Vet Finder" class="nbar_logo" id="tblogo"> </a>
+          </div>
+
+          <script src="/js/hamburgermenu.js" defer></script>
           
-      </div>
       <main class="">
 
         <!-- <div class="topofscreen themebanner"> -->

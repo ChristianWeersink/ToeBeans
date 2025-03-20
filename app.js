@@ -13,6 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true })); 
 app.use(express.json()); 
 
+
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -30,6 +31,7 @@ const signInRoutes = require('./routes/sign_in');
 const signOutRoutes = require('./routes/sign_out');
 const favouritesRoutes = require('./routes/favourites');
 const qrRoutes = require('./routes/qr_code');
+const contactusRoutes = require('./routes/contactus');
 // Use routes
 app.use('/', indexRoutes); // when / is loaded (the home page of the website) it uses the index.js route set up in /routes
 app.use('/sign_up', signUpRoutes);
@@ -42,6 +44,7 @@ app.use('/sign_in', signInRoutes);
 app.use('/sign_out',  signOutRoutes);
 app.use('/favourites', favouritesRoutes);
 app.use('/qr_code', qrRoutes);
+app.use('/contactus', contactusRoutes);
 
 
 

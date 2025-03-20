@@ -1,8 +1,7 @@
 <%- include('includes/header') %>
 
 <div class="container my-5">
-  <div class="card text-center">
-    <h1>Map</h1>
+  <div class="card text-center paddings">
       <div class="row">
 
         <div class="col-lg-8 col-sm-12">
@@ -10,7 +9,7 @@
             <!-- Map will be displayed here -->
           </div>
         
-          <div id="mapForm" class="p-3 bg-light rounded shadow-sm">
+          <div id="mapForm" class="p-3 rounded shadow-sm divboxes">
             <div class="row g-3">
         
               <!-- Search Radius -->
@@ -55,7 +54,7 @@
         
               <!-- Search Button -->
               <div class="col-md-6 d-flex align-items-end">
-                <button type="button" class="btn btn-primary w-100" id="search">Search for Vets</button>
+                <button type="button" class="btn btn-primary w-100 buttonformat" id="search">Search for Vets</button>
               </div>
               <!-- Error Message Box (Hidden by Default) -->
               <div id="mapErrorBox" class="alert alert-danger d-none text-center mt-3"></div>

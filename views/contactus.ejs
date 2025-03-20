@@ -1,0 +1,49 @@
+<%- include('includes/header') %>
+
+    <div class="container-fluid my-5">
+        <div class="d-flex justify-content-center margins">
+            <div class="row">
+
+                <div class="card-deck">
+                    <form id="contactform">
+                        <!-- Name input -->
+                        <div class="form-group">
+                            <label for="name" class="form-label"> Your Name </label>
+                            <input id="name" name="name" type="text" class="form-control" placeholder="Enter your name" required>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-group">
+                            <label for="email" class="form-label"> Your Email Address </label>
+                            <input id="email" name="email" type="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+
+                        <!-- Subject input -->
+                        <div class="form-group">
+                            <label for="subject" class="form-label"> Subject </label>
+                            <input id="subject" name="subject" type="text" class="form-control" placeholder="Message Subject" required>
+                        </div>
+
+                        <!-- Message input -->
+                        <div class="form-group">
+                            <label for="message" class="form-label"> Message</label>
+                            <textarea name="message" id="message" class="form-control" required rows="10" cols="25">
+                            </textarea>
+                        </div>
+
+                        <!-- Send message button -->
+                        <div class="text-center">
+                            <button type="submit" id="sendmessage" class="btn btn-primary w-100 buttonformat"> Send Message </button>
+                        </div>
+
+                    </form>
+
+                    <!-- Message -->
+                    <div id="semessage" class="alert alert-danger d-none mt-3 text-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/contactus.js"></script>
+    <%- include('includes/footer') %>

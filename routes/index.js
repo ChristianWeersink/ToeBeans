@@ -17,5 +17,15 @@ router.get('/terms', (req, res) =>{
     title = "Terms and Conditions";
     res.render('terms', { title });
 });
+// Renders Privacy Policy page
+router.get('/privacypolicy', (req, res) =>{
+    title = "Privacy Policy";
+    res.render('privacypolicy', { title });
+});
+// Renders Contact Us page
+router.get('/contactus', (req, res) =>{
+    title = "Contact Us";
+    res.render('contactus', { title });
+});
 
 module.exports = router;
