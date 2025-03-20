@@ -5,7 +5,7 @@ const db = require('../config/db');
 
 // Route for the homepage
 router.get('/', (req, res) => {
-    title = "Sign up";
+    title = "Sign Up | Toebeans Vet Finder";
     res.render('sign_up', {title});
 });
 

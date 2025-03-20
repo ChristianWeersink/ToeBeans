@@ -72,18 +72,27 @@ main {
 }
 
 .nbar_logo {
-    display: block;
     position: relative;
     height: 65px;
     width: 300px;
     left: 50%;
     transform: translate(-50%);
     z-index: 200;
+    display: inline-block;
+
 }
 
 .logoLower {
+    display: inline-block;
     position: relative;
+    width: fit-content;
+    margin: 0 auto;
     z-index: 50;
+}
+
+.logoLower:hover{
+    transform: scale(1.05); 
+    transition: 0.3s ease-in-out;
 }
 
 .nbar_logo img {
@@ -138,7 +147,8 @@ nav {
 
 .navbar-nav .nav-link:hover {
     color: #000000 !important;
-    background-color: #f5fcf933;
+    transform: scale(1.05); 
+    transition: 0.3s ease-in-out;
 }
 
 .navbar-brand {
@@ -255,6 +265,9 @@ nav {
     display: none !important;
 }
 
+.paddingrt {
+    padding-right: 10px;
+}
 
 /* #endregion */
 
@@ -306,6 +319,14 @@ a:hover {
     border-radius: 5px;
     border-style: double;
     border-color: #8fa3a6;
+}
+
+.flourish {
+    display: flex;
+    position: relative;
+    margin: 0 auto;
+    z-index: 100;
+    size: 100%;
 }
 /* #endregion */
 
@@ -407,7 +428,7 @@ footer br {
 }
 /* #endregion */
 
-/* #region SIGN IN PAGE */
+/* #region BUTTON AND LINK CUSTOMIZATION */
 .buttonformat {
     background-color: #0e2512;
     color: #FFFFFF;
@@ -415,7 +436,8 @@ footer br {
 }
 
 .buttonformat:hover {
-    background-color: #173202;
+    background-color: #6e8d56;
+    color: #000000;
 }
 
 .sulink {

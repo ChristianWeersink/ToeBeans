@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 
         const userId = userCookie.user_id;
 
-        const title = "pet_profile";
+        const title = "Pet Profile | Toebeans Vet Finder";
         const petQuery = "SELECT * FROM pets WHERE user_id = $1";
 
         // Correct usage of await db.query() without a callback

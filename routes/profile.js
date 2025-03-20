@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
         }
 
         const userId = userCookie.user_id;
-        const title = "Profile";
+        const title = "Your Profile | Toebeans Vet Finder";
 
         // Query the database for user details
         const userQuery = "SELECT * FROM users WHERE user_id = $1";

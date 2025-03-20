@@ -7,6 +7,8 @@ require("dotenv").config();
 const Domain = process.env.MAILGUN_DOMAIN;
 const receivingEmail = process.env.RECEIVING_EMAIL;
 
+
+
 // Setup for Mailgun client
 const mailgun = new Mailgun(formData);
 const mg = mailgun.client({

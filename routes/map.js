@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Route for the homepage
 router.get('/', (req, res) => {
-    title = "Map";
+    title = "Search for Vets | Toebeans Vet Finder";
     res.render('map', { title });
 });
 

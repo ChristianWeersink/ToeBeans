@@ -13,24 +13,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     
 
-    //debug
-    console.log("Cookie", user);
-    
-    //debug
-    console.log("Before fetching theme for", userId);
     try{
     // Theme
         const res = await fetch(`/settings/gettheme`);
         const d = await res.json();
         setCookie("theme", d.theme.selected_theme, 1);
         console.log(d.theme.selected_theme);
-        //const chosenTheme = localStorage.getItem("themeselect");
 
-        //debug
-        //console.log("Theme saving", chosenTheme)
         localStorage.setItem("theme", d.theme.selected_theme);
-        //debug
-        console.log("Saved theme:", localStorage.getItem("theme")); 
+
         updateThemeBanner(d.theme.selected_theme);
         document.getElementById("theme").value = d.theme.selected_theme;
     } catch (error) {
@@ -150,3 +141,7 @@ document.getElementById("themeform").addEventListener("submit", async function (
         console.error("Error! Can't update theme", error);
     }
 })
+
+// document.getElementById("delete_account").addEventListener("submit", async function (event) {
+    
+// })

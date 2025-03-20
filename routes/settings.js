@@ -6,7 +6,7 @@ const db = require('../config/db');
 router.get('/', (req, res) => {
 
     try {
-    title = "Settings";
+    title = "Settings | Toebeans Vet Finder";
     res.render('settings', { title }); // This renders views/settings.ejs
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
@@ -64,5 +64,31 @@ router.post('/', async (req, res) => {
     });
 
 });
+
+// router.delete('/', async (req, res) => {
+//     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+//     if (!userCookie || !userCookie.user_id) {
+//         return res.redirect("/sign_in"); // Redirect if user is not logged in
+//     }
+
+//     console.log("Request Body", req.body);
+//     const selectedtheme = req.body.theme;
+
+//     console.log(selectedtheme, "selected");
+
+
+//     const userID = userCookie.user_id;
+
+//     if (!userID) {
+//         return res.status(401).json({ success: false, message: "User not signed in" });
+//     }
+//     const deleteuser = "DELETE FROM users WHERE user_id = $1";
+//     db.query(deleteuser, [userID], (error, result) => {
+//         // Respond with success message
+//         res.status(200).json({ success: true, message: "Delete successful!" });
+//     })
+
+// })
 
 module.exports = router;

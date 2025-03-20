@@ -38,7 +38,7 @@
                                         <img src="<%= pet.qrCode %>" alt="QR Code for <%= pet.pet_name %>" class="qr-code img-fluid">
                                     </div>
 
-                                    <button class="btn btn-dark mt-2" onclick="downloadQRCode('<%= pet.qrCode %>', '<%= pet.pet_name %>')">
+                                    <button class="btn btn-dark mt-2 buttonformat" onclick="downloadQRCode('<%= pet.qrCode %>', '<%= pet.pet_name %>')">
                                         Download QR Code
                                     </button>
                                 </div>
@@ -123,7 +123,7 @@
                         <input type="file" id="pet_photo" name="pet_photo" class="form-control">
                     </div>
 
-                    <button id="add-pet-button" type="submit" class="btn btn-primary w-100">Add Pet</button>
+                    <button id="add-pet-button" type="submit" class="btn btn-primary w-100 buttonformat">Add Pet</button>
                 </form>
             </div>
         </div>
@@ -179,7 +179,7 @@
                         <input type="file" id="edit_pet_photo" name="edit_pet_photo" class="form-control">
                     </div>
 
-                    <button type="submit" class="btn btn-success w-100">Update Pet</button>
+                    <button type="submit" class="btn btn-success w-100 buttonformat">Update Pet</button>
                 </form>
             </div>
         </div>
