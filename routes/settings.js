@@ -65,30 +65,23 @@ router.post('/', async (req, res) => {
 
 });
 
-// router.delete('/', async (req, res) => {
-//     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+router.delete('/', async (req, res) => {
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
-//     if (!userCookie || !userCookie.user_id) {
-//         return res.redirect("/sign_in"); // Redirect if user is not logged in
-//     }
+    if (!userCookie || !userCookie.user_id) {
+        return res.redirect("/sign_in");
+    }
 
-//     console.log("Request Body", req.body);
-//     const selectedtheme = req.body.theme;
+    const userID = userCookie.user_id;
 
-//     console.log(selectedtheme, "selected");
-
-
-//     const userID = userCookie.user_id;
-
-//     if (!userID) {
-//         return res.status(401).json({ success: false, message: "User not signed in" });
-//     }
-//     const deleteuser = "DELETE FROM users WHERE user_id = $1";
-//     db.query(deleteuser, [userID], (error, result) => {
-//         // Respond with success message
-//         res.status(200).json({ success: true, message: "Delete successful!" });
-//     })
-
-// })
+    try {
+        await db.query("DELETE FROM users WHERE user_id = $1", [userID]);
+        res.clearCookie("user"); // Clear user session
+        res.status(200).json({ success: true, message: "Account and related data deleted successfully." });
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(500).json({ success: false, message: "Server error during deletion." });
+    }
+});
 
 module.exports = router;

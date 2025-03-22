@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', async () =>{
         event.preventDefault();
         newPetForm.hidden = false;
         newPetButton.hidden = true;
-        
         loadFavourites(userId);
     });
     // Handle form submission
@@ -38,8 +37,14 @@ document.addEventListener('DOMContentLoaded', async () =>{
         // Simple Validation
         const errors = [];
 
-        if (!pet_name) errors.push("Pet name is required.");
-        if (!pet_age || isNaN(pet_age) || pet_age <= 0) errors.push("Pet age must be a valid number.");
+        if (!pet_name) errors.push("Pet name is required.");if (
+            !pet_age ||
+            isNaN(pet_age) ||
+            pet_age < 0 ||
+            !Number.isInteger(Number(pet_age))
+          ) {
+            errors.push("Pet age must be a positive whole number.");
+          }
         if (pet_photo && !["image/jpeg", "image/png", "image/webp"].includes(pet_photo.type)) {
             errors.push("Pet photo must be a JPG, PNG, or WebP image.");
         }
@@ -258,6 +263,8 @@ document.querySelectorAll(".delete-pet-btn").forEach(button => {
             alert("An error occurred while deleting the pet.");
         }
     });
+
+    
 
     
 });

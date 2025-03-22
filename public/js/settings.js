@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = "/sign_in";
     }
     const userId = user.user_id;
-    const formattedFavourites = await formatFavourites(userId);
-    favourites.innerHTML = formattedFavourites;
+    await formatFavourites(userId);
     
 
     
@@ -32,41 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 })
 
-async function formatFavourites(userId){
-    var favVets = await getFavourites(userId);
-    var favouriteContent = "";
-    const { Place } = await google.maps.importLibrary("places");
-    if(!favVets) {
-        return `<div><p>No favourites. Try finding your perfect vet on the <a href="/map">map.</a></p></div>`
-    }
-    favVets = favVets.favourites;
-    
-    for (const favourite of favVets) {
-        const place = new Place({
-            id: favourite.place_id,
-        });
-        await place.fetchFields({
-        fields: [
-            'displayName',
-            'formattedAddress',
-            'nationalPhoneNumber',
-            'regularOpeningHours',
-            'websiteURI',
-            ],
-        });
-        const website = place.websiteURI? `<div>Website: <a href='${place.websiteURI}'>${place.websiteURI}</a></div>` : `<div>Website: Website Unavailable</div>`
-        favouriteContent += 
-        `<div class='favVet' id='fav-${favourite.place_id}'>
-            <hr>
-            <div>Name: ${place.displayName}</div>
-            <div>Address: ${place.formattedAddress}</div>
-            <div>Phone: ${place.nationalPhoneNumber}</div>
-            ${website}
-            <div><input type='submit' data-place-id='${favourite.place_id}' value='Remove from Favourites' class='btn btn-danger mt-3 del-favourites-btn'></div>
-        </div>`
-    };
-    return favouriteContent;
-}
+
 
 
 document.getElementById('favourites').addEventListener('click', async function(event) {
@@ -142,6 +107,91 @@ document.getElementById("themeform").addEventListener("submit", async function (
     }
 })
 
-// document.getElementById("delete_account").addEventListener("submit", async function (event) {
+document.addEventListener("DOMContentLoaded", () => {
+    const deleteButton = document.getElementById("delete_account");
+
+    deleteButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+
+        const confirmed = confirm(
+            "WARNING: This is a permanent action.\nAll your pets, personal data, and associated QR codes will be permanently deleted.\nDo you really want to delete your account?"
+        );
+
+        if (!confirmed) return;
+
+        try {
+            const response = await fetch("/settings", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert(data.message);
+                window.location.href = "/sign_in"; // redirect after deletion
+            } else {
+                alert("Error: " + data.message);
+            }
+        } catch (error) {
+            console.error("Error deleting account:", error);
+            alert("An error occurred while trying to delete your account.");
+        }
+    });
+});
+
+
+
+// params container is the favourite container to populate, place id is the place detail to add to the container
+async function fetchAndRenderVetDetails(container, placeId) {
+    const { Place } = await google.maps.importLibrary("places");
+
+    try {
+        const place = new Place({ id: placeId });
+        await place.fetchFields({
+            fields: [
+                'displayName',
+                'formattedAddress',
+                'regularOpeningHours',
+                'websiteURI',
+            ]
+        });
+
+        const website = place.websiteURI
+            ? `<div>Website: <a href='${place.websiteURI}'>${place.websiteURI}</a></div>`
+            : `<div>Website: Website Unavailable</div>`;
+
+        container.innerHTML = `
+            <div>Name: ${place.displayName}</div>
+            <div>Address: ${place.formattedAddress}</div>
+            ${website}
+            <div><input type='submit' data-place-id='${placeId}' value='Remove from Favourites' class='btn btn-danger mt-3 del-favourites-btn'></div>
+            <hr>
+        `;
+    } catch (err) {
+        console.error("Failed to fetch place details:", err);
+        container.innerHTML = `<div>Error loading vet details</div>`;
+    }
+}
+
+
+async function formatFavourites(userId){
+    var favVets = await getFavourites(userId);
+    const favourites = document.getElementById("favourites");
+    favourites.innerHTML = "";
+    for (const favourite of favVets.favourites) {
+        const container = document.createElement("div");
+        container.classList.add("favVet");
+        container.id = `fav-${favourite.place_id}`;
+        container.innerHTML = `
+            <hr>
+            <div>Loading vet details...</div>
+        `;
+        favourites.appendChild(container);
     
-// })
+        // Fetch and populate the vet details after rendering
+        fetchAndRenderVetDetails(container, favourite.place_id);
+    }
+}
