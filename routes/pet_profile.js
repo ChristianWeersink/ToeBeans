@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
         
         // Qr code options 
         const options = {
-            width: 50, // desired width in pixels
+            width: 75, // desired width in pixels
         };
         for (let pet of pets) {
             petinfo = await fetchVetName(pet.pet_homevet_id);
