@@ -31,14 +31,12 @@ router.get('/', async (req, res) => {
         // Render the EJS template with the correct pets data
         
         // Qr code options 
-        const options = {
-            width: 75, // desired width in pixels
-        };
+    
         for (let pet of pets) {
             petinfo = await fetchVetName(pet.pet_homevet_id);
             pet.vet_name = petinfo.name;
             pet.phone = petinfo.phone;
-            const qrCodeUrl = await QRCode.toDataURL(`https://toebeans.dev/qr_code/${pet.id}`, options);
+            const qrCodeUrl = await QRCode.toDataURL(`https://toebeans.dev/qr_code/${pet.id}`);
             pet.qrCode = qrCodeUrl;
         }
 
