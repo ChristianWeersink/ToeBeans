@@ -41,6 +41,10 @@
                                     <button class="btn btn-dark mt-2 buttonformat" onclick="downloadQRCode('<%= pet.qrCode %>', '<%= pet.pet_name %>')">
                                         Download QR Code
                                     </button>
+                                    <button class="btn btn-dark mt-2 buttonformat" onclick="printQRCode('<%= pet.qrCode %>', '<%= pet.pet_name %>')">
+                                        Print QR Code
+                                    </button>
+                                    
                                 </div>
                             </div>
 
@@ -187,6 +191,27 @@
 </div>
 
 <script src="/js/pet_profile.js"></script>
+
+<script>
+    window.printQRCode = function(qrCodeUrl, petName) {
+    const win = window.open('', '_blank');
+    win.document.write(`
+        <html>
+            <head><title>Print QR Code</title></head>
+            <body style="text-align: center; padding: 20px;">
+                <h2>${petName}'s QR Code</h2>
+                <img src="${qrCodeUrl}" style="max-width: 80%; height: auto;">
+                <p>Scan this code to view ${petName}'s profile.</p>
+                <script>
+                    window.onload = () => { window.print(); }
+                <\/script>
+            </body>
+        </html>
+    `);
+    win.document.close();}
+      
+
+</script>
 
 <script>
     function downloadQRCode(qrCodeUrl, petName) {

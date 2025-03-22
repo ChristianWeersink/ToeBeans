@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
             petinfo = await fetchVetName(pet.pet_homevet_id);
             pet.vet_name = petinfo.name;
             pet.phone = petinfo.phone;
-            const qrCodeUrl = await QRCode.toDataURL(`https://toebeans.onrender.com/qr_code/${pet.id}`);
+            const qrCodeUrl = await QRCode.toDataURL(`https://toebeans.dev/qr_code/${pet.id}`);
             pet.qrCode = qrCodeUrl;
         }
 
