@@ -31,7 +31,6 @@ router.get('/', async (req, res) => {
         // Render the EJS template with the correct pets data
         
         // Qr code options 
-    
         for (let pet of pets) {
             petinfo = await fetchVetName(pet.pet_homevet_id);
             pet.vet_name = petinfo.name;
