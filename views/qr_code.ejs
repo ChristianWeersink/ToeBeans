@@ -118,20 +118,21 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3an3cMi9r5yYxWfFeb1I6VzPOrkrlzgM&amp;callback=initVetMap&amp;libraries=places,marker,geometry&loading=async" async="true" defer="true"></script>
-                        <script>
-                            function initVetMap() {
-                                var vetLocation = { lat: <%= vet.location.lat %>, lng: <%= vet.location.lng %> };
-                                var map = new google.maps.Map(document.getElementById("vetMap"), {
-                                    zoom: 15,
-                                    center: vetLocation
-                                });
-                                new google.maps.Marker({
-                                    position: vetLocation,
-                                    map: map
-                                });
-                            }
-                        </script>
-
+<% if(vet){ %>
+    <script>
+        function initVetMap() {
+            var vetLocation = { lat: <%= vet.location.lat %>, lng: <%= vet.location.lng %> };
+            var map = new google.maps.Map(document.getElementById("vetMap"), {
+                zoom: 15,
+                center: vetLocation
+            });
+            new google.maps.Marker({
+                position: vetLocation,
+                map: map
+            });
+        }
+    </script>
+    <% } %>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
       if (getCookie("user") != null) {
