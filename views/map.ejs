@@ -13,7 +13,7 @@
             <div class="row g-3">
         
               <!-- Search Radius -->
-              <div class="col-md-4">
+              <div class="col-md-4 col-lg-4">
                 <label for="radius" class="form-label">Search Radius</label>
                 <select id="radius" class="form-select">
                   <option value="2000">2KM</option>
@@ -24,7 +24,7 @@
                 </select>
               </div>
               <!-- Open Now -->
-              <div class="col-md-4 d-flex align-items-center">
+              <div class="col-md-3 col-lg-3">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="openNow">
                   <label class="form-check-label" for="openNow">Open Now</label>
@@ -32,7 +32,7 @@
               </div>
         
               <!-- Pet Type -->
-              <div class="col-md-4">
+              <div class="col-md-5 col-lg-5">
                 <label for="type" class="form-label">Pet Type</label>
                 <select id="type" class="form-select">
                   <option value="">Any</option>
@@ -40,20 +40,23 @@
                   <option value="cat">Cat</option>
                   <option value="exotic">Exotic</option>
                   <option value="rodent">Rodent</option>
+                  <option value="reptile">Reptile</option>
+                  <option value="small mammal">Small Mammal</option>
+                  <option value="avian">Avian</option>
                 </select>
               </div>
         
               <!-- Search by Location -->
-              <div class="col-md-6">
-                <div class="form-check mb-2">
-                  <input type="checkbox" class="form-check-input" id="locationBox">
+              <div class="col-md-6 col-lg-6 ">
+                <div class="form-check mb-2 text-lg-left text-md-left text-sm-center">
+                  <input type="checkbox" class="form-check-input " id="locationBox">
                   <label class="form-check-label" for="locationBox">Search by Location</label>
                 </div>
                 <input id="location" type="text" class="form-control" placeholder="e.g., Oshawa, Ontario" hidden>
               </div>
         
               <!-- Search Button -->
-              <div class="col-md-6 d-flex align-items-end">
+              <div class="col-md-6 col-sm-12 d-flex align-items-end">
                 <button type="button" class="btn btn-primary w-100 buttonformat" id="search">Search for Vets</button>
               </div>
               <!-- Error Message Box (Hidden by Default) -->
@@ -61,13 +64,7 @@
             </div>
           </div>
         </div>
-
-        <div class="col-lg-4 col-sm-12" id="results-panel">
-
-    </div>
-    
-      
-    
+        <div class="col-lg-4 col-sm-12" id="results-panel"></div>
   </div>  
 </div> 
 
