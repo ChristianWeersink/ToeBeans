@@ -50,7 +50,7 @@ main {
 .navbar {
     background-size: cover;
     background-position: center;
-    transition: background 0.5s ease-in-out;
+    /* transition: background 0.5s ease-in-out; */
     padding-left: 0;
     padding-right: 0;
     height: 75px !important;
@@ -375,7 +375,7 @@ a:hover {
 }
 
 #themebanner {
-    transition: background 0.5s ease-in-out;
+    /* transition: background 0.5s ease-in-out; */
     position: sticky;
     left: 0;
     width: 100vw;
@@ -531,7 +531,7 @@ footer br {
 
 /* #region LISTS */
 #favourites {
-    max-height: 35vh;
+    max-height: 50vh;
     padding-bottom: 10px;
     overflow-y: scroll;
 }
@@ -556,4 +556,8 @@ ul {
 /* NAVBAR Z-INDEX */
 #navbarSupportedContent {
     z-index: 10000;
+}
+
+.theme-loading {
+    visibility: hidden;
 }
