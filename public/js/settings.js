@@ -54,9 +54,11 @@ document.getElementById('favourites').addEventListener('click', async function(e
             document.getElementById(`fav-${placeId}`).remove();
             const remainingFavourites = document.querySelectorAll('.favVet');
             if (remainingFavourites.length === 0) {
+                document.getElementById('favourites').classList.add("remove_hbar");
                 document.getElementById('favourites').innerHTML = `
-                    <div><p>No favourites. Try finding your perfect vet on the <a href="/map">map.</a></p></div>
+                    <div><p>No favourites. Try finding your perfect vet on the <a href="/map"><u>map</u>.</a></p></div>
                 `;
+                
             }
         } else {
             console.error("Failed to delete favourite");
@@ -185,6 +187,7 @@ async function formatFavourites(userId){
     favourites.innerHTML = "";
     if(!favVets){
         favourites.innerHTML = `<div><p>No favourites. Try finding your perfect vet on the <a href="/map"><u>map</u>.</a></p></div>`;
+        favourites.classList.add("remove_hbar");
         return;
     }
     for (const favourite of favVets.favourites) {

@@ -44,6 +44,11 @@ main {
 .remove_hbar::-webkit-scrollbar {
     display: none;
 }
+
+  
+
+
+  
 /* #endregion */
 
 /* #region NAVBAR AND HAMBURGER MENU */
@@ -571,3 +576,32 @@ ul {
 .theme-loading {
     visibility: hidden;
 }
+
+
+
+  /* Firefox */
+#favourites {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(100,100,100,0.5) transparent; /* thumb color, track color */
+  }
+  
+  /* WebKit Browsers */
+  #favourites::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #favourites::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  #favourites::-webkit-scrollbar-thumb {
+    background-color: rgba(100,100,100,0.5);
+    border-radius: 10px;
+  }
+  #favourites::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+    width: 0;
+  }
+  
+  

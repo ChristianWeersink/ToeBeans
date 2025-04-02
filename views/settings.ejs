@@ -4,14 +4,14 @@
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8">
 
-      <div class="card text-center mb-4">
+      <div class="card text-center mb-4 divboxes">
         <div class="card-body">
           <h1 class="card-title">User Settings Page</h1>
         </div>
       </div>
 
       <!-- Theme Selector -->
-      <div class="card mb-4">
+      <div class="card mb-4 divboxes">
         <div class="card-body">
           <h5 class="card-title">Select a Theme</h5>
           <form action="/settings" method="POST" id="themeform">
@@ -32,17 +32,17 @@
       </div>
 
       <!-- Favourite Vets List -->
-      <div class="card mb-4">
+      <div class="card mb-4 divboxes">
         <div class="card-body">
           <h5 class="card-title">Favourite Vets</h5>
-          <div id="favourites" class="remove_hbar">
+          <div id="favourites" class="my-scrollbox">
             <p>Loading Favourites...</p>
           </div>
         </div>
       </div>
 
       <!-- Delete Account -->
-      <div class="card text-center">
+      <div class="card text-center divboxes">
         <div class="card-body">
           <p class="text-danger fw-bold">WARNING! THIS IS PERMANENT</p>
           <button type="button" id="delete_account" class="btn btn-danger">
@@ -66,10 +66,9 @@
 <div aria-live="polite" aria-atomic="true"
      style="position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%);
             z-index: 1050;">
-  <div id="liveToast" class="toast" style="min-width: 250px;" data-delay="3000">
+  <div id="liveToast" class="toast divboxes" style="min-width: 250px;" data-delay="3000">
     <div class="toast-header">
       <strong class="mr-auto" id="toastTitle">Notification</strong>
-      <small class="text-muted">just now</small>
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
