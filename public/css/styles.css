@@ -15,7 +15,7 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
-    background-color: #fdfdfd;
+    background-color: #f1f3f1;
     overflow-x: hidden;
 }
 
@@ -32,6 +32,12 @@ body {
 
 main {
     flex: 1;
+}
+
+.text-danger {
+    color: rgb(153, 6, 6) !important;
+    font-size: large;
+    font-weight: bolder;
 }
 /* #endregion */
 
@@ -445,7 +451,7 @@ footer br {
 
 /* #region BUTTON AND LINK CUSTOMIZATION */
 .buttonformat {
-    background-color: #0e2512;
+    background-color: #15371b;
     color: #FFFFFF;
     border-style: none;
 }
@@ -462,6 +468,32 @@ footer br {
 .sulink:hover {
     color: #6B7F82;
 }
+
+.page-item .page-link {
+    background-color: #837e74 !important;
+    color: #080800 !important;
+    border-color: #837e74;
+}
+
+.page-link:hover {
+    background-color: #cacaca !important;
+    color: #14130e !important;
+}
+
+.page-item.active .page-link {
+    border-color:#3d3d3d !important;
+    background-color: #2a2b2b !important;
+    color: #7a817b !important;
+    cursor: not-allowed;
+}
+
+.page-item.disabled .page-link {
+    background-color: #c5c3c1 !important;
+    color:#33312e !important;
+    cursor: not-allowed;
+    border-color: #c5c3c1 !important;
+}
+
 /* #endregion */
 
 /* #region SCREEN SIZES */
@@ -564,7 +596,11 @@ ul {
 }
 
 .justifiedList {
-    padding-left: 10%;
+    padding-left: 5;
+}
+
+.justifiedList li {
+    padding-bottom: 5px;
 }
 /* #endregion */
 
