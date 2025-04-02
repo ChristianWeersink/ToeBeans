@@ -103,23 +103,27 @@ document.addEventListener('DOMContentLoaded', async () =>{
     const editPetForm = document.getElementById("editPetForm");
     const editPetModal = new bootstrap.Modal(document.getElementById("editPetModal"));
 
-    document.querySelectorAll(".edit-pet-btn").forEach(button => {
-        button.addEventListener("click", () => {
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("edit-pet-btn")) {
+            const button = e.target;
             const petId = button.getAttribute("data-pet-id");
             const currentHomeVetId = button.getAttribute("data-home-vet-id");
-            // Populate the form with pet details
-            document.getElementById("edit_pet_id").value = button.getAttribute("data-pet-id");
+
+            // Populate form
+            document.getElementById("edit_pet_id").value = petId;
             document.getElementById("edit_pet_name").value = button.getAttribute("data-pet-name");
             document.getElementById("edit_pet_breed").value = button.getAttribute("data-pet-breed");
             document.getElementById("edit_pet_age").value = button.getAttribute("data-pet-age");
             document.getElementById("edit_pet_allergies").value = button.getAttribute("data-pet-allergy");
             document.getElementById("edit_pet_other").value = button.getAttribute("data-pet-other");
             document.getElementById("edit_home_vet").value = button.getAttribute("data-home-vet");
+
+            // Load vet dropdown
             loadFavourites(userId, currentHomeVetId);
 
-            // Show the modal
+            // Show modal
             editPetModal.show();
-        });
+        }
     });
 
 
@@ -230,31 +234,41 @@ editPetForm.addEventListener("submit", async (event) => {
 });
 
 
-// DELETE METHOD
-document.querySelectorAll(".delete-pet-btn").forEach(button => {
-    button.addEventListener("click", async () => {
+document.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("delete-pet-btn")) {
+        const button = e.target;
         const petId = button.getAttribute("data-pet-id");
         const petPhotoUrl = button.getAttribute("data-pet-photo");
-        console.log(petPhotoUrl);
-        let petPhotoPath = petPhotoUrl ? petPhotoUrl.split("/user-images/")[1] : null;
-        console.log(petPhotoPath);
+        const petPhotoPath = petPhotoUrl ? petPhotoUrl.split("/user-images/")[1] : null;
 
         if (!confirm("Are you sure you want to delete this pet? This action cannot be undone.")) {
-            return; // Stop if user cancels
+            return;
         }
-        
+
         try {
             const response = await fetch(`/pet_profile/${petId}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ pet_photo: petPhotoPath }) // Send pet photo URL for deletion
+                body: JSON.stringify({ pet_photo: petPhotoPath })
             });
 
             if (response.ok) {
                 alert("Pet deleted successfully!");
-                window.location.reload();
+                
+                // Re-fetch the current page of pets via AJAX
+                const currentPage = new URLSearchParams(window.location.search).get("page") || 1;
+                fetch(`/pet_profile?page=${currentPage}`, {
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                })
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById("pet-list-container").innerHTML = html;
+                })
+                .catch(err => console.error("Error refreshing pet list after deletion:", err));
             } else {
                 alert("Failed to delete pet.");
             }
@@ -262,9 +276,5 @@ document.querySelectorAll(".delete-pet-btn").forEach(button => {
             console.error("Error deleting pet:", error);
             alert("An error occurred while deleting the pet.");
         }
-    });
-
-    
-
-    
+    }
 });

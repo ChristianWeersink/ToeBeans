@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", async () =>{
     const user = getCookie("user");
     
+    
     if(!user){
+        document.body.classList.remove("theme-loading");
         return;
     }
     const userId = user.user_id;
@@ -20,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
             console.log("Saved theme:", localStorage.getItem("theme")); 
             updateThemeBanner(d.theme.selected_theme);
         } catch (error) {
+            document.body.classList.remove("theme-loading");
             console.error("Error " + error);
         }
 }); 
@@ -30,7 +33,7 @@ function updateThemeBanner(theme) {
     console.log("Theme function", theme);
 
     const themes = {
-        default: { img1: "/img/transparent.png", img2: "/img/transparent.png"},
+        none: { img1: "/img/transparent.png", img2: "/img/transparent.png"},
         dog: { img1: '/img/dog_1.png', img2: "/img/dog_2.png"},
         cat: { img1: '/img/cat_1.png', img2: "/img/cat_2.png"},
         fish: { img1: '/img/fish_1.png', img2: "/img/fish_2.png"},
@@ -57,6 +60,7 @@ function updateThemeBanner(theme) {
     //debug
     if (!pics) {
         console.error("Theme not found");
+        document.body.classList.remove("theme-loading");
         return;
     }
     console.log("Applying images:", pics.img1, pics.img2);
@@ -123,15 +127,25 @@ function updateThemeBanner(theme) {
             h4.style.color = "#752a32"
         })
     }
-
     else {
+        // Apply linear gradient for header and banner
+        const gradient = "linear-gradient(to bottom, #133319, #6B7F82)";
+        banner.style.background = gradient;
+        hbHeader.style.background = gradient;
+    
+        // Remove background color from the themed boxes
         divTheme.forEach(div => {
-            div.style.backgroundColor = "#DEE3DE"
-        })
+            div.style.backgroundColor = "transparent";
+        });
+    
+        // Optional: Set pet name color to something that contrasts well
         petName.forEach(h4 => {
-            h4.style.color = "#0f330f"
-        })
+            h4.style.color = "#ffffff";
+        });
     }
+    
+    
+    document.body.classList.remove("theme-loading");
 
     
 }
