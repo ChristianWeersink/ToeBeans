@@ -366,6 +366,16 @@ a:hover {
 .mainpageWidth {
     width: 60%;
 }
+
+.shopSize {
+    width: 80%;
+    height: auto;
+}
+
+.shopReview {
+    width: 40%;
+    height: auto;
+}
 /* #endregion */
 
 /* #region THEME / BANNER CUSTOMIZATION */
