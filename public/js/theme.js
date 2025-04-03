@@ -30,171 +30,133 @@ document.addEventListener("DOMContentLoaded", async () =>{
 
 function updateThemeBanner(theme) {
     //debug
-    console.log("Theme function", theme);
+    try{
+        console.log("Theme function", theme);
 
-    const themes = {
-        none: { img1: "/img/transparent.png", img2: "/img/transparent.png"},
-        dog: { gradient: "linear-gradient(to bottom, #89b388, #cdebcc)", img1: '/img/dog_1.png', img2: "/img/dog_2.png"},
-        cat: { img1: '/img/cat_1.png', img2: "/img/cat_2.png"},
-        fish: { img1: '/img/fish_1.png', img2: "/img/fish_2.png"},
-        bird: { img1: '/img/bird_1.png', img2: "/img/bird_2.png"},
-        smallpet: { img1: '/img/smallpet_1.png', img2: "/img/smallpet_2.png"}
-    };
-    const banner = document.getElementById("themebanner");
-    const tblogo = document.getElementById("tblogo");
-    const divTheme = document.querySelectorAll(".divboxes");
-    const hbHeader = document.getElementById("hb-header");
-    const petName = document.querySelectorAll(".petName");
-    const titleText = document.querySelectorAll(".titleText");
-    const buttonTheme = document.querySelectorAll(".buttonformat");
-    console.log(divTheme); // Should work if elements are added dynamically
-
-
-    //debug
-    if (!banner) {
-        console.error("Banner not found");
-    }
-    if (!divTheme) {
-        console.error("Divs not found!");
-    }
-    const pics = themes[theme];
-
-    //debug
-    if (!pics) {
-        console.error("Theme not found");
-        document.body.classList.remove("theme-loading");
-        return;
-    }
-    console.log("Applying images:", pics.img1, pics.img2);
-
-    // Dynamically style background based on theme chosen
-    banner.style.background = `url('${pics.img1}'), url('${pics.img2}')`;
-    banner.style.backgroundSize = "auto 100%";
-    banner.style.backgroundPosition = "0 0, 30% 0";
-    banner.style.backgroundRepeat = "repeat-x";
-    hbHeader.style.background = `url('${pics.img1}'), url('${pics.img2}')`
-    hbHeader.style.backgroundSize = "auto 100%";
-    hbHeader.style.backgroundPosition = "0 0, 30% 0";
-    hbHeader.style.backgroundRepeat = "repeat-x";
-
-    if (pics.img1 == "/img/dog_1.png") {
-        banner.style.backgroundColor = "#89b388";
-        banner.style.backgroundColor = "#89b388";
-        hbHeader.style.backgroundColor = "#89b388"
-        divTheme.forEach(div => {
-            div.style.backgroundColor = "#89b388"
-        })
-        petName.forEach(h4 => {
-            h4.style.color = "#1c4a24"
-        })
-        titleText.forEach(h2=> {
-            h2.style.color = "#1c4a24"
-        })
-        titleText.forEach(h1=> {
-            h1.style.color = "#1c4a24"
-        })
-        buttonTheme.forEach(button => {
-            button.style.backgroundColor = "#1c4a24"
-        })
+        const themes = {
+            none: { img1: "/img/transparent.png", img2: "/img/transparent.png"},
+            dog: { gradient: "linear-gradient(to bottom, #89b388, #cdebcc)", img1: '/img/dog_1.png', img2: "/img/dog_2.png"},
+            cat: { img1: '/img/cat_1.png', img2: "/img/cat_2.png"},
+            fish: { img1: '/img/fish_1.png', img2: "/img/fish_2.png"},
+            bird: { img1: '/img/bird_1.png', img2: "/img/bird_2.png"},
+            smallpet: { img1: '/img/smallpet_1.png', img2: "/img/smallpet_2.png"}
+        };
+        const banner = document.getElementById("themebanner");
+        const tblogo = document.getElementById("tblogo");
+        const divTheme = document.querySelectorAll(".divboxes");
+        const hbHeader = document.getElementById("hb-header");
+        const petName = document.querySelectorAll(".petName");
+        const titleText = document.querySelectorAll(".titleText");
+        const buttonTheme = document.querySelectorAll(".buttonformat");
+        const pagination = document.querySelectorAll("pagination");
+        // console.log("pagination elements: "+ pagination);
+        // console.log(divTheme); // Should work if elements are added dynamically
+        var gradient = "linear-gradient(to bottom, #133319, #6B7F82)";
+        var divBackgroundColour = "transparent";
+        var themeColour = "#89b388";
+        const dogGradient = "linear-gradient(to bottom, rgba(137, 179, 136,1), rgba(160, 207, 159,1))";
+        const catGradient = "linear-gradient(to bottom, rgba(202, 194, 240,1), rgba(220, 216, 240,1))";
+        const fishGradient = "linear-gradient(to bottom, rgba(168, 232, 247 ,1), rgba(228, 241, 245,1))";
+        const birdGradient = "linear-gradient(to bottom, rgba(247, 239, 168,1), rgba(245, 240, 193,1))";
+        const smallPetGradient = "linear-gradient(to bottom, rgba(252, 240, 241,1), rgba(255, 255, 255,1))";
+        var paginationClass = "default";
+    
+    
+    
+        //debug
+        if (!banner) {
+            console.error("Banner not found");
+        }
+        if (!divTheme) {
+            console.error("Divs not found!");
+        }
+        const pics = themes[theme];
+    
+        //debug
+        if (!pics) {
+            console.error("Theme not found");
+            document.body.classList.remove("theme-loading");
+            return;
+        }
+        console.log("Applying images:", pics.img1, pics.img2);
         
-    }
-    else if (pics.img1 == "/img/cat_1.png") {
-        banner.style.backgroundColor = "#cac2f0";
-        hbHeader.style.backgroundColor = "#cac2f0";
+        if (pics.img1 == "/img/dog_1.png") {
+            gradient = dogGradient;
+            divBackgroundColour = dogGradient;
+            themeColour = "#1c4a24";
+        
+        }
+        else if (pics.img1 == "/img/cat_1.png") {
+            gradient = catGradient;
+            divBackgroundColour = catGradient;
+            themeColour = "#362e5c";
+            paginationClass = "pagination_cat";
+    
+        }
+        else if (pics.img1 == "/img/fish_1.png") {
+            gradient = fishGradient;
+            divBackgroundColour = fishGradient;
+            themeColour = "#1f4a54";
+        }
+    
+        else if (pics.img1 == "/img/bird_1.png") {
+            gradient = birdGradient;
+            divBackgroundColour = birdGradient;
+            themeColour = "#6e6729";
+        }
+    
+        else if (pics.img1 == "/img/smallpet_1.png") {
+            gradient = smallPetGradient;
+            divBackgroundColour = smallPetGradient;
+            themeColour = "#633e42";
+        }
+        else {
+            // Apply linear gradient for header and banner
+            gradient = "linear-gradient(to bottom, #133319, #6B7F82)";
+            divBackgroundColour = "#ffffff";
+            themeColour = "#89b388";
+        }
+    
+        // Dynamically style background based on theme chosen
         divTheme.forEach(div => {
-            div.style.backgroundColor = "#cac2f0";
+            div.style.background = divBackgroundColour;
         });
         petName.forEach(h4 => {
-            h4.style.color = "#362e5c";
+            h4.style.color = themeColour;
         });
-        titleText.forEach(h2 => {
-            h2.style.color = "#362e5c";
+        pagination.forEach(li => {
+            li.classList.add(paginationClass);
+        });
+        titleText.forEach(h2=> {
+            h2.style.color = themeColour;
         });
         titleText.forEach(h1=> {
-            h1.style.color = "#362e5c";
+            h1.style.color = themeColour;
         });
         buttonTheme.forEach(button => {
-            button.style.backgroundColor = "#362e5c";
+            button.style.backgroundColor = themeColour;
         });
-    }
-    else if (pics.img1 == "/img/fish_1.png") {
-        banner.style.backgroundColor = "#a8e8f7"
-        hbHeader.style.backgroundColor = "#a8e8f7"
-        divTheme.forEach(div => {
-            div.style.backgroundColor = "#a8e8f7"
-        })
-        petName.forEach(h4 => {
-            h4.style.color = "#1f4a54"
-        })
-        titleText.forEach(h2 => {
-            h2.style.color = "#1f4a54"
-        })
-        titleText.forEach(h1=> {
-            h1.style.color = "#1f4a54"
-        })
-        buttonTheme.forEach(button => {
-            button.style.backgroundColor = "#1f4a54"
-        })
-    }
 
-    else if (pics.img1 == "/img/bird_1.png") {
-        banner.style.backgroundColor = "#f7efa8"
-        hbHeader.style.backgroundColor = "#f7efa8"
-        divTheme.forEach(div => {
-            div.style.backgroundColor = "#f7efa8"
-        })
-        petName.forEach(h4 => {
-            h4.style.color = "#6e6729"
-        })
-        titleText.forEach(h2 => {
-            h2.style.color = "#6e6729"
-        })
-        titleText.forEach(h1=> {
-            h1.style.color = "#6e6729"
-        })
-        buttonTheme.forEach(button => {
-            button.style.backgroundColor = "#6e6729"
-        })
-    }
+        
+        banner.style.background = `url('${pics.img1}'), url('${pics.img2}'), ${gradient}`;
+        banner.style.backgroundRepeat = "repeat-x, repeat-x, no-repeat";
+        banner.style.backgroundSize = "auto 100%, auto 100%, cover";
+        banner.style.backgroundPosition = "0 0, 30% 0, center";
+    
+        hbHeader.style.background = `url('${pics.img1}'), url('${pics.img2}')`;
+        hbHeader.style.backgroundSize = "auto 100%, auto 100%";
+        hbHeader.style.backgroundPosition = "0 0, 30% 0";
+        hbHeader.style.backgroundRepeat = "repeat-x, repeat-x";
 
-    else if (pics.img1 == "/img/smallpet_1.png") {
-        banner.style.backgroundColor = "#fcf0f1"
-        hbHeader.style.backgroundColor = "#fcf0f1"
-        divTheme.forEach(div => {
-            div.style.backgroundColor = "#fcf0f1"
-        })
-        petName.forEach(h4 => {
-            h4.style.color = "#633e42"
-        })
-        titleText.forEach(h2 => {
-            h2.style.color = "#633e42"
-        })
-        titleText.forEach(h1=> {
-            h1.style.color = "#633e42"
-        })
-        buttonTheme.forEach(button => {
-            button.style.backgroundColor = "#633e42"
-        })
+        document.body.classList.remove("theme-loading");
     }
-    else {
-        // Apply linear gradient for header and banner
-        const gradient = "linear-gradient(to bottom, #133319, #6B7F82)";
-        banner.style.background = gradient;
-        hbHeader.style.background = gradient;
-    
-        // Remove background color from the themed boxes
-        divTheme.forEach(div => {
-            div.style.backgroundColor = "transparent";
-        });
-    
-        // Optional: Set pet name color to something that contrasts well
-        petName.forEach(h4 => {
-            h4.style.color = "#ffffff";
-        });
+    catch(these_hands){
+        console.log(these_hands);
+        document.body.classList.remove("theme-loading");
     }
-    
-    
-    document.body.classList.remove("theme-loading");
-
+    finally{
+        // ensure the page is rendered 
+        document.body.classList.remove("theme-loading");
+    }
     
 }

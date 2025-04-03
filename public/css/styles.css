@@ -639,5 +639,9 @@ ul {
     height: 0;
     width: 0;
   }
+
+.pagination_cat{
+    background-color: red;
+}
   
   
