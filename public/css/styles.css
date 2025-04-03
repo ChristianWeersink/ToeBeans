@@ -15,7 +15,7 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
-    background-color: #fdfdfd;
+    background-color: #f1f3f1;
     overflow-x: hidden;
 }
 
@@ -33,6 +33,12 @@ body {
 main {
     flex: 1;
 }
+
+.text-danger {
+    color: rgb(153, 6, 6) !important;
+    font-size: large;
+    font-weight: bolder;
+}
 /* #endregion */
 
 /* #region HORIZONTAL SCROLLBAR REMOVAL */
@@ -44,13 +50,18 @@ main {
 .remove_hbar::-webkit-scrollbar {
     display: none;
 }
+
+  
+
+
+  
 /* #endregion */
 
 /* #region NAVBAR AND HAMBURGER MENU */
 .navbar {
     background-size: cover;
     background-position: center;
-    transition: background 0.5s ease-in-out;
+    /* transition: background 0.5s ease-in-out; */
     padding-left: 0;
     padding-right: 0;
     height: 75px !important;
@@ -366,6 +377,16 @@ a:hover {
 .mainpageWidth {
     width: 60%;
 }
+
+.shopSize {
+    width: 80%;
+    height: auto;
+}
+
+.shopReview {
+    width: 40%;
+    height: auto;
+}
 /* #endregion */
 
 /* #region THEME / BANNER CUSTOMIZATION */
@@ -375,7 +396,7 @@ a:hover {
 }
 
 #themebanner {
-    transition: background 0.5s ease-in-out;
+    /* transition: background 0.5s ease-in-out; */
     position: sticky;
     left: 0;
     width: 100vw;
@@ -430,7 +451,7 @@ footer br {
 
 /* #region BUTTON AND LINK CUSTOMIZATION */
 .buttonformat {
-    background-color: #0e2512;
+    background-color: #15371b;
     color: #FFFFFF;
     border-style: none;
 }
@@ -447,6 +468,32 @@ footer br {
 .sulink:hover {
     color: #6B7F82;
 }
+
+.page-item .page-link {
+    background-color: #837e74 !important;
+    color: #080800 !important;
+    border-color: #837e74;
+}
+
+.page-link:hover {
+    background-color: #cacaca !important;
+    color: #14130e !important;
+}
+
+.page-item.active .page-link {
+    border-color:#3d3d3d !important;
+    background-color: #2a2b2b !important;
+    color: #7a817b !important;
+    cursor: not-allowed;
+}
+
+.page-item.disabled .page-link {
+    background-color: #c5c3c1 !important;
+    color:#33312e !important;
+    cursor: not-allowed;
+    border-color: #c5c3c1 !important;
+}
+
 /* #endregion */
 
 /* #region SCREEN SIZES */
@@ -531,7 +578,7 @@ footer br {
 
 /* #region LISTS */
 #favourites {
-    max-height: 35vh;
+    max-height: 50vh;
     padding-bottom: 10px;
     overflow-y: scroll;
 }
@@ -549,7 +596,11 @@ ul {
 }
 
 .justifiedList {
-    padding-left: 10%;
+    padding-left: 5;
+}
+
+.justifiedList li {
+    padding-bottom: 5px;
 }
 /* #endregion */
 
@@ -557,3 +608,40 @@ ul {
 #navbarSupportedContent {
     z-index: 10000;
 }
+
+.theme-loading {
+    visibility: hidden;
+}
+
+
+
+  /* Firefox */
+#favourites {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(100,100,100,0.5) transparent; /* thumb color, track color */
+  }
+  
+  /* WebKit Browsers */
+  #favourites::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #favourites::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  #favourites::-webkit-scrollbar-thumb {
+    background-color: rgba(100,100,100,0.5);
+    border-radius: 10px;
+  }
+  #favourites::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+    width: 0;
+  }
+
+.pagination_cat{
+    background-color: red;
+}
+  
+  

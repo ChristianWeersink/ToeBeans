@@ -9,43 +9,45 @@ const GOOGLE_PLACES_API_KEY = process.env.MAPS_PLATFORM_KEY;
 const axios = require('axios'); // To call Google Places API
 const QRCode = require("qrcode");
 
-// Route for the homepage
+
 router.get('/', async (req, res) => {
     try {
-        // Ensure the user cookie is properly parsed
         const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-        if (!userCookie || !userCookie.user_id) {
-            return res.redirect("/sign_in"); // Redirect if user is not logged in
-        }
+        if (!userCookie || !userCookie.user_id) return res.redirect("/sign_in");
 
         const userId = userCookie.user_id;
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = 1;
+        const offset = (page - 1) * pageSize;
 
-        const title = "Pet Profile | Toebeans Vet Finder";
-        const petQuery = "SELECT * FROM pets WHERE user_id = $1";
+        const petQuery = "SELECT * FROM pets WHERE user_id = $1 ORDER BY id DESC LIMIT $2 OFFSET $3";
+        const result = await db.query(petQuery, [userId, pageSize, offset]);
+        const pets = result.rows || [];
 
-        // Correct usage of await db.query() without a callback
-        const result = await db.query(petQuery, [userId]);
+        const countResult = await db.query("SELECT COUNT(*) FROM pets WHERE user_id = $1", [userId]);
+        const totalPets = parseInt(countResult.rows[0].count);
+        const totalPages = Math.ceil(totalPets / pageSize);
 
-        // Ensure we return the correct data
-        const pets = result.rows || []; // Default to empty array if no pets found
-        // Render the EJS template with the correct pets data
-        
-        // Qr code options 
         for (let pet of pets) {
-            petinfo = await fetchVetName(pet.pet_homevet_id);
+            const petinfo = await fetchVetName(pet.pet_homevet_id);
             pet.vet_name = petinfo.name;
             pet.phone = petinfo.phone;
-            const qrCodeUrl = await QRCode.toDataURL(`https://toebeans.dev/qr_code/${pet.id}`);
-            pet.qrCode = qrCodeUrl;
+            pet.qrCode = await QRCode.toDataURL(`https://toebeans.dev/qr_code/${pet.id}`);
         }
 
-        res.render('pet_profile', { title, pets });
+        if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
+            return res.render('./partials/pet_list_container', { pets, page, totalPages });
+          }
+          
+        
 
+        res.render('pet_profile', { title: "Pet Profile | Toebeans Vet Finder", pets, page, totalPages });
     } catch (error) {
         console.error("Error fetching pets:", error);
         res.status(500).send("Server Error");
     }
 });
+
 
 
 

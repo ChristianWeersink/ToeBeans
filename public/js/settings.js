@@ -50,12 +50,15 @@ document.getElementById('favourites').addEventListener('click', async function(e
         const res = await deleteFromFavourites(placeId, userId);
         
         if (res.success) {
+            showToast("Vet successfully removed from favourites.", "Success!");
             document.getElementById(`fav-${placeId}`).remove();
             const remainingFavourites = document.querySelectorAll('.favVet');
             if (remainingFavourites.length === 0) {
+                document.getElementById('favourites').classList.add("remove_hbar");
                 document.getElementById('favourites').innerHTML = `
-                    <div><p>No favourites. Try finding your perfect vet on the <a href="/map">map.</a></p></div>
+                    <div><p>No favourites. Try finding your perfect vet on the <a href="/map"><u>map</u>.</a></p></div>
                 `;
+                
             }
         } else {
             console.error("Failed to delete favourite");
@@ -78,7 +81,7 @@ document.getElementById("themeform").addEventListener("submit", async function (
     };
     const themeselect = document.getElementById("theme").value;
     const errormsg = document.getElementById("errormsg");
-
+    const themebanner = document.getElementById("themebanner");
     try {
 
         const res = await fetch("/settings", {
@@ -94,6 +97,7 @@ document.getElementById("themeform").addEventListener("submit", async function (
         //Theme change success
         if (themerslt.success) {
             localStorage.setItem("theme", themeselect);
+            themebanner.style.transition = "background 0.5s ease-in-out";
             updateThemeBanner(themeselect);
             errormsg.innerHTML = "Theme changed successfully!";
         }
@@ -181,6 +185,11 @@ async function formatFavourites(userId){
     var favVets = await getFavourites(userId);
     const favourites = document.getElementById("favourites");
     favourites.innerHTML = "";
+    if(!favVets){
+        favourites.innerHTML = `<div><p>No favourites. Try finding your perfect vet on the <a href="/map"><u>map</u>.</a></p></div>`;
+        favourites.classList.add("remove_hbar");
+        return;
+    }
     for (const favourite of favVets.favourites) {
         const container = document.createElement("div");
         container.classList.add("favVet");

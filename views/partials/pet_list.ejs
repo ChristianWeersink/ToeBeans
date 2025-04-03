@@ -1,0 +1,62 @@
+<% pets.forEach(pet => { %>
+    <div class="card mb-4 p-3 shadow-sm">
+        <div class="row">
+            <!-- Pet Details -->
+            <div class="col-md-8">
+                <h4 class="petName"><%= pet.pet_name %></h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Pet Breed:</b> <%= pet.pet_breed %></li>
+                    <li class="list-group-item"><b>Pet Age:</b> <%= pet.pet_age %></li>
+                    <li class="list-group-item"><b>Allergies:</b> <%= pet.pet_allergy || "None" %></li>
+                    <li class="list-group-item"><b>Additional Info:</b> <%= pet.pet_other || "None" %></li>
+                    <li class="list-group-item"><b>Home Vet Name:</b> <%= pet.vet_name || "No vet assigned" %></li>
+                    <li class="list-group-item"><b>Home Vet Phone:</b> <%= pet.phone || "N/A" %></li>
+                </ul>
+            </div>
+
+            <!-- Pet Photo & QR Code -->
+            <div class="col-md-4 text-center">
+                <% if (pet.pet_photo) { %>
+                    <img src="<%= pet.pet_photo %>" class="img-fluid rounded shadow-sm mb-2" alt="Pet Image">
+                <% } %>
+
+                <!-- QR Code -->
+                <div class="qr-code-container mt-3">
+                    <img src="<%= pet.qrCode %>" alt="QR Code for <%= pet.pet_name %>" class="qr-code img-fluid">
+                </div>
+
+                <button class="btn btn-dark mt-2 buttonformat" onclick="downloadQRCode('<%= pet.qrCode %>', '<%= pet.pet_name %>')">
+                    Download QR Code
+                </button>
+                <button class="btn btn-dark mt-2 buttonformat" onclick="printQRCode('<%= pet.qrCode %>', '<%= pet.pet_name %>')">
+                    Print QR Code
+                </button>
+                
+            </div>
+        </div>
+
+        <!-- Edit & Delete Buttons -->
+        <div class="text-right mt-3">
+            <button class="btn btn-success edit-pet-btn"
+                data-toggle="modal"
+                data-target="#editPetModal"
+                data-pet-id="<%= pet.id %>"
+                data-pet-name="<%= pet.pet_name %>"
+                data-pet-breed="<%= pet.pet_breed %>"
+                data-pet-age="<%= pet.pet_age %>"
+                data-pet-allergy="<%= pet.pet_allergy %>"
+                data-pet-other="<%= pet.pet_other %>"
+                data-home-vet-id="<%= pet.pet_homevet_id %>"
+                data-home-vet="<%= pet.vet_name %>">
+                Edit
+            </button>
+
+            <button class="btn btn-danger delete-pet-btn"
+                data-pet-id="<%= pet.id %>"
+                data-pet-photo="<%= pet.pet_photo %>">
+                Delete
+            </button>
+        </div>
+    </div>
+<% }); %>
+  

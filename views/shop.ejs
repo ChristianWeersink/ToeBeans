@@ -1,0 +1,138 @@
+<%- include('includes/header') %>
+    <div class="container my-5">
+            
+                <h3 class="text-center"> Toebeans Shop Concept </h3>
+                <br>
+            
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-4 shadow-lg justify-content-center">
+                    <div class="text-center navbar-nav">
+                        <img src="/img/gcollarllgbg.png" class="card-img-top shopSize mx-auto d-block" id="modal1"
+                            alt="Green collar mockup" data-toggle="modal" data-target="#modalShop1"
+                            style="cursor: pointer;">
+                    </div>
+                    <hr>
+                    <div class="card-body text-center">
+                        <h4 class="card-title"> Single Collar with QR Code holder</h4>
+                        <p>$15.00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-4 shadow-lg justify-content-center">
+                    <div class="text-center navbar-nav">
+                        <img src="/img/pbcollarllgbg.png" class="card-img-top shopSize mx-auto d-block" id="modal2"
+                            alt="Blue and Pink collar mockup" data-toggle="modal" data-target="#modalShop2"
+                            style="cursor: pointer;">
+                            
+                    </div>
+                    <hr>
+                    <div class="card-body text-center">
+                        <h4 class="card-title"> Collar with QR Code holder 2-Pack</h4>
+                        <p>$25.50</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalShop1" tabindex="-1" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Single Collar with QR Code holder</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p class="text-center"> <img src="/img/gcollarllgbg.png" class="shopReview" alt="Green Collar">
+                <img src="/img/pbcollarllgbg.png" class="shopReview" alt="Green Collar Example Image"></p>
+                <div class="modal-body">
+                    <label for="select1">Colour</label>
+                    <select id="select1">
+                        <option>Green</option>
+                        <option>Blue</option>
+                        <option>Pink</option>
+                        <option>Yellow</option>
+                        <option>Black</option>
+                        <option>White</option>
+                    </select> &nbsp;
+
+                    <label for="select11">Size</label>
+                    <select id="select11">
+                        <option>Small 8-12"</option>
+                        <option>Medium 12-18"</option>
+                        <option>Large 18-26"</option>
+                    </select>
+                    <br><br>
+                    <p>$15.00</p>
+                    <button class="btn buttonformat">Add to Cart</button>
+                    <button class="btn buttonformat">Quick Checkout</button>
+                    <br><br>
+                    <p>Note: Small-sized collars will include a plastic QR Code holder, instead of a pre-affixed QR Code collar window.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="modalShop2" tabindex="-1" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Collar with QR Code holder 2-Pack</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <p class="text-center"> <img src="/img/pbcollarllgbg.png" class="shopReview" alt="Pink and Blue Collar Example Image">
+                <img src="/img/gcollarllgbg.png" class="shopReview" alt="Green Collar"></p>
+                <div class="modal-body">
+                    <label for="select2">Collar 1 Colour</label>
+                    <select id="select2">
+                        <option>Green</option>
+                        <option>Blue</option>
+                        <option>Pink</option>
+                        <option>Yellow</option>
+                        <option>Black</option>
+                        <option>White</option>
+                    </select> <br>
+                    <label for="select22">Size</label>
+                    <select id="select22">
+                        <option>Small 8-12"</option>
+                        <option>Medium 12-18"</option>
+                        <option>Large 18-26"</option>
+                    </select>
+<br><br>
+                    <label for="select3">Collar 2 Colour</label>
+                    <select id="select3">
+                        <option>Green</option>
+                        <option>Blue</option>
+                        <option>Pink</option>
+                        <option>Yellow</option>
+                        <option>Black</option>
+                        <option>White</option>
+                    </select> <br>
+                    <label for="select33">Size</label>
+                    <select id="select33">
+                        <option>Small 8-12"</option>
+                        <option>Medium 12-18"</option>
+                        <option>Large 18-26"</option>
+                    </select>
+                    <br><br>
+
+                    <p>$25.50 &nbsp; <span class="text-danger">Save 15%</span> </p>
+                    <button class="btn buttonformat">Add to Cart</button>
+                    <button class="btn buttonformat">Quick Checkout</button>
+                    <br><br>
+                    <p>Note: Small-sized collars will include a plastic QR Code holder, instead of a pre-affixed QR Code collar window.</p>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('includes/footer') %>
