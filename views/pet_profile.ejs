@@ -7,6 +7,7 @@
         </div>
     </div>
 
+    <!-- Show pets -->
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div id="pet-list-container">
@@ -19,6 +20,7 @@
                 </div>
             
                 <br>
+                <!-- Pagination -->
                 <nav>
                     <ul class="pagination justify-content-center">
                       <% if (page > 1) { %>
@@ -171,6 +173,7 @@
 
 <script src="/js/pet_profile.js"></script>
 
+<!-- QR Codes -->
 <script>
     window.printQRCode = function(qrCodeUrl, petName) {
     const win = window.open('', '_blank');
@@ -203,6 +206,7 @@
     }
 </script>
 
+<!-- Pagination -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", function (e) {

@@ -443,7 +443,8 @@ footer br {
 }
 
 .carousel-item img {
-    height: 600px;
+    height: auto;
+    max-height: 800px;
     width: 100%;
     object-fit: cover;
 }
@@ -516,7 +517,7 @@ footer br {
     }
 
     .header-title img {
-        max-width: 200px;
+        max-width: 170px;
         height: auto;
         display: block;
         margin: 0 auto;
@@ -532,7 +533,12 @@ footer br {
         align-items: center;
         top: 20%;
     }
-
+    .header-title img {
+        max-width: 150px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
 }  
 @media (max-width: 425px) {
     .header-title img {

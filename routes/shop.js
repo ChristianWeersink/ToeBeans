@@ -7,7 +7,8 @@ router.get('/', (req, res) => {
 
     try {
     title = "Shop | Toebeans Vet Finder";
-    res.render('shop', { title }); // This renders views/shop.ejs
+    // This renders views/shop.ejs
+    res.render('shop', { title }); 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
     }
