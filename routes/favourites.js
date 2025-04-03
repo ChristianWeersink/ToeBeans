@@ -86,7 +86,7 @@ router.get('/names', async (req, res) => {
     }
 });
 
-
+// Delete from favourites
 router.delete('/', async (req, res) => {
     try {
         const userId = req.query.userId;

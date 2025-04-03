@@ -6,6 +6,7 @@
                 <h2 class="text-center titleText">User Profile</h2>
                 <div id="messageBox" class="alert d-none"></div>
 
+                <!-- Profile details will show here, user can edit them in the form -->
                 <form id="editProfileForm">
                     <input type="hidden" id="user_id" value="<%= user.user_id %>">
 
@@ -57,6 +58,7 @@
     </div>
 </div>
 
+<!-- Edit information in database -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
     const editProfileForm = document.getElementById("editProfileForm");

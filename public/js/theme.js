@@ -51,13 +51,13 @@ function updateThemeBanner(theme) {
         const pagination = document.querySelectorAll("pagination");
         // console.log("pagination elements: "+ pagination);
         // console.log(divTheme); // Should work if elements are added dynamically
-        var gradient = "linear-gradient(to bottom, #133319, #6B7F82)";
+        var gradient = "linear-gradient(to bottom, #133319,rgb(150, 181, 161))";
         var divBackgroundColour = "transparent";
         var themeColour = "#89b388";
-        const dogGradient = "linear-gradient(to bottom, rgba(137, 179, 136,1), rgba(160, 207, 159,1))";
-        const catGradient = "linear-gradient(to bottom, rgba(202, 194, 240,1), rgba(220, 216, 240,1))";
+        const dogGradient = "linear-gradient(to bottom, rgba(137, 179, 136,1), rgb(207, 231, 207))";
+        const catGradient = "linear-gradient(to bottom, rgba(202, 194, 240,1), rgb(236, 234, 245))";
         const fishGradient = "linear-gradient(to bottom, rgba(168, 232, 247 ,1), rgba(228, 241, 245,1))";
-        const birdGradient = "linear-gradient(to bottom, rgba(247, 239, 168,1), rgba(245, 240, 193,1))";
+        const birdGradient = "linear-gradient(to bottom, rgba(247, 239, 168,1), rgb(249, 246, 227))";
         const smallPetGradient = "linear-gradient(to bottom, rgba(252, 240, 241,1), rgba(255, 255, 255,1))";
         var paginationClass = "default";
     
@@ -114,7 +114,7 @@ function updateThemeBanner(theme) {
             // Apply linear gradient for header and banner
             gradient = "linear-gradient(to bottom, #133319, #6B7F82)";
             divBackgroundColour = "#ffffff";
-            themeColour = "#89b388";
+            themeColour = "#1c4a24";
         }
     
         // Dynamically style background based on theme chosen
@@ -143,10 +143,10 @@ function updateThemeBanner(theme) {
         banner.style.backgroundSize = "auto 100%, auto 100%, cover";
         banner.style.backgroundPosition = "0 0, 30% 0, center";
     
-        hbHeader.style.background = `url('${pics.img1}'), url('${pics.img2}')`;
-        hbHeader.style.backgroundSize = "auto 100%, auto 100%";
-        hbHeader.style.backgroundPosition = "0 0, 30% 0";
-        hbHeader.style.backgroundRepeat = "repeat-x, repeat-x";
+        hbHeader.style.background = `url('${pics.img1}'), url('${pics.img2}'), ${gradient}`;
+        hbHeader.style.backgroundRepeat = "repeat-x, repeat-x, no-repeat";
+        hbHeader.style.backgroundSize = "auto 100%, auto 100%, cover";
+        hbHeader.style.backgroundPosition = "0 0, 30% 0, center";
 
         document.body.classList.remove("theme-loading");
     }
